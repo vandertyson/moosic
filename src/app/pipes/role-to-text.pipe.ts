@@ -22,8 +22,8 @@ export class RoleToTextPipe implements PipeTransform {
         let mapping = {
             0: 'System Administrator',
             1: 'Administrator',
-            2: 'Sale Manager',
-            3: 'Salesperson'
+            2: 'Role 2',
+            3: 'Role 3'
         };
 
         return mapping[value];
