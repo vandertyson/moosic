@@ -1,0 +1,148 @@
+{
+	"code": 200,
+	"message": "OK",
+	"result": [
+		{
+			"id": 1,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 1,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+	
+		{
+			"id": 2,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 2,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 3,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 3,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 4,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 1,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 5,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 2,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 6,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 3,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 7,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 1,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 8,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 1,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 9,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 2,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		},
+		{
+			"id": 10,
+			"name": "lreilly",
+			"email": "torphy.gabrielle@kuphal.com",
+			"phone_1": "0906600788",
+			"phone_2": "0906600788",
+			"active": true,
+			"role_id": 1,
+			"created_at": {
+			"date": "2016-07-02",
+			"timezone_type": 3,
+			"timezone": "UTC"
+			}
+		}
+	],
+	"page_count": 20
+}

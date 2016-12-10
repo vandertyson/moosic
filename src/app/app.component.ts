@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component,ComponentFactoryResolver } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import {LoginComponent} from "./pages/login/login.component";
+
 
 @Component({
-  moduleId: module.id,
   selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.css']
+  templateUrl: 'app/app.component.html',
+  directives: [
+	  ROUTER_DIRECTIVES,
+
+  ],
+  precompile:[LoginComponent]
 })
 export class AppComponent {
-  title = 'app works!';
+
 }

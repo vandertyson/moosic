@@ -1,0 +1,11 @@
+ <div class="clearfix cursor">
+    <ul class="pagination pagination-sm no-margin pull-right">
+        <li><a (click) ="goTo(1)">First</a></li>
+        <li *ngIf="page > 2"><a (click) ="goTo(page - 2)">{{page-2}}</a></li>
+        <li *ngIf="page > 1"><a (click) ="goTo(page - 1)">{{page-1}}</a></li>
+        <li><a class="background-pagination" ><b>{{page}}</b></a></li>
+        <li *ngIf="page <page_count"><a (click) ="goTo(page + 1)">{{page+1}}</a></li>
+        <li *ngIf="page < page_count - 1"><a (click) ="goTo(page + 2)">{{page + 2}}</a></li>
+        <li><a (click) ="goTo(page_count)">Last</a></li>
+    </ul>
+</div>
