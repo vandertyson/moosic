@@ -1,0 +1,95 @@
+<div class="modal-dialog" role="document" style="box-shadow: 0px 3px 5px 0px rgba(0,0,0,0.75);">
+  <div class="modal-content">
+    <div class="modal-header">
+      <section class="content-header">
+        <h1>
+          Cập nhật thông tin cá nhân
+        </h1>
+        <ol class="breadcrumb">
+          <li><a><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <li><a>Profile</a></li>
+        </ol>
+      </section>
+    </div>
+    <div class="modal-body">
+      <section class="content">
+        <div class="row">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Thông tin cá nhân</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <form role="form" id="userAddForm" (submit)="onUserSubmitted($event)" autocomplete="false">
+                <div class="form-group">
+                  <label for="user_name">Mã nhân viên</label>
+                  <input id="user_name" type="text" class="form-control" disabled="disabled" [(ngModel)]="userNewInfo.EmployeeCode" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Họ đệm</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.FirstName" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Tên</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.LastName" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Ngày sinh</label>
+                  <div class='input-group date' id='bday'>
+                    <input id="mybday" type="text" class="form-control" name="due_time_from" [ngModel]="userNewInfo.Birthday" [ngModelOptions]="{standalone:true}">
+                    <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Giới tính</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.Gender" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">CMT</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.CMT" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Email</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.Email" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">STK</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.STK" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Ngân hàng</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.BankName" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Địa chỉ thường trú</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.Address" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Mã số thuế</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.MST" [ngModelOptions]="{standalone:true}">
+                </div>
+                <div class="form-group">
+                  <label for="user_name">Số điện thoại</label>
+                  <input id="user_name" type="text" class="form-control" [(ngModel)]="userNewInfo.Phone" [ngModelOptions]="{standalone:true}">
+                </div>
+              </form>
+              <div class="help-block">{{errorMessage}}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <div class="modal-footer">
+      <div class="form-group">
+        <button form="userAddForm" type="submit" class="btn btn-info pull-right margin-btn">
+      Save
+    </button>
+        <button form="userAddForm" type="button" class="btn btn-info pull-right margin-btn" (click)="cancel()" data-dismiss="modal">
+      Cancel
+    </button>
+      </div>
+    </div>
+  </div>
+</div>

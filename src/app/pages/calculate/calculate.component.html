@@ -1,0 +1,66 @@
+<section class="content-header">
+  <h1>Chấm Công
+    <small>Xác nhận chấm công</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a><i class="fa fa-dashboard"></i>Dashboard</a></li>
+    <li class="current">Chấm công</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <span>Chọn Năm(*)</span>
+          <input id="nam" type="text" class="form-control" name="name" autocomplete="false" style="width:200px;">
+          <button class="btn btn-primary" (click)="filterUserList()" style=""><i class="fa fa-search"></i>&#160;&#160;Xem Bảng Lương</button>
+        </div>
+        <div class="box-body table-responsive no-padding">
+          <div class="mailbox-controls">
+            <pagination-component [(page)]="filter.page" [(page_count)]="filter.page_count" (click)="pageChanged()"></pagination-component>
+            <div class="clearfix"></div>
+          </div>
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th>Tháng</th>
+              <th>Năm</th>
+              <th>Đi làm</th>
+              <th>Nghỉ phép</th>
+              <th>Làm thêm cuối tuần</th>
+              <th>Làm thêm lễ tết</th>
+              <th>Nghỉ không lương</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngFor="let item of currentUserList; let i = index">
+              <td>{{item.Month}}</td>
+              <td>{{item.Year}}</td>
+              <td>{{item.X}}</td>
+              <td>{{item.P}}</td>
+              <td>{{item.LAM_THEM}}</td>
+              <td>{{item.LE_TET}}</td>
+              <td>{{item.KL}}</td>              
+              <td class="action-column">
+                <button type="button" class="btn btn-success" (click)="confirm()">
+                    <i class="fa fa-check"></i>&#160;&#160;Confirm
+                </button>
+                <button type="button" class="btn btn-warning" (click)="decline()">
+                    <i class="fa fa-times"></i>&#160;&#160;Decline
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="currentUserList.length == 0">
+              <td colspan="9">No result</td>
+            </tr>
+          </table>
+        </div>
+        <div class="overlay" *ngIf="isUserListLoading">
+          <i class="fa"><loading></loading></i>
+        </div>
+        <div class="box-footer">
+          <pagination-component [(page)]="filter.page" [(page_count)]="filter.page_count" (click)="pageChanged()"></pagination-component>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

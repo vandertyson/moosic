@@ -18,6 +18,6 @@ export class HeaderLayout {
   }
 
   viewProfile():void {
-
+    this.router.navigate[""]
   }
 }

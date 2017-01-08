@@ -1,0 +1,15 @@
+{
+  "EmployeeID": 1,
+  "EmployeeCode": "010530",
+  "FirstName": "Bùi Tuấn",
+  "LastName": "Anh",
+  "Birthday": "1972-06-22T00:00:00",
+  "Gender": "Nam",
+  "CMT": "12941997",
+  "Email": "",
+  "STK": "10520054658011",
+  "BankName": null,
+  "Address": "P1301 - 137 Nguyễn Văn Cừ - Long Biên - Hà Nội",
+  "MST": "8027555099",
+  "Phone": null
+}

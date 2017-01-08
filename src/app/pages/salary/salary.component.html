@@ -1,0 +1,111 @@
+<section class="content-header">
+  <h1>Salart Management
+    <small>Confirm or decline salary</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="current">Salary</li>
+  </ol>
+</section>
+<section class="content">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-header">
+          <span>Năm(*)</span>
+          <input id="nam" type="text" class="form-control"  autocomplete="false" style="width:200px;">
+          <button class="btn btn-primary" (click)="filterUserList()"><i class="fa fa-search"></i>&#160;&#160;Xem Bảng Lương</button>
+        </div>
+        <div class="box-body table-responsive no-padding">
+          <div class="mailbox-controls">
+            <pagination-component [(page)]="filter.page" [(page_count)]="filter.page_count" (click)="pageChanged()"></pagination-component>
+            <div class="clearfix"></div>
+          </div>
+          <table class="table table-hover table-bordered">
+            <tr>
+              <th colspan="3">Thông tin nhân viên</th>
+              <th colspan="7">Thu nhập</th>
+              <th colspan="8">Giảm trừ</th>
+              <th></th>
+              <th colspan="8">Phải thu</th>
+            </tr>
+            <tr>
+              <th>Tháng</th>
+              <th>Năm</th>
+              <th>Mã nhân viên</th>
+              <th>Lương 1</th>
+              <th>Lương 2</th>
+              <th>Thưởng</th>
+              <th>Hoa hồn</th>
+              <th>Thu nhập khác</th>
+              <th>Tổng thu nhập</th>
+              <th>Thu nhập chịu thuế</th>
+              <th>BHXH</th>
+              <th>BHYT</th>
+              <th>BHTN</th>
+              <th>Giảm trừ gia cảnh</th>
+              <th>Giảm trừ phụ thuộc</th>
+              <th>Giảm trừ làm thêm</th>
+              <th>Giảm trừ khác</th>
+              <th>Tổng giảm trừ</th>
+              <th>Thu nhập tính thuế</th>
+              <th>BHXH</th>
+              <th>BHYT</th>
+              <th>BHTN</th>
+              <th>Thuế</th>
+              <th>Phải thu khác</th>
+              <th>Tổng phải thu</th>
+              <th>Thực lĩnh</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngFor="let item of currentUserList; let i = index" id="{{i}}">
+              <td>{{item.Month}}</td>
+              <td>{{item.Year}}</td>
+              <td>{{item.EmployeeCode}}</td>
+              <td>{{item.Salary1|money}}</td>
+              <td>{{item.Salary2|money}}</td>
+              <td>{{item.Bonus|money}}</td>
+              <td>{{item.Commission|money}}</td>
+              <td>{{item.OtherIncome|money}}</td>
+              <td>{{item.TotalIncome|money}}</td>
+              <td>{{item.TotalTaxIncome|money}}</td>
+              <td>{{item.BHXH|money}}</td>
+              <td>{{item.BHYT|money}}</td>
+              <td>{{item.BHTN|money}}</td>
+              <td>{{item.DependDeduction|money}}</td>
+              <td>{{item.PersonalDeduction|money}}</td>
+              <td>{{item.OvertimeDeduction|money}}</td>
+              <td>{{item.OtherDeduction|money}}</td>
+              <td>{{item.TotalDeduction|money}}</td>
+              <td>{{item.TotalComputeTax|money}}</td>
+              <td>{{item.BHXH|money}}</td>
+              <td>{{item.BHYT|money}}</td>
+              <td>{{item.BHTN|money}}</td>
+              <td>{{item.Tax|money}}</td>
+              <td>{{item.OtherOutcome|money}}</td>
+              <td>{{item.TotalOutcome|money}}</td>
+              <td>{{item.PaymentAmout|money}}</td>
+              <td class="action-column">
+                <button type="button" class="btn btn-success" (click)="confirm()">
+                    <i class="fa fa-check"></i>&#160;&#160;Confirm
+                </button>
+                <button type="button" class="btn btn-warning" (click)="decline()">
+                    <i class="fa fa-times"></i>&#160;&#160;Decline
+                </button>
+              </td>
+            </tr>
+            <tr *ngIf="currentUserList.length == 0" style="text-align:center">
+              <td colspan="30">No result</td>
+            </tr>
+          </table>
+        </div>
+        <div class="overlay" *ngIf="isUserListLoading">
+          <i class="fa"><loading></loading></i>
+        </div>
+        <div class="box-footer">
+          <pagination-component [(page)]="filter.page" [(page_count)]="filter.page_count" (click)="pageChanged()"></pagination-component>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

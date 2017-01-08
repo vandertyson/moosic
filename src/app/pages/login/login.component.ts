@@ -34,10 +34,11 @@ export class LoginComponent implements AfterViewInit {
             password: this.password
         });
         this.api.get('mock/login.json')
-            // this.api.post(environment.getUrl("loginUrl"), body, null, true)
+            // this.api.post    (environment.getUrl("loginUrl"), body, null, true)
             .map(res => res.json()).subscribe(
             response => {
-                this.auth.login(response.result["token"]);
+                this.auth.login(response.result.token);
+                localStorage.setItem("id_nhan_vien", "1");
                 this.router.navigate(['/']);
             },
             error => {

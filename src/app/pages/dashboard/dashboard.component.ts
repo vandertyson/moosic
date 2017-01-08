@@ -7,10 +7,7 @@ import { DoughnutChartDemoComponent } from '../../directives/chart-component/dou
 import { LineChartDemoComponent } from '../../directives/chart-component/line-chart.component'
 import { PieChartDemoComponent } from '../../directives/chart-component/pie-chart.component'
 
-
 declare var jQuery: any;
-
-
 
 @Component({
   selector: 'dashboard',

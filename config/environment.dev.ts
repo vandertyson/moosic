@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
 
-  endPoint: "",
+  endPoint: "http://localhost:5375/api",
 
   domain: "",
 
@@ -11,14 +11,16 @@ export const environment = {
 
   apiUrls: {
     'loginUrl': "/login",
+    "bangluong": "/employeePayroll",
+    "profile":"/employeeInfo",
+    "chamcong":"/employeeAttendance"
   },
 
   getUrl: function (apiName: string) {
     return this.endPoint + this.apiUrls[apiName];
-
   },
 
   localStorageVariablesName: {
 
-  }
+  } 
 }
