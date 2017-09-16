@@ -1,7 +1,7 @@
-import { RouterConfig }          from '@angular/router';
-import { DashboardRoutes } from '../../pages/dashboard/dashboard.routes';
-import { MainLayout} from './main-layout.component';
-import { MainLayoutGuard }  from './main-layout.guard';
+import { RouterConfig } from '@angular/router';
+import { HomeRoutes } from '../../pages/home/home.route';
+import { MainLayout } from './main-layout.component';
+import { MainLayoutGuard } from './main-layout.guard';
 import { UserRoutes } from '../../pages/users/users.routes';
 import { SalaryRoute } from '../../pages/salary/salary.route';
 import { ChamCongRoute } from '../../pages/calculate/calculate.route';
@@ -14,7 +14,7 @@ export const MainLayoutRoutes: RouterConfig = [
         component: MainLayout,
         canActivate: [MainLayoutGuard],
         children: [
-            ...DashboardRoutes,
+            ...HomeRoutes,
             ...UserRoutes,
             ...SalaryRoute,
             ...ChamCongRoute,

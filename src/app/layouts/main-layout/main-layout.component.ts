@@ -1,10 +1,11 @@
-import {Component, AfterViewInit, OnInit, OnDestroy} from '@angular/core';
-import {ROUTER_DIRECTIVES} from '@angular/router';
-import {HeaderLayout} from '../partials/header.layout';
-import {FooterLayout} from '../partials/footer.layout';
-import {SidebarLayout} from '../partials/sidebar.layout';
+import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { HeaderLayout } from '../partials/header.layout';
+import { FooterLayout } from '../partials/footer.layout';
+import { SidebarLayout } from '../partials/sidebar.layout';
+import { MusicPlayer } from '../../directives/music-player/player.component'
 
-declare var jQuery:any;
+declare var jQuery: any;
 
 @Component({
   selector: '[main-layout]',
@@ -13,12 +14,13 @@ declare var jQuery:any;
     ROUTER_DIRECTIVES,
     HeaderLayout,
     FooterLayout,
-    SidebarLayout,    
+    SidebarLayout,
+    MusicPlayer
   ]
 })
 
-export class MainLayout implements AfterViewInit{
-  subscription:any;
+export class MainLayout implements AfterViewInit {
+  subscription: any;
 
   constructor() {
   }

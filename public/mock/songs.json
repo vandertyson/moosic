@@ -1,0 +1,29 @@
+{
+    "code": 200,
+    "message": "OK",
+    "result": [{
+            "src": "http://data.chiasenhac.com/downloads/1822/3/1821294-559b5410/320/Em%20Gai%20Mua%20-%20Huong%20Tram%20[320kbps_MP3].mp3",
+            "name": "Em gái mưa",
+            "artist": "Hương Tràm",
+            "album": "Phản động"
+        },
+        {
+            "src": "http://data.chiasenhac.com/downloads/1813/5/1812688-2acbad29/320/Ngay%20Mai%20Em%20Di%20-%20Le%20Hieu_%20Soobin%20Hoang%20S%20[320kbps_MP3].mp3",
+            "name": "Ngày mai em đi",
+            "artist": "Soobin",
+            "album": "Phản động"
+        },
+        {
+            "src": "http://data.chiasenhac.com/downloads/1824/6/1823618-f91e7f2d/128/Lac%20Troi%20Triple%20D%20Remix_%20-%20Son%20Tung%20M-TP%20[128kbps_MP3].mp3",
+            "name": "Lạc trôi remix",
+            "artist": "Tripple D",
+            "album": "Phản động"
+        },
+        {
+            "src": "http://data.chiasenhac.com/downloads/1821/6/1820506-3df25cac/128/Tuy%20Am%20-%20Xesi_%20Masew_%20Nhat%20Nguyen%20[128kbps_MP3].mp3",
+            "name": "Túy âm",
+            "artist": "Massew",
+            "album": "Phản động"
+        }
+    ]
+}

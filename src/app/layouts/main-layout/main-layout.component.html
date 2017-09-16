@@ -1,10 +1,11 @@
-<div class="wrapper">
-  <header header-layout class="main-header"></header>
-  <aside sidebar-layout class="main-sidebar"></aside>  
-  <div class="content-wrapper">
-    <router-outlet></router-outlet>
-  </div>
-  <footer footer-layout class="main-footer"></footer>
+<div class="wrapper" style="background-color:white !important">
+    <header header-layout class="main-header"></header>
+    <aside sidebar-layout class="main-sidebar" style="background-color:white; min-height:87%; border-right:1px ridge;"></aside>
+    <div class="content-wrapper bg-white" style="max-height:87%; border-left:none">
+        <router-outlet></router-outlet>
+    </div>
+    <div style="position:absolute; bottom: 10px; width:100%; padding:5px; max-height:15%">
+        <music-player></music-player>
+    </div>
+    <!-- <footer footer-layout class="main-footer"></footer> -->
 </div>
-
-

@@ -1,0 +1,33 @@
+<div class="col-md-12">
+    <span class="pull-left">{{getElapsed()}}</span>
+    <span id="duration" class="pull-right"></span>
+</div>
+<div class="col-md-12">
+    <div id="audio-player-container" class="cursor" (click)="seek($event)">
+        <div class="audio-progress" id="audio-progress">
+            <div id="audio-progress-bar" class="bar cursor" style="width:0%">
+            </div>
+        </div>
+    </div>
+    <div class="text-center" style="margin-top:10px">
+        <button class="btn btn-default pull-left" title="Now Playing"><i class="fa fa-list"></i></button>
+        <button class="btn btn-default pull-left" title="Previous" (click)="prev($event)"><i class="fa fa-step-backward"></i></button>
+        <button *ngIf="!currentLoading" id="play" class="btn btn-default pull-left" title="Play" (click)="play($event)"><i class="fa fa-play"></i></button>
+        <button *ngIf="!currentLoading" id="pause" class="btn btn-default pull-left" title="Pause" style="display:none" (click)="pause($event)"><i class="fa fa-pause"></i></button>
+        <button *ngIf="currentLoading" id="pause" class="btn btn-default pull-left" disabled="true" title="Song is loading"><i class="fa fa-spinner"></i></button>
+        <button class="btn btn-default pull-left" title="Next" (click)="next($event)"><i class="fa fa-step-forward"></i></button>
+        <button id="volume-up" class="btn btn-default pull-left" title="Mute" (click)="mute($event)"><i class="fa fa-volume-up"></i></button>
+        <button id="un-mute" class="btn btn-default pull-left" title="Unmute" (click)="unMute($event)" style="display:none"><i class="fa fa-volume-off"></i></button>
+        <button class="btn btn-default pull-right" title="Mood"><i class="fa fa-thumbs-o-up"></i></button>
+        <span class="hien-thi" style="font-size:small"> 
+        <span><b>{{currentSong?currentSong.name:''}}</b></span>
+        <br>
+        <span>{{currentSong?currentSong.artist:''}}</span>
+        </span>
+        <span class="hien-thi" style="font-size:small; display:none"> 
+                <span><b>Loading</b></span><br>
+        </span>
+        <!-- </div> -->
+    </div>
+    <div></div>
+</div>
