@@ -31,3 +31,26 @@
     float: left;
     margin: 0 10px 10px 0;
 }
+
+.my-btn {
+    border-radius: 50%;
+    font-size: large
+}
+
+#mytable td {
+    border: none
+}
+
+.small-control-btn {
+    background-color: transparent;
+}
+
+.range-slider {
+    position: relative;
+    height: 80px;
+}
+
+.color-2 .irs-bar,
+.color-2 .irs-bar-edge {
+    background: red;
+}

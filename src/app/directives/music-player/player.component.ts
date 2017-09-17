@@ -17,7 +17,10 @@ declare var Howler: any;
     selector: 'music-player',
     templateUrl: 'app/directives/music-player/player.component.html',
     styleUrls: [
-        'app/directives/music-player/player.component.css'
+        'app/directives/music-player/player.component.css',
+        "vendor/admin-lte/plugins/ionslider/ion.rangeSlider.css",
+        "vendor/admin-lte/plugins/ionslider/ion.rangeSlider.skinNice.css",
+        "vendor/admin-lte/plugins/bootstrap-slider/slider.css"
     ],
     directives: [
         ROUTER_DIRECTIVES,
@@ -36,7 +39,8 @@ export class MusicPlayer {
     private songEllapsed: any
     private volume = 50;
     private currentIndex = 0;
-    private currentLoading = true
+    private playListTooltip: any
+    private volumeTooltip: any
 
     constructor(private api: APIService) {
 
@@ -61,29 +65,17 @@ export class MusicPlayer {
                             }, 1000)
                         },
                         onload: function () {
-                            if (index == controller.currentIndex) {
-                                controller.currentLoading = false
-                            }
                         },
                         onend: function () {
-                            // Stop the wave animation.
-                            // wave.container.style.display = 'none';
-                            // bar.style.display = 'block';
-                            // self.skip('right');
                             clearInterval(controller.songEllapsed)
                             controller.ellapsed = 0
                             controller.setProgressBar(0)
+                            controller.next(null)
                         },
                         onpause: function () {
-                            // Stop the wave animation.
-                            // wave.container.style.display = 'none';
-                            // bar.style.display = 'block';
                             clearInterval(controller.songEllapsed)
                         },
                         onstop: function () {
-                            // Stop the wave animation.
-                            // wave.container.style.display = 'none';
-                            // bar.style.display = 'block';
                             controller.ellapsed = 0
                             controller.setProgressBar(0)
                         }
@@ -91,16 +83,11 @@ export class MusicPlayer {
                 })
                 this.currentIndex = 0
                 this.currentSong = this.playlist[this.currentIndex]
-                console.log(this.currentSong.howl.state())
-                // if (this.currentSong.howl.state() == "loaded") {
-                //     this.currentLoading = false
-                // }
-                // for (var song of this.playlist) {
-                //     if (song.howl.state() == "loaded") {
-                //         this.currentSong = song
-                //         return
-                //     }
-                // }
+                setTimeout(function () {
+                    controller.bootstrapTooltipster()
+                    controller.bootstrapVolume()
+                    // controller.bootstrapVolumeRange()
+                }, 100)
             },
             e => {
 
@@ -128,14 +115,15 @@ export class MusicPlayer {
     }
 
     play(event?) {
-        this.togglePlayPause()
-        var per = jQuery("#audio-progress-bar").width() / window.innerWidth
-        var sound = this.currentSong.howl;
-        if (sound.state() == "loaded") {
-            sound.seek(sound.duration() * per)
-            sound.play()
-        }
+        // this.togglePlayPause()
+        // var per = jQuery("#audio-progress-bar").width() / window.innerWidth
+        // var sound = this.currentSong.howl;
+        // if (sound.state() == "loaded") {
+        //     sound.seek(sound.duration() * per)
+        //     sound.play()
+        // }
 
+        this.playCurrentsong()
     }
 
     seek(event) {
@@ -152,10 +140,7 @@ export class MusicPlayer {
     }
 
     pause() {
-        this.togglePlayPause()
-        if (this.currentSong && this.currentSong.howl) {
-            this.currentSong.howl.pause();
-        }
+        this.pauseCurrentSong()
     }
 
     getPlaylist() {
@@ -183,24 +168,29 @@ export class MusicPlayer {
     }
 
     next(event) {
+        var play = this.currentSong.isPlaying ? true : false
         this.stopCurrentSong()
         this.currentIndex++
         if (this.currentIndex == this.playlist.length) {
             this.currentIndex = 0
         }
         this.currentSong = this.playlist[this.currentIndex]
-        this.playCurrentsong()
-
+        if (play) {
+            this.playCurrentsong()
+        }
     }
 
     prev(event) {
+        var play = this.currentSong.isPlaying ? true : false
         this.stopCurrentSong()
         this.currentIndex--
         if (this.currentIndex < 0) {
             this.currentIndex = this.playlist.length - 1
         }
         this.currentSong = this.playlist[this.currentIndex]
-        this.playCurrentsong()
+        if (play) {
+            this.playCurrentsong()
+        }
     }
 
     playCurrentsong() {
@@ -208,23 +198,141 @@ export class MusicPlayer {
         if (!this.currentSong) return
         if (!this.currentSong.howl) return
         if (this.currentSong.howl.state() == "loaded") {
-            this.currentLoading = false
-            controller.duration.innerHTML = controller.formatTime(Math.round(this.currentSong.howl.duration()));
-            setTimeout(function () {
-                if (jQuery("#pause").is(":visible")) {
-                    controller.currentSong.howl.play();
-                }
-            }, 100)
+            this.currentSong.isPlaying = true
+            this.duration.innerHTML = controller.formatTime(Math.round(this.currentSong.howl.duration()));
+            var per = jQuery("#audio-progress-bar").width() / window.innerWidth
+            var sound = this.currentSong.howl;
+            sound.seek(sound.duration() * per)
+            sound.play()
         }
         else {
-            this.currentLoading = true
+
+        }
+    }
+
+    pauseCurrentSong() {
+        if (this.currentSong && this.currentSong.howl) {
+            this.currentSong.isPlaying = false
+            this.currentSong.howl.pause();
         }
     }
 
     stopCurrentSong() {
         clearInterval(this.songEllapsed)
         if (this.currentSong.howl) {
+            this.currentSong.isPlaying = false
             this.currentSong.howl.stop()
         }
+    }
+
+    bootstrapTooltipster() {
+        let controller = this;
+        jQuery('#playlistBtn').attr('data-tooltip-content', '#playlistForm');
+        this.playListTooltip = jQuery('#playlistBtn').tooltipster({
+            animation: 'fade',
+            delay: 200,
+            theme: 'light',
+            interactive: true,
+            zIndex: 90000,
+            side: ['top'],
+            minWidth: 320,
+            // maxWidth: 320,
+            // trigger: 'custom',
+            // triggerOpen: {
+            //     click: true,
+            //     tap: true
+            // },
+            // triggerClose: {
+            //     click: false,
+            //     mouseleave: false,
+            //     originClick: true,
+            //     scroll: false,
+            //     tap: false,
+            //     touchleave: false
+            // },
+            functionReady: function (instance, helper) {
+
+            },
+        })
+        this.playListTooltip.tooltipster('instance').on('ready', function () {
+            // jQuery('.tooltipster-content').css('background-color', 'white')
+        });
+    }
+
+    smallPlay(event, index) {
+        this.stopCurrentSong()
+        if (this.currentIndex == index) {
+            this.pauseCurrentSong()
+        }
+        else {
+            this.currentIndex = index;
+            this.currentSong = this.playlist[this.currentIndex]
+            jQuery("#audio-progress-bar").css("width", "0")
+            this.playCurrentsong()
+        }
+    }
+
+    smallPause(event, index) {
+        this.pauseCurrentSong()
+    }
+
+    bootstrapVolume() {
+        let controller = this;
+        jQuery('#volume-up,#un-mute').attr('data-tooltip-content', '#volumeForm');
+        this.volumeTooltip = jQuery('#volume-up,#un-mute').tooltipster({
+            animation: 'fade',
+            delay: 200,
+            theme: 'light',
+            interactive: true,
+            zIndex: 90000,
+            side: ['top'],
+            minWidth: 320,
+            // maxWidth: 320,
+            // trigger: 'custom',
+            // triggerOpen: {
+            //     click: true,
+            //     tap: true,
+            //     hover: true
+            // },
+            // triggerClose: {
+            //     click: false,
+            //     mouseleave: false,
+            //     originClick: true,
+            //     scroll: false,
+            //     tap: false,
+            //     touchleave: false
+            // },
+            functionReady: function (instance, helper) {
+                setTimeout(function () {
+                    controller.bootstrapVolumeRange()
+                }, 10)
+            },
+        })
+        this.volumeTooltip.tooltipster('instance').on('ready', function () {
+            setTimeout(function () {
+                controller.bootstrapVolumeRange()
+            }, 10)
+        });
+    }
+
+    bootstrapVolumeRange() {
+        jQuery.get('vendor/admin-lte/plugins/bootstrap-slider/bootstrap-slider.js').then(mod => {
+            jQuery('.slider').slider();
+        })
+
+        jQuery.get('vendor/admin-lte/plugins/ionslider/ion.rangeSlider.min.js').then(mod => {
+            jQuery("#volumeRange").ionRangeSlider({
+                min: 0,
+                max: 100,
+                type: 'single',
+                step: 1,
+                postfix: " %",
+                prettify: false,
+                hasGrid: true,
+                onChange: function (data) {
+                    console.log(data)
+                },
+            });
+        })
     }
 }
