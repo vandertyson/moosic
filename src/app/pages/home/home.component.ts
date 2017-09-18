@@ -18,23 +18,15 @@ declare var System: any;
 })
 
 export class HomeComponent {
-    private howlerModule: any;
     constructor(private api: APIService) {
         let controller = this;
-        System.import('vendor/howler/dist/howler.min.js')
-            .then(r => {
-                this.howlerModule = r
-                var sound = new this.howlerModule.Howl({
-                    src: ['sounds.webm', 'sounds.mp3'],
-                    sprite: {
-                        blast: [0, 3000],
-                        laser: [4000, 1000],
-                        winner: [6000, 5000]
-                    }
-                });
+    }
 
-                // Shoot the laser!
-                sound.play('laser');
-            })
+    ngAfterViewInit() {
+        jQuery('#ca-container').contentcarousel();
+        setTimeout(function () {
+            jQuery("#ca-container").show()
+        }, 2000)
+
     }
 }
