@@ -18,9 +18,6 @@ declare var Howler: any;
     templateUrl: 'app/directives/music-player/player.component.html',
     styleUrls: [
         'app/directives/music-player/player.component.css',
-        "vendor/admin-lte/plugins/ionslider/ion.rangeSlider.css",
-        "vendor/admin-lte/plugins/ionslider/ion.rangeSlider.skinNice.css",
-        "vendor/admin-lte/plugins/bootstrap-slider/slider.css"
     ],
     directives: [
         ROUTER_DIRECTIVES,
@@ -37,7 +34,7 @@ export class MusicPlayer {
     private duration: any;
     private ellapsed = 0
     private songEllapsed: any
-    private volume = 50;
+    private volume = 0.5;
     private currentIndex = 0;
     private playListTooltip: any
     private volumeTooltip: any
@@ -85,8 +82,8 @@ export class MusicPlayer {
                 this.currentSong = this.playlist[this.currentIndex]
                 setTimeout(function () {
                     controller.bootstrapTooltipster()
+                    controller.bootstrapVolumeRange()
                     controller.bootstrapVolume()
-                    // controller.bootstrapVolumeRange()
                 }, 100)
             },
             e => {
@@ -175,6 +172,7 @@ export class MusicPlayer {
             this.currentIndex = 0
         }
         this.currentSong = this.playlist[this.currentIndex]
+        jQuery("#audio-progress-bar").css("width", "0")
         if (play) {
             this.playCurrentsong()
         }
@@ -188,6 +186,7 @@ export class MusicPlayer {
             this.currentIndex = this.playlist.length - 1
         }
         this.currentSong = this.playlist[this.currentIndex]
+        jQuery("#audio-progress-bar").css("width", "0")
         if (play) {
             this.playCurrentsong()
         }
@@ -250,13 +249,13 @@ export class MusicPlayer {
             //     tap: false,
             //     touchleave: false
             // },
-            functionReady: function (instance, helper) {
+            // functionReady: function (instance, helper) {
 
-            },
+            // },
         })
-        this.playListTooltip.tooltipster('instance').on('ready', function () {
-            // jQuery('.tooltipster-content').css('background-color', 'white')
-        });
+        // this.playListTooltip.tooltipster('instance').on('ready', function () {
+        //     // jQuery('.tooltipster-content').css('background-color', 'white')
+        // });
     }
 
     smallPlay(event, index) {
@@ -286,7 +285,7 @@ export class MusicPlayer {
             interactive: true,
             zIndex: 90000,
             side: ['top'],
-            minWidth: 320,
+            minWidth: 200,
             // maxWidth: 320,
             // trigger: 'custom',
             // triggerOpen: {
@@ -302,17 +301,17 @@ export class MusicPlayer {
             //     tap: false,
             //     touchleave: false
             // },
-            functionReady: function (instance, helper) {
-                setTimeout(function () {
-                    controller.bootstrapVolumeRange()
-                }, 10)
-            },
+            // functionReady: function (instance, helper) {
+            //     setTimeout(function () {
+            //         controller.bootstrapVolumeRange()
+            //     }, 10)
+            // },
         })
-        this.volumeTooltip.tooltipster('instance').on('ready', function () {
-            setTimeout(function () {
-                controller.bootstrapVolumeRange()
-            }, 10)
-        });
+        // this.volumeTooltip.tooltipster('instance').on('ready', function () {
+        //     setTimeout(function () {
+        //         controller.bootstrapVolumeRange()
+        //     }, 10)
+        // });
     }
 
     bootstrapVolumeRange() {
@@ -330,7 +329,10 @@ export class MusicPlayer {
                 prettify: false,
                 hasGrid: true,
                 onChange: function (data) {
-                    console.log(data)
+                    Howler.volume(data.from / 100)
+                },
+                onFinish: function (data) {
+                    Howler.volume(data.from / 100)
                 },
             });
         })

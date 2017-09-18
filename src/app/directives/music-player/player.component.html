@@ -24,7 +24,6 @@
         <br>
         <span>{{currentSong?currentSong.artist:''}}</span>
         </span>
-        <!-- <input id="volumeRange" type="text" name="volumeRange" [value]="volume" style="padding-top:20%; width:100%"> -->
     </div>
 </div>
 <div class="tooltip_templates" style="display:none;">
@@ -47,9 +46,6 @@
 </div>
 <div class="tooltip_templates" style="display:none;">
     <div id="volumeForm">
-        <!-- <input id="volumeRange" type="text" name="volumeRange" [value]="volume" style="padding-top:20%; width:100%"> -->
-        <div class="range-slider color-1">
-            <input id="volumeRange" type="text" [value]="volume" />
-        </div>
+        <input id="volumeRange" type="text" name="volumeRange" [value]="volume*100" style="padding-top:20%; width:100%">
     </div>
 </div>
