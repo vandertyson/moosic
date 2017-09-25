@@ -1,11 +1,11 @@
 <div class="wrapper" style="background-color:white !important">
     <header header-layout class="main-header"></header>
-    <aside sidebar-layout class="main-sidebar" style="background-color:white; min-height:87%; border-right:1px ridge;"></aside>
-    <div class="content-wrapper bg-white" style="max-height:85vh; border-left:none; overflow:auto">
+    <aside #menu (logout)="onLogout($event)" sidebar-layout class="main-sidebar" style="background-color:white; border-right:1px ridge;"></aside>
+    <div class="content-wrapper bg-white" style="max-height:85vh; border-left:none; overflow:hidden">
         <router-outlet></router-outlet>
     </div>
-    <div style="position:absolute; bottom: 10px; width:100%; padding:5px; max-height:15%">
-        <music-player></music-player>
+    <div style="position:absolute; bottom: 10px; width:100%; padding:5px; max-height:15%; z-index:1000; background-color:white">
+        <music-player #musicPlayer></music-player>
     </div>
     <!-- <footer footer-layout class="main-footer"></footer> -->
 </div>

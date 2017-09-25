@@ -38,6 +38,7 @@ export class MusicPlayer {
     private currentIndex = 0;
     private playListTooltip: any
     private volumeTooltip: any
+    private moodTooltip: any
 
     constructor(private api: APIService) {
 
@@ -84,6 +85,7 @@ export class MusicPlayer {
                     controller.bootstrapTooltipster()
                     controller.bootstrapVolumeRange()
                     controller.bootstrapVolume()
+                    controller.bootstrapMood()
                 }, 100)
             },
             e => {
@@ -335,6 +337,36 @@ export class MusicPlayer {
                     Howler.volume(data.from / 100)
                 },
             });
+        })
+    }
+
+    bootstrapMood() {
+        jQuery('#vote').attr('data-tooltip-content', '#moodForm');
+        this.moodTooltip = jQuery('#vote').tooltipster({
+            animation: 'fade',
+            delay: 200,
+            theme: 'light',
+            interactive: true,
+            zIndex: 90000,
+            side: ['top'],
+            minWidth: 320,
+            // maxWidth: 320,
+            // trigger: 'custom',
+            // triggerOpen: {
+            //     click: true,
+            //     tap: true
+            // },
+            // triggerClose: {
+            //     click: false,
+            //     mouseleave: false,
+            //     originClick: true,
+            //     scroll: false,
+            //     tap: false,
+            //     touchleave: false
+            // },
+            // functionReady: function (instance, helper) {
+
+            // },
         })
     }
 }

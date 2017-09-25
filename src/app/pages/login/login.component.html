@@ -1,40 +1,29 @@
 <div class="background"></div>
 <div class="transparent-banner"></div>
 <div class="login-box">
-  <div class="login-box-body-s">
-    <h2 class="login-box-msg text-yellow">SIGN IN</h2>
-    <form (submit)="login($event)">
-      <div class="form-group has-error">
-        <span class="help-block">{{errorMessage}}</span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="text" #input class="form-control" placeholder="Email/Username" name="username" [(ngModel)]="email" required>
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="password" required>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-xs-8">
-          <div class="padding-left">
-            <input type="checkbox" name="rememberMeCheckbox " id="rememberMeCheckbox " class="" [(ngModel)]="rememberMe">
-            <label for="rememberMeCheckbox " class="css-label text-yellow">Remember me</label>
-          </div>
-        </div>
-        <!-- /.col -->
-        <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In
+    <div class="login-box-body-s" style="margin-top:50%">
+        <h1 class="login-box-msg" style="color:white"><b>MOO</b>SIC</h1>
+        <form (submit)="login($event)">
+            <div class="form-group has-error">
+                <span class="help-block">{{errorMessage}}</span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="text" #input class="form-control" placeholder="Email/Username" name="username" [(ngModel)]="email" autocomplete="off" required>
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+            </div>
+            <div class="form-group has-feedback">
+                <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="password" autocomplete="off" required>
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-12">
+                    <button type="submit" class="btn btn-lg bg-maroon btn-block btn-flat">LOG IN
                     </button>
-        </div>
-        <div>
-        </div>
-      </div>
-    </form>
-    <br>
-    <div class="foat-left">
-      <a href="#" class="text-yellow">I forgot my password</a></div>
-    <br>
-  </div>
+                </div>
+                <div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>

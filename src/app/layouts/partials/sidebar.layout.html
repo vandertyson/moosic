@@ -7,19 +7,19 @@
             </a>
         </li>
         <li>
-            <a class="cursor" [routerLink]="['/salary']">
+            <a class="cursor" [routerLink]="['/']">
                 <i class="fa fa-list"></i>
                 <span>&#160;&#160;Playlists</span>
             </a>
         </li>
         <li>
-            <a class="cursor" [routerLink]="['/users']">
+            <a class="cursor" [routerLink]="['/']">
                 <i class="fa fa-headphones"></i>
                 <span>&#160;&#160;Favorites</span>
             </a>
         </li>
         <li>
-            <a class="cursor" [routerLink]="['/chamcong']">
+            <a class="cursor" (click)="logOut($event)">
                 <i class="fa fa-power-off"></i>
                 <span>&#160;&#160;Log out</span>
             </a>

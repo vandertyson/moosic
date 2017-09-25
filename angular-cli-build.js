@@ -24,7 +24,9 @@ module.exports = function(defaults) {
         'underscore.string/dist/underscore.string.min.js',
         'howler/dist/**/*.+(js)',
         'jquery-ui-1.12.1.custom/jquery-ui.min.+(js|css)',
-        'CircularContentCarousel/**/*.+(js|css|png)'
+        'CircularContentCarousel/**/*.+(js|css|png)',
+        'slick-carousel/slick/**/*.+(js|css|woff|gif|ttf|svg|eot)',
+        'lightslider/dist/**/*.+(js|css|png)',
     ];
 
     var appTree = new Angular2App(defaults, {
@@ -62,6 +64,8 @@ module.exports = function(defaults) {
             'howler/dist/**/*.+(js)',
             'jquery-ui-1.12.1.custom/jquery-ui.min.+(js|css)',
             'CircularContentCarousel/**/*.+(js|css|png)',
+            'slick-carousel/slick/**/*.+(js|css|woff|gif|ttf|svg|eot)',
+            'lightslider/dist/**/*.+(js|css|png)',
         ].concat(lazyVendorFiles.slice())
     });
 

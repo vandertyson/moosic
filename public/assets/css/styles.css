@@ -668,3 +668,13 @@ p {
 .logo-lg {
     font-size: xx-large
 }
+
+@media screen and (min-width:1281px) {
+    .the-menu-bar {
+        display: none !important;
+    }
+}
+
+.the-menu-bar {
+    margin-top: 10px
+}

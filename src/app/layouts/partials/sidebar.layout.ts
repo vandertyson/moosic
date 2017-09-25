@@ -1,5 +1,6 @@
-import { Component }  from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { Auth } from '../../auth/auth';
 
 @Component({
   selector: '[sidebar-layout]',
@@ -8,6 +9,16 @@ import { ROUTER_DIRECTIVES } from '@angular/router';
 
 })
 export class SidebarLayout {
+  @Output() logout = new EventEmitter();
+  constructor(private router: Router, private auth: Auth) {
+
+  }
+
+  logOut(): void {
+    this.logout.emit({ logout: true })
+    this.auth.logout();
+    this.router.navigate(['/login']);
+  }
 
 }
 

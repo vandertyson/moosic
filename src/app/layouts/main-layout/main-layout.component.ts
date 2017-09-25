@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { HeaderLayout } from '../partials/header.layout';
 import { FooterLayout } from '../partials/footer.layout';
@@ -22,11 +22,20 @@ declare var jQuery: any;
 export class MainLayout implements AfterViewInit {
   subscription: any;
 
+  @ViewChild("musicPlayer") mainPlayer: MusicPlayer
+  @ViewChild("menu") sideMenu: SidebarLayout
+
   constructor() {
+
   }
 
   ngAfterViewInit() {
     jQuery.AdminLTE.layout.fix();
-    jQuery('body').addClass('sidebar-mini');
+    jQuery('body').addClass('sidebar-mini');    
+  }
+
+  onLogout(event){
+    console.log(event)
+    this.mainPlayer.stopCurrentSong()
   }
 }
