@@ -7,3 +7,4 @@
 - Command line: npm start
 - If console logs error with message "Promise not found", replace your typings folder with our folder
 - Done. App is hosted at http://localhost:4200
+- For mock, find at public/mock/hot100.json. All playlist request share the same repsonse
