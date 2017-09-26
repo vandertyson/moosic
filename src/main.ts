@@ -10,6 +10,7 @@ import { MainLayoutGuard } from './app/layouts/main-layout/main-layout.guard';
 import { Auth } from './app/auth/auth';
 import { MODAL_BROWSER_PROVIDERS } from 'angular2-modal/platform-browser/index';
 import { MessageService } from "./app/services/message-service/message.service";
+import { AppStateService } from './app/services/app-state.service'
 
 if (environment.production) {
   enableProdMode();
@@ -25,5 +26,6 @@ bootstrap(AppComponent, [
   disableDeprecatedForms(),
   provideForms(),
   MODAL_BROWSER_PROVIDERS,
-  MessageService
+  MessageService,
+  AppStateService
 ]);

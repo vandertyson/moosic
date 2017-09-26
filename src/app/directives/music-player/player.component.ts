@@ -29,6 +29,7 @@ declare var Howler: any;
 
 export class MusicPlayer {
     private playlist = []
+    private playlistName = "Now playing"
 
     private currentSong: any
     private duration: any;
@@ -50,35 +51,7 @@ export class MusicPlayer {
         this.getPlaylist().subscribe(
             r => {
                 this.playlist = r.json().result
-                this.playlist.forEach(e => {
-                    var index = this.playlist.indexOf(e);
-                    e.howl = new Howl({
-                        src: [e.src],
-                        html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-                        onplay: function () {
-                            controller.songEllapsed = setInterval(function () {
-                                controller.ellapsed++
-                                var per = controller.ellapsed / e.howl.duration()
-                                controller.setProgressBar(per)
-                            }, 1000)
-                        },
-                        onload: function () {
-                        },
-                        onend: function () {
-                            clearInterval(controller.songEllapsed)
-                            controller.ellapsed = 0
-                            controller.setProgressBar(0)
-                            controller.next(null)
-                        },
-                        onpause: function () {
-                            clearInterval(controller.songEllapsed)
-                        },
-                        onstop: function () {
-                            controller.ellapsed = 0
-                            controller.setProgressBar(0)
-                        }
-                    })
-                })
+                this.constructHowl(this.playlist);
                 this.currentIndex = 0
                 this.currentSong = this.playlist[this.currentIndex]
                 setTimeout(function () {
@@ -92,7 +65,61 @@ export class MusicPlayer {
 
             }
         )
+    }
 
+    updatePlaylist(list, index, name, play?) {
+        let controller = this;
+        if (play) {
+            controller.stopCurrentSong();
+        }
+        this.playlist = list;
+        this.playlistName = name;
+        controller.currentIndex = index;
+        controller.currentSong = controller.playlist[controller.currentIndex]
+        this.constructHowl(this.playlist, function () {
+            if (play) {
+                controller.playCurrentsong();
+            }
+        });
+    }
+
+    constructHowl(playlist, callback?) {
+        let controller = this;
+        var fullyLoaded = this.playlist.length;
+        var loaded = 0;
+        playlist.forEach(e => {
+            var index = playlist.indexOf(e);
+            e.howl = new Howl({
+                src: [e.src],
+                html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
+                onplay: function () {
+                    controller.songEllapsed = setInterval(function () {
+                        controller.ellapsed++
+                        var per = controller.ellapsed / e.howl.duration()
+                        controller.setProgressBar(per)
+                    }, 1000)
+                },
+                onload: function () {
+                    loaded++
+                    if (loaded == fullyLoaded && callback) {
+                        callback()
+                    }
+                },
+                onend: function () {
+                    clearInterval(controller.songEllapsed)
+                    controller.ellapsed = 0
+                    controller.setProgressBar(0)
+                    controller.next(null)
+                },
+                onpause: function () {
+                    clearInterval(controller.songEllapsed)
+                },
+                onstop: function () {
+                    controller.ellapsed = 0
+                    controller.setProgressBar(0)
+                }
+            })
+        })
     }
 
     formatTime(secs) {
@@ -174,7 +201,7 @@ export class MusicPlayer {
             this.currentIndex = 0
         }
         this.currentSong = this.playlist[this.currentIndex]
-        jQuery("#audio-progress-bar").css("width", "0")
+        // jQuery("#audio-progress-bar").css("width", "0")
         if (play) {
             this.playCurrentsong()
         }
@@ -188,7 +215,7 @@ export class MusicPlayer {
             this.currentIndex = this.playlist.length - 1
         }
         this.currentSong = this.playlist[this.currentIndex]
-        jQuery("#audio-progress-bar").css("width", "0")
+        // jQuery("#audio-progress-bar").css("width", "0")
         if (play) {
             this.playCurrentsong()
         }
@@ -220,6 +247,7 @@ export class MusicPlayer {
 
     stopCurrentSong() {
         clearInterval(this.songEllapsed)
+        jQuery("#audio-progress-bar").css("width", "0")
         if (this.currentSong.howl) {
             this.currentSong.isPlaying = false
             this.currentSong.howl.stop()
@@ -369,4 +397,30 @@ export class MusicPlayer {
             // },
         })
     }
+
+    voteSong(mood) {
+        try {
+            this.sendvoteRequest(mood).subscribe(
+                r => {
+
+                },
+                e => {
+
+                }
+            )
+        } catch (error) {
+
+        }
+    }
+
+    sendvoteRequest(mood) {
+        var param = {
+            song_id: this.currentSong.id,
+            user_id: localStorage.getItem("user_id"),
+            mood: mood
+        }
+        console.log(param)
+        return this.api.post('zz', JSON.stringify(param)).map(res => res)
+    }
+
 }

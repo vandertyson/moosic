@@ -3,7 +3,7 @@ import { URLSearchParams } from '@angular/http';
 import { APIService } from '../../auth/APIService';
 import { environment } from '../../environment';
 import { MusicPlayer } from '../../directives/music-player/player.component'
-
+import { AppStateService } from '../../services/app-state.service'
 
 declare var jQuery: any;
 declare var System: any;
@@ -19,18 +19,34 @@ declare var System: any;
 })
 
 export class HomeComponent {
-    private songs = []
-    constructor(private api: APIService) {
+    private youLike = []
+    private hotTrend = [];
+    private recently = [];
+    private searchResult = [];
+
+    private searchWord = '';
+    private searchMood = 'all';
+    private searchArtist = '';
+
+    private zz = 0;
+    private searched = false
+    private searchSlider: any;
+    private searchStatus = '';
+
+    constructor(private api: APIService, private appState: AppStateService) {
         let controller = this;
     }
 
     ngAfterViewInit() {
         let controller = this;
-        this.getHotTrend().subscribe(
+        jQuery('.dropdown-menu').click(function (e) {
+            e.stopPropagation();
+        });
+        this.getYouLike().subscribe(
             r => {
-                this.songs = r.json().result
+                this.hotTrend = r.json().result
                 setTimeout(function () {
-                    jQuery('.responsive').lightSlider({
+                    jQuery('.you-like').lightSlider({
                         item: 5,
                         // auto:true,
                         loop: true,
@@ -55,12 +71,65 @@ export class HomeComponent {
                                     slideMove: 1
                                 }
                             }
-                        ],                        
-                        pauseOnHover: true,
+                        ],
+                        // pauseOnHover: true,
                     });
-                    for (var i in controller.songs) {
-                        jQuery('#hover' + i).attr('data-tooltip-content', '#show' + i);
-                        this.volumeTooltip = jQuery('#hover' + i).tooltipster({
+                    for (var i in controller.youLike) {
+                        // if (jQuery('#like' + i)[0].scrollWidth > jQuery('#like' + i).innerWidth()) {
+                        //Text has over-flowed
+                        jQuery('#like' + i).attr('data-tooltip-content', '#likeShow' + i);
+                        jQuery('#like' + i).tooltipster({
+                            animation: 'fade',
+                            delay: 200,
+                            theme: 'light',
+                            interactive: true,
+                            zIndex: 90000,
+                            side: ['top'],
+                        })
+                        // }
+                    }
+                }, 100)
+            },
+            e => {
+
+            }
+        )
+
+        this.getHotTrend().subscribe(
+            r => {
+                this.youLike = r.json().result
+                setTimeout(function () {
+                    jQuery('.hot-trend').lightSlider({
+                        item: 5,
+                        // auto:true,
+                        loop: true,
+                        // autoWidth: true,
+                        adaptiveHeight: true,
+                        slideMove: 2,
+                        easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+                        speed: 600,
+                        responsive: [
+                            {
+                                breakpoint: 800,
+                                settings: {
+                                    item: 3,
+                                    slideMove: 1,
+                                    slideMargin: 6,
+                                }
+                            },
+                            {
+                                breakpoint: 480,
+                                settings: {
+                                    item: 2,
+                                    slideMove: 1
+                                }
+                            }
+                        ],
+                        // pauseOnHover: true,
+                    });
+                    for (var i in controller.hotTrend) {
+                        jQuery('#hot' + i).attr('data-tooltip-content', '#hotShow' + i);
+                        jQuery('#hot' + i).tooltipster({
                             animation: 'fade',
                             delay: 200,
                             theme: 'light',
@@ -69,16 +138,218 @@ export class HomeComponent {
                             side: ['top'],
                         })
                     }
-
                 }, 100)
             },
             e => {
 
             }
         )
+        this.getRecent().subscribe(
+            r => {
+                this.recently = r.json().result
+                setTimeout(function () {
+                    jQuery('.recent').lightSlider({
+                        item: 5,
+                        // auto:true,
+                        loop: true,
+                        // autoWidth: true,
+                        adaptiveHeight: true,
+                        slideMove: 2,
+                        easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+                        speed: 600,
+                        responsive: [
+                            {
+                                breakpoint: 800,
+                                settings: {
+                                    item: 3,
+                                    slideMove: 1,
+                                    slideMargin: 6,
+                                }
+                            },
+                            {
+                                breakpoint: 480,
+                                settings: {
+                                    item: 2,
+                                    slideMove: 1
+                                }
+                            }
+                        ],
+                        // pauseOnHover: true,
+                    });
+                    for (var i in controller.recently) {
+                        jQuery('#recent' + i).attr('data-tooltip-content', '#recentShow' + i);
+                        jQuery('#recent' + i).tooltipster({
+                            animation: 'fade',
+                            delay: 200,
+                            theme: 'light',
+                            interactive: true,
+                            zIndex: 90000,
+                            side: ['top'],
+                        })
+                    }
+                }, 100)
+            },
+            e => {
+
+            }
+        )
+
+
     }
 
     getHotTrend() {
         return this.api.get('mock/hot100.json').map(res => res)
     }
+
+    getYouLike() {
+        return this.api.get('mock/hot100.json').map(res => res)
+    }
+
+    getRecent() {
+        return this.api.get('mock/hot100.json').map(res => res)
+    }
+
+    getSearchSong() {
+        var url = 'mock/hot100.json'
+        this.zz++
+        if (this.zz % 2 == 0) {
+            url = 'mock/hot-50.json'
+        }
+        var param = new URLSearchParams();
+        if (this.searchMood && this.searchMood != '') {
+            param.set('mood', this.searchMood)
+        }
+        if (this.searchWord && this.searchWord != '') {
+            param.set('keyword', this.searchWord)
+        }
+        if (this.searchArtist && this.searchArtist != '') {
+            param.set('artist', this.searchArtist)
+        }
+        return this.api.get(url, param).map(res => res)
+    }
+
+    onSearchSubmit(event) {
+        try {
+            let controller = this;
+            if (!this.searched) {
+                jQuery('.search').slideDown('fast')
+                this.searched = true
+            }
+            else {
+                jQuery('.result-zone').slideUp('fast')
+            }
+            this.searchStatus = "Searching..."
+            this.getSearchSong().subscribe(
+                r => {
+                    this.searchResult = r.json().result
+                    if (this.searchResult.length == 0) {
+                        this.searchStatus = "Oops! No song found for your setting"
+                        return
+                    }
+                    this.searchStatus = this.searchResult.length + " songs found "
+                    if (!this.searchSlider) {
+                        setTimeout(function () {
+                            controller.buildSearchSlider();
+                            for (var i in controller.searchResult) {
+                                jQuery('#search' + i).attr('data-tooltip-content', '#searchShow' + i);
+                                jQuery('#search' + i).tooltipster({
+                                    animation: 'fade',
+                                    delay: 200,
+                                    theme: 'light',
+                                    interactive: true,
+                                    zIndex: 90000,
+                                    side: ['top'],
+                                })
+                            }
+                        }, 100)
+                    }
+                    else {
+                        controller.searchSlider.destroy();
+                        controller.searchSlider = null;
+                        jQuery('.result-zone').slideDown('fast')
+                        controller.buildSearchSlider()
+                    }
+                },
+                e => {
+                    this.searchStatus = "Oops! Some errors happened"
+                }
+            )
+
+        } catch (error) {
+
+        }
+    }
+
+    onPlay(listIndex, songIndex) {
+        try {
+            var data = {
+                playlist: [],
+                playListName: '',
+                startAt: songIndex
+            }
+
+            switch (listIndex) {
+                case 0:
+                    data.playlist = this.youLike
+                    data.playListName = "May be you like"
+                    break;
+                case 1:
+                    data.playlist = this.hotTrend
+                    data.playListName = "Now trending"
+                    break;
+                case 2:
+                    data.playlist = this.recently
+                    data.playListName = "Recently listening"
+                    break;
+                case 3:
+                    data.playlist = this.searchResult
+                    data.playListName = "Song for you"
+                    break
+                default:
+                    break;
+            }
+            this.appState.playlistChange.emit(data)
+        } catch (error) {
+
+        }
+    }
+
+    hideSearchResult() {
+
+    }
+
+    buildSearchSlider() {
+        this.searchSlider = jQuery('.search-result').lightSlider({
+            item: 5,
+            // auto:true,
+            loop: true,
+            // autoWidth: true,
+            adaptiveHeight: true,
+            slideMove: 2,
+            easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
+            speed: 600,
+            responsive: [
+                {
+                    breakpoint: 800,
+                    settings: {
+                        item: 3,
+                        slideMove: 1,
+                        slideMargin: 6,
+                    }
+                },
+                {
+                    breakpoint: 480,
+                    settings: {
+                        item: 2,
+                        slideMove: 1
+                    }
+                }
+            ],
+        });
+    }
+
+    getSongArt(song) {
+        return song.art ? song.art : "assets/img/defaultArt.png"
+    }
+
 }

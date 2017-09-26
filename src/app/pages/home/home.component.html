@@ -1,52 +1,76 @@
 <div class="col-md-12" style="margin:0">
     <div class="row" style="padding:10px">
         <div class="col-md-12" style="zoom:100%">
-            <div class="input-group" id="adv-search">
-                <input type="text" class="form-control" placeholder="How do you feel" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form">
+            <form id="searchForm" (submit)="onSearchSubmit($event)" class="form-horizontal" role="form">
+                <div class="input-group" id="adv-search">
+                    <input type="text" class="form-control" placeholder="How do you feel" />
+                    <div class="input-group-btn">
+                        <div class="btn-group" role="group">
+                            <div class="dropdown dropdown-lg">
+                                <!-- <form id="searchForm" (submit)="onSearchSubmit($event)" class="form-horizontal" role="form"> -->
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                                <div class="dropdown-menu dropdown-menu-right" role="menu">
                                     <div class="form-group">
                                         <label for="filter">Mood</label>
-                                        <select class="form-control">
-                                            <option value="0" selected>All</option>
-                                            <option value="1">Happy</option>
-                                            <option value="2">Relaxed</option>
-                                            <option value="3">Sad</option>                                                    
-                                            <option value="5">Angry</option>
+                                        <select name="mood" [(ngModel)]="searchMood" class="form-control">
+                                            <option value="all" selected>All</option>
+                                            <option value="happy">Happy</option>
+                                            <option value="relaxed">Relaxed</option>
+                                            <option value="sad">Sad</option>                                                    
+                                            <option value="angry">Angry</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="contain">Contains the words</label>
-                                        <input class="form-control" type="text" />
+                                        <input class="form-control" name="word" [(ngModel)]="searchWord" type="text" />
                                     </div>
                                     <div class="form-group">
                                         <label for="contain">Artist</label>
-                                        <input class="form-control" type="text" />
+                                        <input class="form-control" name="artist" [(ngModel)]="searchArtist" type="text" />
                                     </div>
-                                    <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </form>
+                                    <!-- <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
+                                </div>
+                            </div>
+                            <button type="submit" form="searchForm" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="max-height:80vh; overflow-y:auto; margin-top:5px; padding-bottom:50px">
+        <div class="search" style="display:none">
+            <h2>{{searchStatus}}
+                <!-- <i class="fa fa-times pull-right" (click)="hideSearchResult()"></i> -->
+            </h2>
+            <div class="result-zone">
+                <div class="search-result">
+                    <div *ngFor="let song of searchResult; let i=index" style="padding:5px">
+                        <div class="card">
+                            <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
+                            <div class="container">
+                                <a [id]="'search'+i" class="truncate cursor" (click)="onPlay(3,i)"><b>{{song.name}}</b></a>
+                                <div class="tooltip_templates" style="display:none;">
+                                    <div [id]="'searchShow'+i">
+                                        {{song.name}}
+                                    </div>
+                                </div>
+                                <p>{{song.artist}}</p>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div style="max-height:80vh; overflow-y:auto; margin-top:5px; padding-bottom:50px">
         <h2>Maybe You Like</h2>
-        <div class="responsive">
-            <div *ngFor="let song of songs; let i=index" style="padding:5px">
+        <div class="you-like">
+            <div *ngFor="let song of youLike; let i=index" style="padding:5px">
                 <div class="card">
-                    <img src="https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg" alt="Avatar" style="width:100%">
+                    <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
                     <div class="container">
-                        <a [id]="'hover'+i" class="truncate cursor"><b>{{song.name}}</b></a>
+                        <a [id]="'like'+i" class="truncate cursor" (click)="onPlay(0,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
-                            <div [id]="'show'+i">
+                            <div [id]="'likeShow'+i">
                                 {{song.name}}
                             </div>
                         </div>
@@ -56,14 +80,14 @@
             </div>
         </div>
         <h2>Hot trend</h2>
-        <div class="responsive">
-            <div *ngFor="let song of songs; let i=index" style="padding:5px">
+        <div class="hot-trend">
+            <div *ngFor="let song of hotTrend; let i=index" style="padding:5px">
                 <div class="card">
-                    <img src="https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg" alt="Avatar" style="width:100%">
+                    <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
                     <div class="container">
-                        <a [id]="'hover'+i" class="truncate cursor"><b>{{song.name}}</b></a>
+                        <a [id]="'hot'+i" class="truncate cursor" (click)="onPlay(1,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
-                            <div [id]="'show'+i">
+                            <div [id]="'hotShow'+i">
                                 {{song.name}}
                             </div>
                         </div>
@@ -73,31 +97,14 @@
             </div>
         </div>
         <h2>Recently Listen</h2>
-        <div class="responsive">
-            <div *ngFor="let song of songs; let i=index" style="padding:5px">
+        <div class="recent">
+            <div *ngFor="let song of recently; let i=index" style="padding:5px">
                 <div class="card">
-                    <img src="https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg" alt="Avatar" style="width:100%">
+                    <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
                     <div class="container">
-                        <a [id]="'hover'+i" class="truncate cursor"><b>{{song.name}}</b></a>
+                        <a [id]="'recent'+i" class="truncate cursor" (click)="onPlay(2,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
-                            <div [id]="'show'+i">
-                                {{song.name}}
-                            </div>
-                        </div>
-                        <p>{{song.artist}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <h2>For you at work</h2>
-        <div class="responsive">
-            <div *ngFor="let song of songs; let i=index" style="padding:5px">
-                <div class="card">
-                    <img src="https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg" alt="Avatar" style="width:100%">
-                    <div class="container">
-                        <a [id]="'hover'+i" class="truncate cursor"><b>{{song.name}}</b></a>
-                        <div class="tooltip_templates" style="display:none;">
-                            <div [id]="'show'+i">
+                            <div [id]="'recentShow'+i">
                                 {{song.name}}
                             </div>
                         </div>

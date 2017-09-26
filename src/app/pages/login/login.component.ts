@@ -38,7 +38,7 @@ export class LoginComponent implements AfterViewInit {
             .map(res => res.json()).subscribe(
             response => {
                 this.auth.login(response.result.token);
-                localStorage.setItem("id_nhan_vien", "1");
+                localStorage.setItem("user_id", response.result.user_id);
                 this.router.navigate(['/']);
             },
             error => {

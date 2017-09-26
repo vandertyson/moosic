@@ -28,7 +28,7 @@
 </div>
 <div class="tooltip_templates" style="display:none;">
     <div id="playlistForm">
-        <h3>SAD SONGS</h3>
+        <h3>{{playlistName}}</h3>
         <div style="max-height:400px; overflow:auto">
             <table id="mytable" class="table table-hovered">
                 <tr *ngFor="let song of playlist; let i = index" [ngStyle]="{'background-color': song.isPlaying?'darkgray':'transparent'}">
@@ -51,9 +51,9 @@
 </div>
 <div class="tooltip_templates" style="display:none;">
     <div id="moodForm">
-        <button type="button" class="btn bg-maroon btn-flat margin">Happy</button>
-        <button type="button" class="btn bg-navy btn-flat margin">Releaxed</button>
-        <button type="button" class="btn bg-olive btn-flat margin">Sad</button>
-        <button type="button" class="btn bg-orange btn-flat margin">Angry</button>
+        <button type="button" class="btn bg-maroon btn-flat margin" (click)="voteSong(0)">Happy</button>
+        <button type="button" class="btn bg-navy btn-flat margin" (click)="voteSong(1)">Releaxed</button>
+        <button type="button" class="btn bg-olive btn-flat margin" (click)="voteSong(2)">Sad</button>
+        <button type="button" class="btn bg-orange btn-flat margin" (click)="voteSong(3)">Angry</button>
     </div>
 </div>

@@ -1,0 +1,45 @@
+{
+    "code": 200,
+    "message": "OK",
+    "result": [{
+            "id": "oI712yquwIs",
+            "src": "http://data.chiasenhac.com/downloads/1822/2/1821294-559b5410/128/Em%20Gai%20Mua%20-%20Huong%20Tram%20[128kbps_MP3].mp3",
+            "name": "Buồn như chó cắn",
+            "artist": "Hương Tràm",
+            "album": "Phản động",
+            "art": "https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg"
+        },
+        {
+            "id": "oI712yquwIs",
+            "src": "http://data.chiasenhac.com/downloads/1822/2/1821294-559b5410/128/Em%20Gai%20Mua%20-%20Huong%20Tram%20[128kbps_MP3].mp3",
+            "name": "Buồn đéo tả được",
+            "artist": "Hương Tràm",
+            "album": "Phản động",
+            "art": "https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg"
+        },
+        {
+            "id": "oI712yquwIs",
+            "src": "http://data.chiasenhac.com/downloads/1822/2/1821294-559b5410/128/Em%20Gai%20Mua%20-%20Huong%20Tram%20[128kbps_MP3].mp3",
+            "name": "Ngày mai em đi",
+            "artist": "Soobin",
+            "album": "Phản động",
+            "art": "https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg"
+        },
+        {
+            "id": "oI712yquwIs",
+            "src": "http://data.chiasenhac.com/downloads/1822/2/1821294-559b5410/128/Em%20Gai%20Mua%20-%20Huong%20Tram%20[128kbps_MP3].mp3",
+            "name": "Lạc trôi remix",
+            "artist": "Tripple D",
+            "album": "Phản động",
+            "art": "https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg"
+        },
+        {
+            "id": "oI712yquwIs",
+            "src": "http://data.chiasenhac.com/downloads/1822/2/1821294-559b5410/128/Em%20Gai%20Mua%20-%20Huong%20Tram%20[128kbps_MP3].mp3",
+            "name": "Túy âm",
+            "artist": "Massew",
+            "album": "Phản động",
+            "art": "https://themusicalhype.com/wp-content/uploads/2017/04/charlie-puth-attention-artist-partner-group.jpg"
+        }
+    ]
+}
