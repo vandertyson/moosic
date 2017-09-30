@@ -90,7 +90,7 @@ export class MusicPlayer {
         playlist.forEach(e => {
             var index = playlist.indexOf(e);
             e.howl = new Howl({
-                src: [e.src],
+                src: [e.source],
                 html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
                 onplay: function () {
                     controller.songEllapsed = setInterval(function () {

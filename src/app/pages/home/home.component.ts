@@ -202,7 +202,7 @@ export class HomeComponent {
     }
 
     getYouLike() {
-        return this.api.get('mock/hot100.json').map(res => res)
+        return this.api.get('mock/hot-50.json').map(res => res)
     }
 
     getRecent() {
@@ -349,7 +349,7 @@ export class HomeComponent {
     }
 
     getSongArt(song) {
-        return song.art ? song.art : "assets/img/defaultArt.png"
+        return song.album_art ? song.album_art : "assets/img/defaultArt.png"
     }
 
 }
