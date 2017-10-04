@@ -244,3 +244,7 @@ span.play-mix-btn:hover {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.img-height {
+    min-height: 226px;
+}

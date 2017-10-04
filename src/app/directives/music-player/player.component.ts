@@ -50,7 +50,7 @@ export class MusicPlayer {
         this.duration = document.getElementById("duration")
         this.getPlaylist().subscribe(
             r => {
-                this.playlist = r.json().result
+                this.playlist = r.json().tracks
                 this.constructHowl(this.playlist);
                 this.currentIndex = 0
                 this.currentSong = this.playlist[this.currentIndex]
@@ -58,7 +58,7 @@ export class MusicPlayer {
                     controller.bootstrapTooltipster()
                     controller.bootstrapVolumeRange()
                     controller.bootstrapVolume()
-                    controller.bootstrapMood()
+                    controller.bootstrapMood()                    
                 }, 100)
             },
             e => {
@@ -88,9 +88,9 @@ export class MusicPlayer {
         var fullyLoaded = this.playlist.length;
         var loaded = 0;
         playlist.forEach(e => {
-            var index = playlist.indexOf(e);
+            var index = playlist.indexOf(e);            
             e.howl = new Howl({
-                src: [e.source],
+                src: ["http://download.f9.stream.nixcdn.com/318e0434cffae828336c86b9a3152247/59d51c1f/NhacCuaTui949/EmGaiMuaRemix-HuongTramDJKhanhHaku-5164092.mp3"],
                 html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
                 onplay: function () {
                     controller.songEllapsed = setInterval(function () {
@@ -170,7 +170,7 @@ export class MusicPlayer {
     }
 
     getPlaylist() {
-        return this.api.get("mock/songs.json")
+        return this.api.get("mock/new-playlist.json")
     }
 
     getElapsed() {

@@ -47,7 +47,7 @@
                 <div class="search-result">
                     <div *ngFor="let song of searchResult; let i=index" style="padding:5px">
                         <div class="card">
-                            <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
+                            <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
                             <div class="container">
                                 <a [id]="'search'+i" class="truncate cursor" (click)="onPlay(3,i)"><b>{{song.name}}</b></a>
                                 <div class="tooltip_templates" style="display:none;">
@@ -66,7 +66,7 @@
         <div class="you-like">
             <div *ngFor="let song of youLike; let i=index" style="padding:5px">
                 <div class="card">
-                    <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
+                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
                     <div class="container">
                         <a [id]="'like'+i" class="truncate cursor" (click)="onPlay(0,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
@@ -83,7 +83,7 @@
         <div class="hot-trend">
             <div *ngFor="let song of hotTrend; let i=index" style="padding:5px">
                 <div class="card">
-                    <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
+                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
                     <div class="container">
                         <a [id]="'hot'+i" class="truncate cursor" (click)="onPlay(1,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
@@ -100,7 +100,7 @@
         <div class="recent">
             <div *ngFor="let song of recently; let i=index" style="padding:5px">
                 <div class="card">
-                    <img [src]="getSongArt(song)" alt="Cover" style="width:100%">
+                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
                     <div class="container">
                         <a [id]="'recent'+i" class="truncate cursor" (click)="onPlay(2,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">

@@ -1,0 +1,69 @@
+{
+    "tracks": [{
+            "album": "Test album",
+            "mood": "Happy",
+            "artist": "Test",
+            "track_id": 3,
+            "release_year": "2015",
+            "genre": "Pop",
+            "album_art": "http://avatar.nct.nixcdn.com/playlist/2017/02/24/3/e/a/e/1487928635962_500.jpg",
+            "name": "ABCD",
+            "source": "http://zmp3-mp3-s1-te-zmp3-fpthn-1.zadn.vn/2daa5beb81af68f131be/3246869633634662863?authen=exp=1507222863~acl=/2daa5beb81af68f131be/*~hmac=b0e670fd8b636ea49a7e085cc265b96f&filename=Em%20Gai%20Mua%20-%20Huong%20Tram%20(NhacPro.net).mp3"
+        },
+        {
+            "album": "OST Begin Again",
+            "mood": "Sad",
+            "artist": "Keira Knightley",
+            "track_id": 4,
+            "release_year": "2014",
+            "genre": "Pop Balad",
+            "album_art": "http://avatar.nct.nixcdn.com/singer/avatar/2017/03/17/c/4/6/d/1489725818099_600.jpg",
+            "name": "Lost Stars",
+            "source": "http://zmp3-mp3-s1-te-zmp3-fpthn-1.zadn.vn/cffb5f1f875b6e05374a/6441750501870013206?authen=exp=1507222909~acl=/cffb5f1f875b6e05374a/*~hmac=1e82f2fb7f3a321c58edd696a3ecdcfa&filename=Thunder%20-%20Imagine%20Dragons%20(NhacPro.net).mp3"
+        },
+        {
+            "album": "32",
+            "mood": "1212",
+            "artist": "123",
+            "track_id": 9,
+            "release_year": "2012",
+            "genre": "balad",
+            "album_art": "https://img.discogs.com/qZ1oruZ6YvpxPRZ9NQnZHxaZ6p4=/fit-in/600x595/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-1243811-1203278931.jpeg.jpg",
+            "name": "ABCD",
+            "source": "http://zmp3-mp3-s1-te-zmp3-fpthn-2.zadn.vn/b1bc15e86eac87f2debd/2924857906471060418?authen=exp=1507222994~acl=/b1bc15e86eac87f2debd/*~hmac=dc091c498a10481a41ae885ca383fda2&filename=Scars%20To%20Your%20Beautiful%20-%20Alessia%20Cara%20(NhacPro.net).mp3"
+        },
+        {
+            "album": null,
+            "mood": "love",
+            "artist": "bbbb",
+            "track_id": 12,
+            "release_year": null,
+            "genre": null,
+            "album_art": "https://img.discogs.com/IP1XAEVmPBBOlv-Gx-LF9Qq9hek=/fit-in/600x450/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-10804993-1504597823-3544.jpeg.jpg",
+            "name": "aaa",
+            "source": "http://zmp3-mp3-s1-te-zmp3-fpthn-2.zadn.vn/b1bc15e86eac87f2debd/2924857906471060418?authen=exp=1507222994~acl=/b1bc15e86eac87f2debd/*~hmac=dc091c498a10481a41ae885ca383fda2&filename=Scars%20To%20Your%20Beautiful%20-%20Alessia%20Cara%20(NhacPro.net).mp3"
+        },
+        {
+            "album": null,
+            "mood": "s",
+            "artist": "ccc",
+            "track_id": 13,
+            "release_year": null,
+            "genre": "ee",
+            "album_art": "https://img.discogs.com/hemetzJhC7maT1ga1-0g4g-Y-Cs=/fit-in/463x464/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-2271691-1273614432.jpeg.jpg",
+            "name": "bbb",
+            "source": "http://zmp3-mp3-s1-te-zmp3-fpthn-2.zadn.vn/b1bc15e86eac87f2debd/2924857906471060418?authen=exp=1507222994~acl=/b1bc15e86eac87f2debd/*~hmac=dc091c498a10481a41ae885ca383fda2&filename=Scars%20To%20Your%20Beautiful%20-%20Alessia%20Cara%20(NhacPro.net).mp3"
+        },
+        {
+            "album": "aa",
+            "mood": "a",
+            "artist": "as",
+            "track_id": 16,
+            "release_year": null,
+            "genre": "e",
+            "album_art": null,
+            "name": "ads",
+            "source": "http://zmp3-mp3-s1-te-zmp3-fpthn-2.zadn.vn/b1bc15e86eac87f2debd/2924857906471060418?authen=exp=1507222994~acl=/b1bc15e86eac87f2debd/*~hmac=dc091c498a10481a41ae885ca383fda2&filename=Scars%20To%20Your%20Beautiful%20-%20Alessia%20Cara%20(NhacPro.net).mp3"
+        }
+    ]
+}

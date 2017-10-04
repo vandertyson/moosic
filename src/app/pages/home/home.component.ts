@@ -44,14 +44,14 @@ export class HomeComponent {
         });
         this.getYouLike().subscribe(
             r => {
-                this.hotTrend = r.json().result
+                this.youLike = r.json().tracks
                 setTimeout(function () {
                     jQuery('.you-like').lightSlider({
                         item: 5,
                         // auto:true,
                         loop: true,
                         // autoWidth: true,
-                        adaptiveHeight: true,
+                        adaptiveHeight: false,
                         slideMove: 2,
                         easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
                         speed: 600,
@@ -94,17 +94,16 @@ export class HomeComponent {
 
             }
         )
-
         this.getHotTrend().subscribe(
             r => {
-                this.youLike = r.json().result
+                this.hotTrend = r.json().tracks
                 setTimeout(function () {
                     jQuery('.hot-trend').lightSlider({
                         item: 5,
                         // auto:true,
                         loop: true,
                         // autoWidth: true,
-                        adaptiveHeight: true,
+                        adaptiveHeight: false,
                         slideMove: 2,
                         easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
                         speed: 600,
@@ -146,14 +145,14 @@ export class HomeComponent {
         )
         this.getRecent().subscribe(
             r => {
-                this.recently = r.json().result
+                this.recently = r.json().tracks
                 setTimeout(function () {
                     jQuery('.recent').lightSlider({
                         item: 5,
                         // auto:true,
                         loop: true,
                         // autoWidth: true,
-                        adaptiveHeight: true,
+                        adaptiveHeight: false,
                         slideMove: 2,
                         easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
                         speed: 600,
@@ -198,22 +197,22 @@ export class HomeComponent {
     }
 
     getHotTrend() {
-        return this.api.get('mock/hot100.json').map(res => res)
+        return this.api.get('mock/new-playlist.json').map(res => res)
     }
 
     getYouLike() {
-        return this.api.get('mock/hot-50.json').map(res => res)
+        return this.api.get('mock/new-playlist.json').map(res => res)
     }
 
     getRecent() {
-        return this.api.get('mock/hot100.json').map(res => res)
+        return this.api.get('mock/new-playlist.json').map(res => res)
     }
 
     getSearchSong() {
-        var url = 'mock/hot100.json'
+        var url = 'new-playlist.json'
         this.zz++
         if (this.zz % 2 == 0) {
-            url = 'mock/hot-50.json'
+            url = 'new-playlist.json'
         }
         var param = new URLSearchParams();
         if (this.searchMood && this.searchMood != '') {
@@ -241,7 +240,7 @@ export class HomeComponent {
             this.searchStatus = "Searching..."
             this.getSearchSong().subscribe(
                 r => {
-                    this.searchResult = r.json().result
+                    this.searchResult = r.json().tracks
                     if (this.searchResult.length == 0) {
                         this.searchStatus = "Oops! No song found for your setting"
                         return
