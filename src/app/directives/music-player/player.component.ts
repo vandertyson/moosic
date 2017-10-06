@@ -1,6 +1,6 @@
 import { Component, AfterViewInit, OnInit, OnDestroy, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES, ActivatedRoute } from '@angular/router';
-import { URLSearchParams } from '@angular/http';
+import { URLSearchParams, Http } from '@angular/http';
 import 'rxjs/Rx';
 import { environment } from '../../environment';
 import { APIService } from '../../auth/APIService';
@@ -24,7 +24,7 @@ declare var Howler: any;
         Loading
     ],
     viewProviders: [...BS_MODAL_PROVIDERS],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
 })
 
 export class MusicPlayer {
@@ -41,13 +41,13 @@ export class MusicPlayer {
     private volumeTooltip: any
     private moodTooltip: any
 
-    constructor(private api: APIService) {
+    constructor(private api: APIService, private http: Http) {
 
     }
 
     ngAfterViewInit() {
         let controller = this;
-        this.duration = document.getElementById("duration")
+        this.duration = document.getElementById("duration")       
         this.getPlaylist().subscribe(
             r => {
                 this.playlist = r.json().tracks
@@ -58,7 +58,7 @@ export class MusicPlayer {
                     controller.bootstrapTooltipster()
                     controller.bootstrapVolumeRange()
                     controller.bootstrapVolume()
-                    controller.bootstrapMood()                    
+                    controller.bootstrapMood()
                 }, 100)
             },
             e => {
@@ -88,11 +88,14 @@ export class MusicPlayer {
         var fullyLoaded = this.playlist.length;
         var loaded = 0;
         playlist.forEach(e => {
-            var index = playlist.indexOf(e);            
+            var index = playlist.indexOf(e);
             e.howl = new Howl({
+                // src:[e.sou]
                 src: ["http://download.f9.stream.nixcdn.com/318e0434cffae828336c86b9a3152247/59d51c1f/NhacCuaTui949/EmGaiMuaRemix-HuongTramDJKhanhHaku-5164092.mp3"],
+                // src: ["http://192.168.1.15:8000/recommended_system/music.mp3"],
                 html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
                 onplay: function () {
+                    console.log("on play")
                     controller.songEllapsed = setInterval(function () {
                         controller.ellapsed++
                         var per = controller.ellapsed / e.howl.duration()
@@ -100,10 +103,14 @@ export class MusicPlayer {
                     }, 1000)
                 },
                 onload: function () {
+                    console.log("abc")
                     loaded++
                     if (loaded == fullyLoaded && callback) {
                         callback()
                     }
+                },
+                onloaderror: function (id, err) {
+                    console.log(err)
                 },
                 onend: function () {
                     clearInterval(controller.songEllapsed)
