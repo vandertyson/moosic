@@ -26,7 +26,7 @@ export class MainLayout implements AfterViewInit {
   subscription: any;
   rootOutletMap: RouterOutletMap;
 
-  @ViewChild("musicPlayer") mainPlayer: MusicPlayer
+  // @ViewChild("musicPlayer") mainPlayer: MusicPlayer
   @ViewChild("menu") sideMenu: SidebarLayout
 
   constructor(private router: Router, private activeRoute: ActivatedRoute, private appState: AppStateService) {
@@ -39,7 +39,7 @@ export class MainLayout implements AfterViewInit {
     // console.log(this.rootOutletMap['_outlets'].PRIMARY_OUTLET)    
     this.appState.playlistChange.subscribe(
       r => {
-        this.mainPlayer.updatePlaylist(r.playlist, r.startAt, r.playListName, true)
+        // this.mainPlayer.updatePlaylist(r.playlist, r.startAt, r.playListName, true)
       },
       e => {
 
@@ -49,7 +49,7 @@ export class MainLayout implements AfterViewInit {
 
   onLogout(event) {
     // console.log(event)
-    this.mainPlayer.stopCurrentSong()
+    // this.mainPlayer.stopCurrentSong()
   }
 
   onActivate(event) {

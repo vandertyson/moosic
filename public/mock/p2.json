@@ -1,0 +1,69 @@
+{
+    "tracks": [{
+            "album": "32",
+            "mood": "1212",
+            "artist": "Zayn, Sia",
+            "track_id": 9,
+            "release_year": "2012",
+            "genre": "balad",
+            "album_art": "http://data.chiasenhac.com/data/cover/78/77258.jpg",
+            "name": "Dusk Till Dawn",
+            "source": "http://data.chiasenhac.com/downloads/1824/5/1823419-d00aa455/320/Dusk%20Till%20Dawn%20-%20Zayn_%20Sia.mp3"
+        },
+        {
+            "album": null,
+            "mood": "love",
+            "artist": "Sam Smith",
+            "track_id": 12,
+            "release_year": null,
+            "genre": null,
+            "album_art": "http://data.chiasenhac.com/data/cover/78/77482.jpg",
+            "name": "Star dust",
+            "source": "http://data.chiasenhac.com/downloads/1833/5/1832216-38c94711/320/Stardust%20Extended%20Mix_%20-%20Lucas%20Steve_%20Ma.mp3"
+        },
+        {
+            "album": null,
+            "mood": "s",
+            "artist": "Charlie Puth; Selena Gomez",
+            "track_id": 13,
+            "release_year": null,
+            "genre": "ee",
+            "album_art": "http://data.chiasenhac.com/data/cover/53/52514.jpg",
+            "name": "We don't talk anymore",
+            "source": "http://data2.chiasenhac.com/downloads/1622/5/1621445-8f90a551/320/We%20Don_t%20Talk%20Anymore%20-%20Charlie%20Puth_%20Se.mp3"
+        },
+        {
+            "album": "Test album",
+            "mood": "Happy",
+            "artist": "Doom",
+            "track_id": 3,
+            "release_year": "2015",
+            "genre": "Pop",
+            "album_art": "http://data.chiasenhac.com/data/cover/78/77515.jpg",
+            "name": "The Spectre",
+            "source": "http://data.chiasenhac.com/downloads/1826/5/1825604-624f195d/320/The%20Spectre%20-%20Alan%20Walker_%20Danny%20Shah.mp3"
+        },
+        {
+            "album": "Túy âm",
+            "mood": "Sad",
+            "artist": "Tiësto; StarGate; Aloe Blacc",
+            "track_id": 4,
+            "release_year": "2014",
+            "genre": "Pop Balad",
+            "album_art": "http://data.chiasenhac.com/data/cover/76/75884.jpg",
+            "name": "Carry You Home",
+            "source": "http://data.chiasenhac.com/downloads/1831/5/1830207-50f6a2cd/320/Carry%20You%20Home%20-%20Ti__sto_%20StarGate_%20Aloe.mp3"
+        },
+        {
+            "album": "aa",
+            "mood": "a",
+            "artist": "Liam Payne; Quavo",
+            "track_id": 16,
+            "release_year": null,
+            "genre": "e",
+            "album_art": null,
+            "name": "Strip That Down",
+            "source": "http://data3.chiasenhac.com/downloads/1789/5/1788447-19a47249/320/Strip%20That%20Down%20-%20Liam%20Payne_%20Quavo.mp3"
+        }
+    ]
+}

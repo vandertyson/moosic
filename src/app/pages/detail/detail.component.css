@@ -1,0 +1,51 @@
+.my-table tr {
+    cursor: pointer
+}
+
+.thumb1 {
+    background: url("https://i.pinimg.com/736x/2f/60/d7/2f60d72ba26359996531d2ef08eed200--charlie-puth-eyebrow-rd-birthday.jpg") 50% 50% no-repeat;
+    /* 50% 50% centers image in div */
+    width: 250px;
+    height: 250px;
+}
+
+@media screen and (min-width: 1024px) {
+    .my-main {
+        height: 100vh
+    }
+    .my-rec {
+        max-height: 90vh;
+        overflow-y: auto;
+        margin-bottom: 50px;
+    }
+    .my-player {
+        position: absolute;
+        bottom: 10px;
+        width: 100%;
+        \ padding-bottom: 10px;
+        max-height: 15%;
+        z-index: 1000;
+        background-color: white;
+    }
+}
+
+@media screen and (min-width: 375px) and (max-width: 667px) {
+    .my-main {
+        /* height: 50vh */
+    }
+    .my-rec {
+        max-height: 50vh;
+        overflow-y: auto;
+        padding-bottom: 50px;
+    }
+    .my-player {
+        position: relative;
+        margin-top: 10px
+        /* bottom: 0px;
+        width: 100%;\
+        padding-bottom: 10px;
+        max-height: 15%;
+        z-index: 1000;
+        background-color: white */
+    }
+}

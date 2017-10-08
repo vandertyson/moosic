@@ -1,0 +1,69 @@
+{
+    "tracks": [{
+            "album": "Test album",
+            "mood": "Happy",
+            "artist": "Charlie Puth",
+            "track_id": 3,
+            "release_year": "2015",
+            "genre": "Pop",
+            "album_art": "http://data.chiasenhac.com/data/cover/78/77515.jpg",
+            "name": "How long",
+            "source": "http://data.chiasenhac.com/downloads/1833/5/1832466-b70add48/320/How%20Long%20-%20Charlie%20Puth.mp3"
+        },
+        {
+            "album": "Túy âm",
+            "mood": "Sad",
+            "artist": "Taylor Swift",
+            "track_id": 4,
+            "release_year": "2014",
+            "genre": "Pop Balad",
+            "album_art": "http://data.chiasenhac.com/data/cover/76/75884.jpg",
+            "name": "Look what you made me do",
+            "source": "http://data.chiasenhac.com/downloads/1820/5/1819040-618c868e/320/Look%20What%20You%20Made%20Me%20Do%20-%20Taylor%20Swift.mp3"
+        },
+        {
+            "album": "32",
+            "mood": "1212",
+            "artist": "Zayn, Sia",
+            "track_id": 9,
+            "release_year": "2012",
+            "genre": "balad",
+            "album_art": "http://data.chiasenhac.com/data/cover/78/77258.jpg",
+            "name": "Dusk Till Dawn",
+            "source": "http://data.chiasenhac.com/downloads/1824/5/1823419-d00aa455/320/Dusk%20Till%20Dawn%20-%20Zayn_%20Sia.mp3"
+        },
+        {
+            "album": null,
+            "mood": "love",
+            "artist": "Sam Smith",
+            "track_id": 12,
+            "release_year": null,
+            "genre": null,
+            "album_art": "http://data.chiasenhac.com/data/cover/77/76333.jpg",
+            "name": "Chia tay",
+            "source": "http://data.chiasenhac.com/downloads/1824/5/1823464-f34c5173/320/Too%20Good%20At%20Goodbyes%20-%20Sam%20Smith.mp3"
+        },
+        {
+            "album": null,
+            "mood": "s",
+            "artist": "Charlie Puth; Selena Gomez",
+            "track_id": 13,
+            "release_year": null,
+            "genre": "ee",
+            "album_art": "http://data.chiasenhac.com/data/cover/53/52514.jpg",
+            "name": "We don't talk anymore",
+            "source": "http://data2.chiasenhac.com/downloads/1622/5/1621445-8f90a551/320/We%20Don_t%20Talk%20Anymore%20-%20Charlie%20Puth_%20Se.mp3"
+        },
+        {
+            "album": "aa",
+            "mood": "a",
+            "artist": "Liam Payne; Quavo",
+            "track_id": 16,
+            "release_year": null,
+            "genre": "e",
+            "album_art": null,
+            "name": "Strip That Down",
+            "source": "http://data3.chiasenhac.com/downloads/1789/5/1788447-19a47249/320/Strip%20That%20Down%20-%20Liam%20Payne_%20Quavo.mp3"
+        }
+    ]
+}

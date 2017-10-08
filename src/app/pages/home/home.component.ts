@@ -201,18 +201,18 @@ export class HomeComponent {
     }
 
     getYouLike() {
-        return this.api.get('mock/new-playlist.json').map(res => res)
+        return this.api.get('mock/p1.json').map(res => res)
     }
 
     getRecent() {
-        return this.api.get('mock/new-playlist.json').map(res => res)
+        return this.api.get('mock/p2.json').map(res => res)
     }
 
     getSearchSong() {
-        var url = 'new-playlist.json'
+        var url = 'mock/new-playlist.json'
         this.zz++
         if (this.zz % 2 == 0) {
-            url = 'new-playlist.json'
+            url = 'mock/p1.json'
         }
         var param = new URLSearchParams();
         if (this.searchMood && this.searchMood != '') {
@@ -224,7 +224,8 @@ export class HomeComponent {
         if (this.searchArtist && this.searchArtist != '') {
             param.set('artist', this.searchArtist)
         }
-        return this.api.get(url, param).map(res => res)
+        // return this.api.get(url, param).map(res => res)
+        return this.api.get(url).map(res => res)
     }
 
     onSearchSubmit(event) {
@@ -238,42 +239,43 @@ export class HomeComponent {
                 jQuery('.result-zone').slideUp('fast')
             }
             this.searchStatus = "Searching..."
-            this.getSearchSong().subscribe(
-                r => {
-                    this.searchResult = r.json().tracks
-                    if (this.searchResult.length == 0) {
-                        this.searchStatus = "Oops! No song found for your setting"
-                        return
+            setTimeout(function(){
+                controller.getSearchSong().subscribe(
+                    r => {
+                        controller.searchResult = r.json().tracks
+                        if (controller.searchResult.length == 0) {
+                            controller.searchStatus = "Oops! No song found for your setting"
+                            return
+                        }
+                        controller.searchStatus = controller.searchResult.length + " songs found "
+                        if (!controller.searchSlider) {
+                            setTimeout(function () {
+                                controller.buildSearchSlider();
+                                for (var i in controller.searchResult) {
+                                    jQuery('#search' + i).attr('data-tooltip-content', '#searchShow' + i);
+                                    jQuery('#search' + i).tooltipster({
+                                        animation: 'fade',
+                                        delay: 200,
+                                        theme: 'light',
+                                        interactive: true,
+                                        zIndex: 90000,
+                                        side: ['top'],
+                                    })
+                                }
+                            }, 100)
+                        }
+                        else {
+                            controller.searchSlider.destroy();
+                            controller.searchSlider = null;
+                            jQuery('.result-zone').slideDown('fast')
+                            controller.buildSearchSlider()
+                        }
+                    },
+                    e => {
+                        controller.searchStatus = "Oops! Some errors happened"
                     }
-                    this.searchStatus = this.searchResult.length + " songs found "
-                    if (!this.searchSlider) {
-                        setTimeout(function () {
-                            controller.buildSearchSlider();
-                            for (var i in controller.searchResult) {
-                                jQuery('#search' + i).attr('data-tooltip-content', '#searchShow' + i);
-                                jQuery('#search' + i).tooltipster({
-                                    animation: 'fade',
-                                    delay: 200,
-                                    theme: 'light',
-                                    interactive: true,
-                                    zIndex: 90000,
-                                    side: ['top'],
-                                })
-                            }
-                        }, 100)
-                    }
-                    else {
-                        controller.searchSlider.destroy();
-                        controller.searchSlider = null;
-                        jQuery('.result-zone').slideDown('fast')
-                        controller.buildSearchSlider()
-                    }
-                },
-                e => {
-                    this.searchStatus = "Oops! Some errors happened"
-                }
-            )
-
+                )
+            },1000)
         } catch (error) {
 
         }

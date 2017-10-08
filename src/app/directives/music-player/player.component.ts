@@ -91,19 +91,19 @@ export class MusicPlayer {
             var index = playlist.indexOf(e);
             e.howl = new Howl({
                 // src:[e.sou]
-                src: ["http://download.f9.stream.nixcdn.com/318e0434cffae828336c86b9a3152247/59d51c1f/NhacCuaTui949/EmGaiMuaRemix-HuongTramDJKhanhHaku-5164092.mp3"],
+                // src: ["http://download.f9.stream.nixcdn.com/318e0434cffae828336c86b9a3152247/59d51c1f/NhacCuaTui949/EmGaiMuaRemix-HuongTramDJKhanhHaku-5164092.mp3"],
                 // src: ["http://192.168.1.15:8000/recommended_system/music.mp3"],
+                src:[e.source],
                 html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-                onplay: function () {
-                    console.log("on play")
+                autoPlay:false,
+                onplay: function () {                    
                     controller.songEllapsed = setInterval(function () {
                         controller.ellapsed++
                         var per = controller.ellapsed / e.howl.duration()
                         controller.setProgressBar(per)
                     }, 1000)
                 },
-                onload: function () {
-                    console.log("abc")
+                onload: function () {                    
                     loaded++
                     if (loaded == fullyLoaded && callback) {
                         callback()
@@ -177,7 +177,7 @@ export class MusicPlayer {
     }
 
     getPlaylist() {
-        return this.api.get("mock/new-playlist.json")
+        return this.api.get("mock/p1.json")
     }
 
     getElapsed() {
