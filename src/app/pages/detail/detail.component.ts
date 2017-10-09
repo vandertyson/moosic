@@ -31,36 +31,21 @@ export class DetailComponent implements AfterViewInit {
 
 
     ngAfterViewInit() {
-        // this.appState.playlistChange.subscribe(
-        //     r => {
-        //         this.mainPlayer.updatePlaylist(r.playlist, r.startAt, r.playListName, true)                
         let controller = this;
         if (this.appState.currentSong) {
+            if (this.recommendedSongs.length == 0) {
+                this.fillRecomendation()
+            }
             this.appState.songChange.subscribe(
                 zz => {
                     controller.recommendedSongs = []
-                    setTimeout(function () {
-                        controller.getRecommendationSongs(controller.appState.currentSong)
-                            .subscribe(
-                            r => {
-                                controller.recommendedSongs = r.json().tracks
-                            },
-                            e => {
-
-                            })
-                    }, 1000)
+                    this.fillRecomendation()
                 }
             )
         }
         else {
             this.router.navigate(["/"])
         }
-
-        //     },
-        //     e => {
-
-        //     }
-        // )
     }
 
     getRecommendationSongs(song) {
@@ -97,5 +82,19 @@ export class DetailComponent implements AfterViewInit {
                     "mood", "label label-primary"
                 ]
         }
+    }
+
+    fillRecomendation() {
+        let controller = this
+        setTimeout(function () {
+            controller.getRecommendationSongs(controller.appState.currentSong)
+                .subscribe(
+                r => {
+                    controller.recommendedSongs = r.json().tracks
+                },
+                e => {
+
+                })
+        }, 1000)
     }
 }
