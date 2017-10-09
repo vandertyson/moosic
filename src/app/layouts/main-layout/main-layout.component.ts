@@ -19,7 +19,8 @@ declare var jQuery: any;
     FooterLayout,
     SidebarLayout,
     MusicPlayer
-  ]
+  ],
+  styleUrls: ["app/layouts/main-layout/main.component.css"]
 })
 
 export class MainLayout implements AfterViewInit {

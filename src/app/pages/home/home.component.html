@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <h2>Hot trend</h2>
+        <h2>Trending Now</h2>
         <div class="hot-trend">
             <div *ngFor="let song of hotTrend; let i=index" style="padding:5px">
                 <div class="card">
@@ -115,4 +115,31 @@
             </div>
         </div>
     </div>
+</div>
+<div id="float-button" class="cursor" (click)="toListenPgae()" (mouseenter)="showPlayingNow()" (mouseleave)="hidePlayingNow()" style="position:fixed; bottom:15px; left:25px; z-index:10000">
+    <!-- <button class="btn btn-default" style="border-radius:50%"> -->
+    <!-- <i class="fa fa-play cursor" style="font-size:xx-large; color:green"></i> -->
+    <div id="bars">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+    <!-- </button> -->
+</div>
+<div id="showingNow" class="popup-playing">
+    <marquee *ngIf="showNow" behavior="slide" direction="left" scrolldelay="1" style="min-width:230px">
+        <b>Now Playing</b>
+        <br><small>We don't talk any more - Charlie Puth ft Selena Gomez</small>
+    </marquee>
+    <marquee *ngIf="!showNow" behavior="slide" direction="left" scrolldelay="1" style="min-width:230px">
+        <b>Next song</b>
+        <br><small>Lac Troi - Son Tung MTP</small>
+    </marquee>
 </div>

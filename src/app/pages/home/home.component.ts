@@ -1,9 +1,10 @@
-import { Component, AfterViewInit, ViewEncapsulation } from '@angular/core';
+import { Component, AfterViewInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { URLSearchParams } from '@angular/http';
 import { APIService } from '../../auth/APIService';
 import { environment } from '../../environment';
 import { MusicPlayer } from '../../directives/music-player/player.component'
 import { AppStateService } from '../../services/app-state.service'
+import { Router } from '@angular/router';
 
 declare var jQuery: any;
 declare var System: any;
@@ -19,6 +20,7 @@ declare var System: any;
 })
 
 export class HomeComponent {
+    // @ViewChild("musicPlayer") mainPlayer: MusicPlayer
     private youLike = []
     private hotTrend = [];
     private recently = [];
@@ -32,8 +34,9 @@ export class HomeComponent {
     private searched = false
     private searchSlider: any;
     private searchStatus = '';
+    private showNow = true;
 
-    constructor(private api: APIService, private appState: AppStateService) {
+    constructor(private api: APIService, private appState: AppStateService, private router: Router) {
         let controller = this;
     }
 
@@ -42,12 +45,15 @@ export class HomeComponent {
         jQuery('.dropdown-menu').click(function (e) {
             e.stopPropagation();
         });
+        setInterval(function () {
+            controller.showNow = !controller.showNow
+        }, 5000)
         this.getYouLike().subscribe(
             r => {
                 this.youLike = r.json().tracks
                 setTimeout(function () {
                     jQuery('.you-like').lightSlider({
-                        item: 5,
+                        item: 6,
                         // auto:true,
                         loop: true,
                         // autoWidth: true,
@@ -99,7 +105,7 @@ export class HomeComponent {
                 this.hotTrend = r.json().tracks
                 setTimeout(function () {
                     jQuery('.hot-trend').lightSlider({
-                        item: 5,
+                        item: 6,
                         // auto:true,
                         loop: true,
                         // autoWidth: true,
@@ -148,7 +154,7 @@ export class HomeComponent {
                 this.recently = r.json().tracks
                 setTimeout(function () {
                     jQuery('.recent').lightSlider({
-                        item: 5,
+                        item: 6,
                         // auto:true,
                         loop: true,
                         // autoWidth: true,
@@ -193,26 +199,25 @@ export class HomeComponent {
             }
         )
 
-
     }
 
     getHotTrend() {
-        return this.api.get('mock/new-playlist.json').map(res => res)
+        return this.api.get(environment.hotTrendUrl).map(res => res)
     }
 
     getYouLike() {
-        return this.api.get('mock/p1.json').map(res => res)
+        return this.api.get(environment.youLikeUrl).map(res => res)
     }
 
     getRecent() {
-        return this.api.get('mock/p2.json').map(res => res)
+        return this.api.get(environment.recentlyUrl).map(res => res)
     }
 
     getSearchSong() {
-        var url = 'mock/new-playlist.json'
+        var url = environment.search1Url
         this.zz++
         if (this.zz % 2 == 0) {
-            url = 'mock/p1.json'
+            url = environment.search2Url
         }
         var param = new URLSearchParams();
         if (this.searchMood && this.searchMood != '') {
@@ -239,7 +244,7 @@ export class HomeComponent {
                 jQuery('.result-zone').slideUp('fast')
             }
             this.searchStatus = "Searching..."
-            setTimeout(function(){
+            setTimeout(function () {
                 controller.getSearchSong().subscribe(
                     r => {
                         controller.searchResult = r.json().tracks
@@ -275,7 +280,7 @@ export class HomeComponent {
                         controller.searchStatus = "Oops! Some errors happened"
                     }
                 )
-            },1000)
+            }, 1000)
         } catch (error) {
 
         }
@@ -309,7 +314,10 @@ export class HomeComponent {
                 default:
                     break;
             }
+            this.router.navigate(["/listen"])
+            this.appState.currentSong = data[songIndex]
             this.appState.playlistChange.emit(data)
+
         } catch (error) {
 
         }
@@ -321,7 +329,7 @@ export class HomeComponent {
 
     buildSearchSlider() {
         this.searchSlider = jQuery('.search-result').lightSlider({
-            item: 5,
+            item: 6,
             // auto:true,
             loop: true,
             // autoWidth: true,
@@ -351,6 +359,20 @@ export class HomeComponent {
 
     getSongArt(song) {
         return song.album_art ? song.album_art : "assets/img/defaultArt.png"
+    }
+
+    showPlayingNow() {
+        console.log("show")
+        jQuery("#showingNow").show()
+    }
+
+    hidePlayingNow() {
+        console.log("hide")
+        jQuery("#showingNow").hide()
+    }
+
+    toListenPgae(){
+        this.router.navigate(["/listen"])
     }
 
 }

@@ -12,9 +12,17 @@ export const environment = {
   apiUrls: {
     'loginUrl': "/login",
     "bangluong": "/employeePayroll",
-    "profile":"/employeeInfo",
-    "chamcong":"/employeeAttendance"
+    "profile": "/employeeInfo",
+    "chamcong": "/employeeAttendance"
   },
+
+  //For Moosic
+  hotTrendUrl: 'mock/new-playlist.json',
+  youLikeUrl: "mock/p1.json",
+  recentlyUrl: "mock/p2.json",
+  recommendNextUrl: "mock/p2.json",
+  search1Url: "mock/p2.json",
+  search2Url: "mock/p1.json",
 
   getUrl: function (apiName: string) {
     return this.endPoint + this.apiUrls[apiName];
@@ -22,5 +30,5 @@ export const environment = {
 
   localStorageVariablesName: {
 
-  } 
+  }
 }

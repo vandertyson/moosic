@@ -5,7 +5,8 @@ import 'rxjs/Rx';
 import { environment } from '../../environment';
 import { APIService } from '../../auth/APIService';
 import { Loading } from "../../layouts/partials/loading.component";
-import { AppStateService } from "../../services/app-state.service"
+import { Modal, BSModal, BS_MODAL_PROVIDERS } from 'angular2-modal/plugins/bootstrap';
+import { MessageService } from "../../services/message-service/message.service";
 
 declare var jQuery: any;
 declare var System: any;
@@ -13,8 +14,8 @@ declare var Howl: any;
 declare var Howler: any;
 
 @Component({
-    selector: 'music-player',
-    templateUrl: 'app/directives/music-player/player.component.html',
+    selector: 'song-player',
+    templateUrl: 'app/directives/song-player/player.component.html',
     styleUrls: [
         'app/directives/music-player/player.component.css',
     ],
@@ -22,10 +23,11 @@ declare var Howler: any;
         ROUTER_DIRECTIVES,
         Loading
     ],
+    viewProviders: [...BS_MODAL_PROVIDERS],
     encapsulation: ViewEncapsulation.None,
 })
 
-export class MusicPlayer {
+export class SongPlayer {
     private playlist = []
     private playlistName = "Now playing"
 
@@ -39,7 +41,7 @@ export class MusicPlayer {
     private volumeTooltip: any
     private moodTooltip: any
 
-    constructor(private api: APIService, private http: Http, private appState: AppStateService) {
+    constructor(private api: APIService, private http: Http) {
 
     }
 
@@ -88,9 +90,10 @@ export class MusicPlayer {
         playlist.forEach(e => {
             var index = playlist.indexOf(e);
             e.howl = new Howl({
-                // src:[e.source]                
+                // src:[e.sou]
+                // src: ["http://download.f9.stream.nixcdn.com/318e0434cffae828336c86b9a3152247/59d51c1f/NhacCuaTui949/EmGaiMuaRemix-HuongTramDJKhanhHaku-5164092.mp3"],
                 // src: ["http://192.168.1.15:8000/recommended_system/music.mp3"],
-                src: ["http://data01.chiasenhac.com/downloads/1730/1/1729694-a4afea05/128/Phia%20Sau%20Mot%20Co%20Gai%20-%20Soobin%20Hoang%20Son.mp3"],
+                src: [e.source],
                 html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
                 autoPlay: false,
                 onplay: function () {

@@ -1,4 +1,4 @@
-export const environment ={
+export const environment = {
   production: false,
 
   endPoint: "",
@@ -7,7 +7,17 @@ export const environment ={
 
   },
 
-  getUrl: function (apiName:string) {
+  avatarUrl: "",
+
+  //For Moosic
+  hotTrendUrl: "",
+  youLikeUrl: "",
+  recentlyUrl: "",
+  recommendNextUrl: "",
+  search1Url: "",
+  search2Url: "",
+
+  getUrl: function (apiName: string) {
     return this.endPoint + this.apiUrls[apiName]
   },
 

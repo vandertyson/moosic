@@ -49,3 +49,25 @@
         background-color: white */
     }
 }
+
+
+/* #playerContainer {
+    position: fixed;
+    bottom: 0px;
+    left: 20px;
+    width: 50%;
+    padding-bottom: 10px;
+    max-height: 15%;
+    z-index: 1000;
+    background-color: white;
+}
+
+.half {
+    position: fixed;
+    bottom: 0px;
+    width: 50%;
+    padding-bottom: 10px;
+    max-height: 15%;
+    z-index: 1000;
+    background-color: white;
+} */
