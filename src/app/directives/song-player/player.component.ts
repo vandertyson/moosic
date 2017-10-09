@@ -7,17 +7,16 @@ import { APIService } from '../../auth/APIService';
 import { Loading } from "../../layouts/partials/loading.component";
 import { Modal, BSModal, BS_MODAL_PROVIDERS } from 'angular2-modal/plugins/bootstrap';
 import { MessageService } from "../../services/message-service/message.service";
+import { AppStateService } from "../../services/app-state.service";
 
 declare var jQuery: any;
 declare var System: any;
-declare var Howl: any;
-declare var Howler: any;
 
 @Component({
     selector: 'song-player',
     templateUrl: 'app/directives/song-player/player.component.html',
     styleUrls: [
-        'app/directives/music-player/player.component.css',
+        'app/directives/song-player/player.component.css',
     ],
     directives: [
         ROUTER_DIRECTIVES,
@@ -41,98 +40,29 @@ export class SongPlayer {
     private volumeTooltip: any
     private moodTooltip: any
 
-    constructor(private api: APIService, private http: Http) {
+    constructor(private api: APIService, private http: Http, private appState: AppStateService) {
 
     }
 
     ngAfterViewInit() {
         let controller = this;
         this.duration = document.getElementById("duration")
-        this.getPlaylist().subscribe(
+        setTimeout(function () {
+            controller.bootstrapTooltipster()
+            controller.bootstrapVolumeRange()
+            controller.bootstrapVolume()
+            controller.bootstrapMood()
+        }, 100)
+        this.appState.setProgressBar.subscribe(
             r => {
-                this.playlist = r.json().tracks
-                this.constructHowl(this.playlist);
-                this.currentIndex = 0
-                this.currentSong = this.playlist[this.currentIndex]
-                setTimeout(function () {
-                    controller.bootstrapTooltipster()
-                    controller.bootstrapVolumeRange()
-                    controller.bootstrapVolume()
-                    controller.bootstrapMood()
-                }, 100)
-            },
-            e => {
-
+                this.setProgressBar(r)
             }
         )
-    }
-
-    updatePlaylist(list, index, name, play?) {
-        let controller = this;
-        if (play) {
-            controller.stopCurrentSong();
-        }
-        this.playlist = list;
-        this.playlistName = name;
-        controller.currentIndex = index;
-        controller.currentSong = controller.playlist[controller.currentIndex]
-        this.constructHowl(this.playlist, function () {
-            if (play) {
-                controller.playCurrentsong();
-            }
-        });
-    }
-
-    constructHowl(playlist, callback?) {
-        let controller = this;
-        var fullyLoaded = this.playlist.length;
-        var loaded = 0;
-        playlist.forEach(e => {
-            var index = playlist.indexOf(e);
-            e.howl = new Howl({
-                // src:[e.sou]
-                // src: ["http://download.f9.stream.nixcdn.com/318e0434cffae828336c86b9a3152247/59d51c1f/NhacCuaTui949/EmGaiMuaRemix-HuongTramDJKhanhHaku-5164092.mp3"],
-                // src: ["http://192.168.1.15:8000/recommended_system/music.mp3"],
-                src: [e.source],
-                html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-                autoPlay: false,
-                onplay: function () {
-                    controller.songEllapsed = setInterval(function () {
-                        controller.ellapsed++
-                        var per = controller.ellapsed / e.howl.duration()
-                        controller.setProgressBar(per)
-                    }, 1000)
-                },
-                onload: function () {
-                    loaded++
-                    if (loaded == fullyLoaded && callback) {
-                        callback()
-                    }
-                },
-                onloaderror: function (id, err) {
-                    console.log(err)
-                },
-                onend: function () {
-                    clearInterval(controller.songEllapsed)
-                    controller.ellapsed = 0
-                    controller.setProgressBar(0)
-                    controller.next(null)
-                },
-                onpause: function () {
-                    clearInterval(controller.songEllapsed)
-                },
-                onstop: function () {
-                    controller.ellapsed = 0
-                    controller.setProgressBar(0)
-                }
-            })
-        })
     }
 
     formatTime(secs) {
         var minutes = Math.floor(secs / 60) || 0;
         var seconds = (secs - minutes * 60) || 0;
-
         return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
     }
 
@@ -148,36 +78,18 @@ export class SongPlayer {
     }
 
     play(event?) {
-        // this.togglePlayPause()
-        // var per = jQuery("#audio-progress-bar").width() / window.innerWidth
-        // var sound = this.currentSong.howl;
-        // if (sound.state() == "loaded") {
-        //     sound.seek(sound.duration() * per)
-        //     sound.play()
-        // }
-
-        this.playCurrentsong()
+        this.appState.playCurrentsong()
     }
 
     seek(event) {
         let controller = this;
-        var per = event.clientX / window.innerWidth;
-        this.setProgressBar(per)
-        if (this.currentSong && this.currentSong.howl) {
-            var sound = this.currentSong.howl;
-            this.ellapsed = Math.floor(sound.duration() * per)
-            if (sound.playing()) {
-                sound.seek(sound.duration() * per);
-            }
-        }
+        var parentWidth = jQuery("#bar-width").width()
+        var per = event.clientX / parentWidth;
+        this.appState.seek(event, per)
     }
 
     pause() {
-        this.pauseCurrentSong()
-    }
-
-    getPlaylist() {
-        return this.api.get("mock/p1.json")
+        this.appState.pauseCurrentSong()
     }
 
     getElapsed() {
@@ -189,76 +101,23 @@ export class SongPlayer {
     }
 
     mute(event) {
-        Howler.mute(true)
+        this.appState.mute(event);
         jQuery("#un-mute").show()
         jQuery("#volume-up").hide()
     }
 
     unMute(event) {
-        Howler.mute(false)
+        this.appState.unMute(event);
         jQuery("#un-mute").hide()
         jQuery("#volume-up").show()
     }
 
     next(event) {
-        var play = this.currentSong.isPlaying ? true : false
-        this.stopCurrentSong()
-        this.currentIndex++
-        if (this.currentIndex == this.playlist.length) {
-            this.currentIndex = 0
-        }
-        this.currentSong = this.playlist[this.currentIndex]
-        // jQuery("#audio-progress-bar").css("width", "0")
-        if (play) {
-            this.playCurrentsong()
-        }
+        this.appState.next(event)
     }
 
     prev(event) {
-        var play = this.currentSong.isPlaying ? true : false
-        this.stopCurrentSong()
-        this.currentIndex--
-        if (this.currentIndex < 0) {
-            this.currentIndex = this.playlist.length - 1
-        }
-        this.currentSong = this.playlist[this.currentIndex]
-        // jQuery("#audio-progress-bar").css("width", "0")
-        if (play) {
-            this.playCurrentsong()
-        }
-    }
-
-    playCurrentsong() {
-        let controller = this;
-        if (!this.currentSong) return
-        if (!this.currentSong.howl) return
-        if (this.currentSong.howl.state() == "loaded") {
-            this.currentSong.isPlaying = true
-            this.duration.innerHTML = controller.formatTime(Math.round(this.currentSong.howl.duration()));
-            var per = jQuery("#audio-progress-bar").width() / window.innerWidth
-            var sound = this.currentSong.howl;
-            sound.seek(sound.duration() * per)
-            sound.play()
-        }
-        else {
-
-        }
-    }
-
-    pauseCurrentSong() {
-        if (this.currentSong && this.currentSong.howl) {
-            this.currentSong.isPlaying = false
-            this.currentSong.howl.pause();
-        }
-    }
-
-    stopCurrentSong() {
-        clearInterval(this.songEllapsed)
-        jQuery("#audio-progress-bar").css("width", "0")
-        if (this.currentSong.howl) {
-            this.currentSong.isPlaying = false
-            this.currentSong.howl.stop()
-        }
+        this.appState.prev(event)
     }
 
     bootstrapTooltipster() {
@@ -296,20 +155,20 @@ export class SongPlayer {
     }
 
     smallPlay(event, index) {
-        this.stopCurrentSong()
-        if (this.currentIndex == index) {
-            this.pauseCurrentSong()
+        this.appState.stopCurrentSong()
+        if (this.appState.currentIndex == index) {
+            this.appState.pauseCurrentSong()
         }
         else {
-            this.currentIndex = index;
-            this.currentSong = this.playlist[this.currentIndex]
+            this.appState.currentIndex = index;
+            this.appState.currentSong = this.appState.playlist[this.appState.currentIndex]
             jQuery("#audio-progress-bar").css("width", "0")
-            this.playCurrentsong()
+            this.appState.playCurrentsong()
         }
     }
 
     smallPause(event, index) {
-        this.pauseCurrentSong()
+        this.appState.pauseCurrentSong()
     }
 
     bootstrapVolume() {
@@ -352,6 +211,7 @@ export class SongPlayer {
     }
 
     bootstrapVolumeRange() {
+        let controller = this;
         jQuery.get('vendor/admin-lte/plugins/bootstrap-slider/bootstrap-slider.js').then(mod => {
             jQuery('.slider').slider();
         })
@@ -366,10 +226,10 @@ export class SongPlayer {
                 prettify: false,
                 hasGrid: true,
                 onChange: function (data) {
-                    Howler.volume(data.from / 100)
+                    controller.appState.setVolume(data.from / 100)
                 },
                 onFinish: function (data) {
-                    Howler.volume(data.from / 100)
+                    controller.appState.setVolume(data.from / 100)
                 },
             });
         })

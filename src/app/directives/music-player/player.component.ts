@@ -9,8 +9,6 @@ import { AppStateService } from "../../services/app-state.service"
 
 declare var jQuery: any;
 declare var System: any;
-declare var Howl: any;
-declare var Howler: any;
 
 @Component({
     selector: 'music-player',
@@ -49,7 +47,7 @@ export class MusicPlayer {
         this.getPlaylist().subscribe(
             r => {
                 this.playlist = r.json().tracks
-                this.constructHowl(this.playlist);
+                // this.constructHowl(this.playlist);
                 this.currentIndex = 0
                 this.currentSong = this.playlist[this.currentIndex]
                 setTimeout(function () {
@@ -74,57 +72,57 @@ export class MusicPlayer {
         this.playlistName = name;
         controller.currentIndex = index;
         controller.currentSong = controller.playlist[controller.currentIndex]
-        this.constructHowl(this.playlist, function () {
-            if (play) {
-                controller.playCurrentsong();
-            }
-        });
+        // this.constructHowl(this.playlist, function () {
+        //     if (play) {
+        //         controller.playCurrentsong();
+        //     }
+        // });
     }
 
-    constructHowl(playlist, callback?) {
-        let controller = this;
-        var fullyLoaded = this.playlist.length;
-        var loaded = 0;
-        playlist.forEach(e => {
-            var index = playlist.indexOf(e);
-            e.howl = new Howl({
-                // src:[e.source]                
-                // src: ["http://192.168.1.15:8000/recommended_system/music.mp3"],
-                src: ["http://data01.chiasenhac.com/downloads/1730/1/1729694-a4afea05/128/Phia%20Sau%20Mot%20Co%20Gai%20-%20Soobin%20Hoang%20Son.mp3"],
-                html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
-                autoPlay: false,
-                onplay: function () {
-                    controller.songEllapsed = setInterval(function () {
-                        controller.ellapsed++
-                        var per = controller.ellapsed / e.howl.duration()
-                        controller.setProgressBar(per)
-                    }, 1000)
-                },
-                onload: function () {
-                    loaded++
-                    if (loaded == fullyLoaded && callback) {
-                        callback()
-                    }
-                },
-                onloaderror: function (id, err) {
-                    console.log(err)
-                },
-                onend: function () {
-                    clearInterval(controller.songEllapsed)
-                    controller.ellapsed = 0
-                    controller.setProgressBar(0)
-                    controller.next(null)
-                },
-                onpause: function () {
-                    clearInterval(controller.songEllapsed)
-                },
-                onstop: function () {
-                    controller.ellapsed = 0
-                    controller.setProgressBar(0)
-                }
-            })
-        })
-    }
+    // constructHowl(playlist, callback?) {
+    //     let controller = this;
+    //     var fullyLoaded = this.playlist.length;
+    //     var loaded = 0;
+    //     playlist.forEach(e => {
+    //         var index = playlist.indexOf(e);
+    //         e.howl = new Howl({
+    //             // src:[e.source]                
+    //             // src: ["http://192.168.1.15:8000/recommended_system/music.mp3"],
+    //             src: ["http://data01.chiasenhac.com/downloads/1730/1/1729694-a4afea05/128/Phia%20Sau%20Mot%20Co%20Gai%20-%20Soobin%20Hoang%20Son.mp3"],
+    //             html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
+    //             autoPlay: false,
+    //             onplay: function () {
+    //                 controller.songEllapsed = setInterval(function () {
+    //                     controller.ellapsed++
+    //                     var per = controller.ellapsed / e.howl.duration()
+    //                     controller.setProgressBar(per)
+    //                 }, 1000)
+    //             },
+    //             onload: function () {
+    //                 loaded++
+    //                 if (loaded == fullyLoaded && callback) {
+    //                     callback()
+    //                 }
+    //             },
+    //             onloaderror: function (id, err) {
+    //                 console.log(err)
+    //             },
+    //             onend: function () {
+    //                 clearInterval(controller.songEllapsed)
+    //                 controller.ellapsed = 0
+    //                 controller.setProgressBar(0)
+    //                 controller.next(null)
+    //             },
+    //             onpause: function () {
+    //                 clearInterval(controller.songEllapsed)
+    //             },
+    //             onstop: function () {
+    //                 controller.ellapsed = 0
+    //                 controller.setProgressBar(0)
+    //             }
+    //         })
+    //     })
+    // }
 
     formatTime(secs) {
         var minutes = Math.floor(secs / 60) || 0;
@@ -186,13 +184,13 @@ export class MusicPlayer {
     }
 
     mute(event) {
-        Howler.mute(true)
+        // Howler.mute(true)
         jQuery("#un-mute").show()
         jQuery("#volume-up").hide()
     }
 
     unMute(event) {
-        Howler.mute(false)
+        // Howler.mute(false)
         jQuery("#un-mute").hide()
         jQuery("#volume-up").show()
     }
@@ -363,10 +361,10 @@ export class MusicPlayer {
                 prettify: false,
                 hasGrid: true,
                 onChange: function (data) {
-                    Howler.volume(data.from / 100)
+                    // Howler.volume(data.from / 100)
                 },
                 onFinish: function (data) {
-                    Howler.volume(data.from / 100)
+                    // Howler.volume(data.from / 100)
                 },
             });
         })

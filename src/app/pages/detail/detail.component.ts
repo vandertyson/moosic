@@ -7,6 +7,7 @@ import { APIService } from '../../auth/APIService';
 import { SongPlayer } from '../../directives/song-player/player.component'
 import { MusicPlayer } from '../../directives/music-player/player.component'
 import { AppStateService } from '../../services/app-state.service'
+import { TagComponent } from "../../directives/tag/tag.component"
 
 declare var jQuery: any;
 
@@ -16,7 +17,7 @@ declare var jQuery: any;
     styleUrls: [
         "app/pages/detail/detail.component.css"
     ],
-    directives: [SongPlayer, MusicPlayer],
+    directives: [SongPlayer, MusicPlayer, TagComponent],
     providers: [APIService, Auth]
 })
 export class DetailComponent implements AfterViewInit {
@@ -30,19 +31,71 @@ export class DetailComponent implements AfterViewInit {
 
 
     ngAfterViewInit() {
-        this.appState.playlistChange.subscribe(
-            r => {
-                this.mainPlayer.updatePlaylist(r.playlist, r.startAt, r.playListName, true)                
-                this.getRecommendationSongs(this.appState.currentSong)
-            },
-            e => {
+        // this.appState.playlistChange.subscribe(
+        //     r => {
+        //         this.mainPlayer.updatePlaylist(r.playlist, r.startAt, r.playListName, true)                
+        let controller = this;
+        if (this.appState.currentSong) {
+            this.appState.songChange.subscribe(
+                zz => {
+                    controller.recommendedSongs = []
+                    setTimeout(function () {
+                        controller.getRecommendationSongs(controller.appState.currentSong)
+                            .subscribe(
+                            r => {
+                                controller.recommendedSongs = r.json().tracks
+                            },
+                            e => {
 
-            }
-        )
+                            })
+                    }, 1000)
+                }
+            )
+        }
+        else {
+            this.router.navigate(["/"])
+        }
+
+        //     },
+        //     e => {
+
+        //     }
+        // )
     }
 
     getRecommendationSongs(song) {
-        console.log(song)
-        this.api.get(environment.recommendNextUrl)
+        let controller = this;
+        return this.api.get(environment.recommendNextUrl)
+    }
+
+    getSongArt(song) {
+        return song.album_art ? song.album_art : "assets/img/defaultArt.png"
+    }
+
+    onPlayRecommendedClick(event, index) {
+        this.appState.updatePlaylist(this.recommendedSongs, index, "Recommended For You", true)
+    }
+
+    getBestLabel(song) {
+        var result = [
+            "mood", "label label-primary"
+        ]
+        var t = Math.floor(Math.random() * 2) + 1
+        switch (t) {
+            case 2:
+                return [
+                    "mood", "label label-primary"
+                ]
+
+            case 1:
+                return [
+                    "genre", "label label-success"
+                ]
+
+            default:
+                return [
+                    "mood", "label label-primary"
+                ]
+        }
     }
 }

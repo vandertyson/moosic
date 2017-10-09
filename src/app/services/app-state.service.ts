@@ -65,31 +65,30 @@ export class AppStateService {
 
 
   ///howler region
-  private songEllapsed: any
-  private playlist = []
-  private playlistName = "Now playing"
-  private currentSong: any
-  private currentIndex = 0;
+  public songEllapsed: any
+  public playlist = []
+  public playlistName = "Now playing"
+  public currentSong: any
+  public currentIndex = 0;
+  public sounds: any;
+  public setProgressBar = new EventEmitter()
+  private ellapsed = 0
+  public songChange = new EventEmitter();
+
   public updatePlaylist(list, index, name, play?) {
     let controller = this;
-    if (play) {
-      controller.stopCurrentSong();
-    }
+    this.stopCurrentSong()
     this.playlist = list;
     this.playlistName = name;
     controller.currentIndex = index;
     controller.currentSong = controller.playlist[controller.currentIndex]
     this.constructHowl(this.playlist, function () {
-      if (play) {
-        controller.playCurrentsong();
-      }
+      controller.playCurrentsong();
     });
   }
 
   stopCurrentSong() {
-    clearInterval(this.songEllapsed)
-    jQuery("#audio-progress-bar").css("width", "0")
-    if (this.currentSong.howl) {
+    if (this.currentSong && this.currentSong.howl) {
       this.currentSong.isPlaying = false
       this.currentSong.howl.stop()
     }
@@ -102,9 +101,9 @@ export class AppStateService {
     if (this.currentSong.howl.state() == "loaded") {
       this.currentSong.isPlaying = true
       // this.duration.innerHTML = controller.formatTime(Math.round(this.currentSong.howl.duration()));
-      var per = jQuery("#audio-progress-bar").width() / window.innerWidth
+      // var per = jQuery("#audio-progress-bar").width() / window.innerWidth
       var sound = this.currentSong.howl;
-      sound.seek(sound.duration() * per)
+      // sound.seek(sound.duration() * per)
       sound.play()
     }
     else {
@@ -117,26 +116,21 @@ export class AppStateService {
     let controller = this;
     var fullyLoaded = this.playlist.length;
     var loaded = 0;
-    var srcList = [];
-    playlist.forEach(e => {
-      // srcList.push(e.src)
-      srcList.push("http://data01.chiasenhac.com/downloads/1730/1/1729694-a4afea05/128/Phia%20Sau%20Mot%20Co%20Gai%20-%20Soobin%20Hoang%20Son.mp3")
-    })
-
     playlist.forEach(e => {
       var index = playlist.indexOf(e);
       e.howl = new Howl({
-        // src:[e.source]                
-        // src: ["http://192.168.1.15:8000/recommended_system/music.mp3"],
-        // src: ["http://data01.chiasenhac.com/downloads/1730/1/1729694-a4afea05/128/Phia%20Sau%20Mot%20Co%20Gai%20-%20Soobin%20Hoang%20Son.mp3"],
+        // src: [e.source],
+        src: ["http://data.chiasenhac.com/downloads/1833/2/1832466-b70add48/320/How%20Long%20-%20Charlie%20Puth.mp3"],
         html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
         autoPlay: false,
         onplay: function () {
-          // controller.songEllapsed = setInterval(function () {
-          //   controller.ellapsed++
-          //   var per = controller.ellapsed / e.howl.duration()
-          //   controller.setProgressBar(per)
-          // }, 1000)
+          controller.songEllapsed = setInterval(function () {
+            controller.ellapsed++
+            var per = controller.ellapsed / e.howl.duration()
+            controller.setProgressBar.emit(per)
+          }, 1000)
+          // console.log(this.duration())
+          controller.songChange.emit("true")
         },
         onload: function () {
           loaded++
@@ -148,19 +142,78 @@ export class AppStateService {
           console.log(err)
         },
         onend: function () {
-          // clearInterval(controller.songEllapsed)
-          // controller.ellapsed = 0
-          // controller.setProgressBar(0)
-          // controller.next(null)
+          clearInterval(controller.songEllapsed)
+          controller.ellapsed = 0
+          controller.setProgressBar.emit(0)
+          controller.next(null)
         },
         onpause: function () {
           clearInterval(controller.songEllapsed)
         },
         onstop: function () {
-          // controller.ellapsed = 0
-          // controller.setProgressBar(0)
+          controller.ellapsed = 0
+          controller.setProgressBar.emit(0)
         }
       })
     })
   }
+
+  seek(event, per) {
+    let controller = this;
+    if (this.currentSong && this.currentSong.howl) {
+      var sound = this.currentSong.howl;
+      this.ellapsed = Math.floor(sound.duration() * per)
+      if (sound.playing()) {
+        sound.seek(sound.duration() * per);
+      }
+    }
+  }
+
+  pauseCurrentSong() {
+    if (this.currentSong && this.currentSong.howl) {
+      this.currentSong.isPlaying = false
+      this.currentSong.howl.pause();
+    }
+  }
+
+  mute(event) {
+    Howler.mute(true)
+  }
+
+  unMute(event) {
+    Howler.mute(false)
+  }
+
+  next(event) {
+    var play = this.currentSong.isPlaying ? true : false
+    this.stopCurrentSong()
+    this.currentIndex++
+    if (this.currentIndex == this.playlist.length) {
+      this.currentIndex = 0
+    }
+    this.currentSong = this.playlist[this.currentIndex]
+    this.setProgressBar.emit(0)
+    if (play) {
+      this.playCurrentsong()
+    }
+  }
+
+  prev(event) {
+    var play = this.currentSong.isPlaying ? true : false
+    this.stopCurrentSong()
+    this.currentIndex--
+    if (this.currentIndex < 0) {
+      this.currentIndex = this.playlist.length - 1
+    }
+    this.currentSong = this.playlist[this.currentIndex]
+    // jQuery("#audio-progress-bar").css("width", "0")
+    if (play) {
+      this.playCurrentsong()
+    }
+  }
+
+  setVolume(val) {
+    Howler.volume(val)
+  }
+
 }

@@ -1,0 +1,10 @@
+<span *ngIf="!data || data == ''" class="cursor">
+      <span class="label label-default">  
+          {{emptyMessage}}
+        </span> &#160;&#160;
+</span>
+<span *ngIf="data && data != ''" class="cursor">
+      <span [class]="labelClass">
+        {{data}}
+      </span>&#160;&#160;
+</span>

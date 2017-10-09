@@ -198,7 +198,6 @@ export class HomeComponent {
 
             }
         )
-
     }
 
     getHotTrend() {
@@ -314,9 +313,10 @@ export class HomeComponent {
                 default:
                     break;
             }
+            this.appState.updatePlaylist(data.playlist, data.startAt, data.playListName, true)
             this.router.navigate(["/listen"])
-            this.appState.currentSong = data[songIndex]
-            this.appState.playlistChange.emit(data)
+            // this.appState.updatePlaylist() = data[songIndex]
+            // this.appState.playlistChange.emit(data)
 
         } catch (error) {
 
@@ -371,8 +371,12 @@ export class HomeComponent {
         jQuery("#showingNow").hide()
     }
 
-    toListenPgae(){
+    toListenPgae() {
         this.router.navigate(["/listen"])
+    }
+
+    getNextSong() {        
+        return this.appState.playlist[this.appState.currentIndex + 1]
     }
 
 }

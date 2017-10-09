@@ -1,32 +1,24 @@
 <div>
     <!-- <div class="col-md-7 text-center my-main" style="height:100vh"></div> -->
-    <div id="left-panel" class="col-md-7 text-center my-main no-padding no-margin">
+    <div *ngIf="appState.currentSong" id="left-panel" class="col-md-7 text-center my-main no-padding no-margin">
         <div class="col-md-12" style="margin-top:30px">
-            <img style="width: 250px; max-height:250px" src="https://i.pinimg.com/736x/2f/60/d7/2f60d72ba26359996531d2ef08eed200--charlie-puth-eyebrow-rd-birthday.jpg">
+            <!-- <img style="width: 250px; max-height:250px" src="https://i.pinimg.com/736x/2f/60/d7/2f60d72ba26359996531d2ef08eed200--charlie-puth-eyebrow-rd-birthday.jpg"> -->
+            <img style="width: 250px; max-height:250px" [src]="getSongArt(appState.currentSong)">
         </div>
         <div class="col-sm-12 col-md-12" style="text-align:center">
-            <h3><b>We dont talk any more</b></h3>
-            <!-- <div style="position:absolute; bottom: 0px; width:100%; padding-bottom:10px; max-height:15%; z-index:1000; background-color:white"> -->
+            <h3>
+                <b>{{appState.currentSong.name}}</b>
+            </h3>
+            <p>{{appState.currentSong.artist}}</p>
             <div style="font-size: large">
-                <span class="label label-info">
-                    Charlie Puth ft Selena Gomez
-                </span>&#160;&#160;&#160;
-                <span class="label label-success">
-                    2007
-                </span>&#160;&#160;&#160;
-                <span class="label label-warning">
-                    I dont give a fuck
-                </span>&#160;&#160;&#160;
-                <span class="label label-danger">
-                    Pop/RnB
-                </span>&#160;&#160;&#160;
-                <span class="label label-primary">
-                    Sad
-                </span>
+                <tag [data]="appState.currentSong.genre" [labelClass]="'label label-success'" [emptyMessage]="'Click to add genre'"></tag>
+                <tag [data]="appState.currentSong.album" [labelClass]="'label label-warning'" [emptyMessage]="'Click to add album'"></tag>
+                <tag [data]="appState.currentSong.year" [labelClass]="'label label-info'" [emptyMessage]="'Click to add year'"></tag>
+                <tag [data]="appState.currentSong.mood" [labelClass]="'label label-primary'" [emptyMessage]="'Click to add mood'"></tag>
             </div>
         </div>
         <div class="my-player">
-            <music-player #musicPlayer></music-player>
+            <song-player #musicPlayer></song-player>
         </div>
     </div>
     <div class="col-md-5">
@@ -34,8 +26,8 @@
         <!-- <div class="my-rec" style="max-height:85%; overflow-y:auto; margin-bottom:50px">             -->
         <div class="my-rec">
             <table class="table table-hover my-table">
-                <tr *ngFor="let song of recommendedSongs; let i = index;">
-                    <td>{{i}}.</td>
+                <tr *ngFor="let song of recommendedSongs; let i = index;" (click)="onPlayRecommendedClick($event, i)">
+                    <td>{{i+1}}.</td>
                     <td>
                         <div>
                             <h4>
@@ -44,7 +36,16 @@
                             <h5>{{song.artist}}</h5>
                         </div>
                     </td>
-                    <td>{{song.length}}</td>
+                    <!-- <td>
+                        <span [class]="getBestLabel(song)[1]" [textContent]="zz">
+                            
+                        </span>
+                    </td> -->
+                    <td>
+                        <span class="label label-primary" style="font-size:large">
+                        {{song.mood}}            
+                        </span>
+                    </td>
                 </tr>
             </table>
         </div>
