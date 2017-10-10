@@ -13,7 +13,7 @@
             <div style="font-size: large">
                 <tag [data]="appState.currentSong.genre" [labelClass]="'label label-success'" [emptyMessage]="'Click to add genre'"></tag>
                 <tag [data]="appState.currentSong.album" [labelClass]="'label label-warning'" [emptyMessage]="'Click to add album'"></tag>
-                <tag [data]="appState.currentSong.year" [labelClass]="'label label-info'" [emptyMessage]="'Click to add year'"></tag>
+                <tag [data]="appState.currentSong.release_year" [labelClass]="'label label-info'" [emptyMessage]="'Click to add year'"></tag>
                 <tag [data]="appState.currentSong.mood" [labelClass]="'label label-primary'" [emptyMessage]="'Click to add mood'"></tag>
             </div>
         </div>
@@ -42,7 +42,7 @@
                         </span>
                     </td> -->
                     <td>
-                        <span class="label label-primary" style="font-size:large">
+                        <span class="label label-primary" style="font-size:small">
                         {{song.mood}}            
                         </span>
                     </td>

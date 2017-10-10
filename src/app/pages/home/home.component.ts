@@ -35,6 +35,7 @@ export class HomeComponent {
     private searchSlider: any;
     private searchStatus = '';
     private showNow = true;
+    private showIntervel:any;
 
     constructor(private api: APIService, private appState: AppStateService, private router: Router) {
         let controller = this;
@@ -45,6 +46,10 @@ export class HomeComponent {
         jQuery('.dropdown-menu').click(function (e) {
             e.stopPropagation();
         });
+        if(this.appState.currentSong && this.appState.currentSong.isPlaying){
+            this.showNow = true;
+            jQuery("#showingNow").fadeIn("fast").delay(4000).fadeOut("fast")            
+        }
         setInterval(function () {
             controller.showNow = !controller.showNow
         }, 5000)
@@ -235,6 +240,7 @@ export class HomeComponent {
     onSearchSubmit(event) {
         try {
             let controller = this;
+            jQuery('.search')[0].scrollIntoView()
             if (!this.searched) {
                 jQuery('.search').slideDown('fast')
                 this.searched = true
@@ -265,15 +271,15 @@ export class HomeComponent {
                                         zIndex: 90000,
                                         side: ['top'],
                                     })
-                                }
-                            }, 100)
+                                }                                
+                            }, 100)                            
                         }
                         else {
                             controller.searchSlider.destroy();
                             controller.searchSlider = null;
                             jQuery('.result-zone').slideDown('fast')
                             controller.buildSearchSlider()
-                        }
+                        }                        
                     },
                     e => {
                         controller.searchStatus = "Oops! Some errors happened"

@@ -21,7 +21,7 @@ export const environment = {
   youLikeUrl: "mock/p1.json",
   recentlyUrl: "mock/p2.json",
   recommendNextUrl: "mock/p2.json",
-  search1Url: "mock/p2.json",
+  search1Url: "mock/search.json",
   search2Url: "mock/p1.json",
 
   getUrl: function (apiName: string) {
