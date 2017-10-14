@@ -234,10 +234,10 @@ export class AppStateService {
         controller.currentSongScore++
         controller.sendFeedback().subscribe(
           r => {
-            alert(controller.currentSong.name + " - score" + controller.currentSongScore)
+            alert(controller.currentSong.name + " - score : " + controller.currentSongScore)
           },
           e => {
-            alert(controller.currentSong.name + " - score" + controller.currentSongScore)
+            alert(controller.currentSong.name + " - score : " + controller.currentSongScore)
           }
         )
       }, controller.feedBackTime)
