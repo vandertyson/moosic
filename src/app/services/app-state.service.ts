@@ -230,24 +230,26 @@ export class AppStateService {
       controller.currentSongScore = 0
     }
     // setTimeout(function () {
-      controller.feedBackInterval = setInterval(function () {
-        controller.currentSongScore++
-        controller.sendFeedback().subscribe(
-          r => {
-            alert(controller.currentSong.name + " - score : " + controller.currentSongScore)
-          },
-          e => {
-            alert(controller.currentSong.name + " - score : " + controller.currentSongScore)
-          }
-        )
-      }, controller.feedBackTime)
+    controller.feedBackInterval = setInterval(function () {
+      controller.currentSongScore++
+      controller.sendFeedback().subscribe(
+        r => {
+          console.log(controller.currentSong.name + " - score : " + controller.currentSongScore)
+        },
+        e => {
+          console.log(controller.currentSong.name + " - score : " + controller.currentSongScore)
+        }
+      )
+    }, controller.feedBackTime)
     // }, controller.feedBackTime)
   }
 
   sendFeedback() {
+    var t = new Date()
     var body = {
       user_id: localStorage.getItem("user_id"),
-      track_id: this.currentSong.track_id
+      track_id: this.currentSong.track_id,
+      time: t.getTime()
     }
     return this.api.post(environment.feedBackUrl, JSON.stringify(body)).map(res => res)
   }
