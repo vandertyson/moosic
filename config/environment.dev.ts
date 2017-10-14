@@ -23,6 +23,7 @@ export const environment = {
   recommendNextUrl: "mock/p2.json",
   search1Url: "mock/search.json",
   search2Url: "mock/p1.json",
+  feedBackUrl:"",
 
   getUrl: function (apiName: string) {
     return this.endPoint + this.apiUrls[apiName];

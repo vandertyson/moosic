@@ -75,6 +75,11 @@ export class AppStateService {
   private ellapsed = 0
   public songChange = new EventEmitter();
 
+  //capturing userFeedback  
+  public feedBackInterval: any;
+  public feedBackTime = 30000;
+  public currentSongScore = 0;
+
   public updatePlaylist(list, index, name, play?) {
     let controller = this;
     this.stopCurrentSong()
@@ -120,7 +125,8 @@ export class AppStateService {
       var index = playlist.indexOf(e);
       e.howl = new Howl({
         // src: [e.source],
-        src: ["http://data.chiasenhac.com/downloads/1833/2/1832466-b70add48/320/How%20Long%20-%20Charlie%20Puth.mp3"],
+        // src: ["http://data.chiasenhac.com/downloads/1833/2/1832466-b70add48/320/How%20Long%20-%20Charlie%20Puth.mp3"],
+        src: ["http://data.chiasenhac.com/downloads/1834/6/1833175-1db3b266/320/September%20Flower%20-%20Touliver_%20Rhymastic_.mp3"],
         html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
         autoPlay: false,
         onplay: function () {
@@ -131,6 +137,7 @@ export class AppStateService {
           }, 1000)
           // console.log(this.duration())
           controller.songChange.emit("true")
+          controller.startFeedback();
         },
         onload: function () {
           loaded++
@@ -214,6 +221,35 @@ export class AppStateService {
 
   setVolume(val) {
     Howler.volume(val)
+  }
+
+  startFeedback() {
+    let controller = this;
+    if (this.feedBackInterval) {
+      clearInterval(this.feedBackInterval)
+      controller.currentSongScore = 0
+    }
+    // setTimeout(function () {
+      controller.feedBackInterval = setInterval(function () {
+        controller.currentSongScore++
+        controller.sendFeedback().subscribe(
+          r => {
+            alert(controller.currentSong.name + " - score" + controller.currentSongScore)
+          },
+          e => {
+            alert(controller.currentSong.name + " - score" + controller.currentSongScore)
+          }
+        )
+      }, controller.feedBackTime)
+    // }, controller.feedBackTime)
+  }
+
+  sendFeedback() {
+    var body = {
+      user_id: localStorage.getItem("user_id"),
+      track_id: this.currentSong.track_id
+    }
+    return this.api.post(environment.feedBackUrl, JSON.stringify(body)).map(res => res)
   }
 
 }
