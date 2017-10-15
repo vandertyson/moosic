@@ -353,3 +353,12 @@ span.play-mix-btn:hover {
     z-index: 10000;
     display: none
 }
+
+
+/* .select2-results__options ul {
+    max-height: 500px;
+} */
+
+.select2-container--bootstrap .select2-results>.select2-results__options {
+    max-height: 500px !important;
+}

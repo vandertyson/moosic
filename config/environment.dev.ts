@@ -26,7 +26,7 @@ export const environment = {
   feedBackUrl: "",
   artistUrl: "mock/artist.json",
   genrUrl: "mock/genre.json",
-  tagsUrl:"mock/tags.json",
+  tagsUrl:"mock/category.json",
 
   getUrl: function (apiName: string) {
     return this.endPoint + this.apiUrls[apiName];

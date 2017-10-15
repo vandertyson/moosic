@@ -1,0 +1,80 @@
+{
+    "results": [{
+            "text": "Mood",
+            "children": [{
+                    "id": 4,
+                    "text": "Happy",
+                    "icon": "em em-smiley"
+                },
+                {
+                    "id": 5,
+                    "text": "Relaxed",
+                    "icon": "em em-relaxed"
+                },
+                {
+                    "id": 6,
+                    "text": "Sad",
+                    "icon": "em em-disappointed"
+                },
+                {
+                    "id": 7,
+                    "text": "Angry",
+                    "icon": "em em-angry"
+                }
+            ]
+        },
+        {
+            "text": "Artist",
+            "children": [{
+                    "id": 1,
+                    "text": "Charlie Puth",
+                    "image": "https://img.discogs.com/ZnS7Pm7uHEjIvloz2BCbb1qJEWY=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-4061019-1489933904-7549.jpeg.jpg"
+                },
+                {
+                    "id": 2,
+                    "text": "Taylor Swift",
+                    "image": "https://img.discogs.com/1ay1noVcT7bRRgQaGfVt1ha63ww=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-1814291-1427244987-8811.jpeg.jpg"
+                }, {
+                    "id": 3,
+                    "text": "Adam Levine",
+                    "image": "https://img.discogs.com/L9X9tk-OoO-LZ15KdhilSPArpT0=/300x300/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-353608-1482141469-5860.jpeg.jpg"
+                }
+            ]
+        },
+        {
+            "text": "Genre",
+            "children": [{
+                    "id": 8,
+                    "text": "Pop"
+                },
+                {
+                    "id": 9,
+                    "text": "Rock"
+                },
+                {
+                    "id": 10,
+                    "text": "RnB"
+                },
+                {
+                    "id": 11,
+                    "text": "Ballad"
+                },
+                {
+                    "id": 12,
+                    "text": "Folk"
+                },
+                {
+                    "id": 13,
+                    "text": "Country"
+                },
+                {
+                    "id": 14,
+                    "text": "EDM"
+                }
+            ]
+        }
+    ],
+    "paginate": {
+        "more": true
+    }
+}

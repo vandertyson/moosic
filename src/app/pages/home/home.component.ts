@@ -50,24 +50,24 @@ export class HomeComponent {
             this.showNow = true;
             jQuery("#showingNow").fadeIn("fast").delay(4000).fadeOut("fast")
         }
-        this.bootstrapSelect2emoji()
-        this.bootstrapSelect2artist()
-        this.api.get(environment.genrUrl).map(res => res)
-            .subscribe(
-            r => {
-                this.bootstrapSelect2genre(r.json())
-            },
-            e => {
-
-            })
-        // this.api.get(environment.tagsUrl).map(res => res)
+        // this.bootstrapSelect2emoji()
+        // this.bootstrapSelect2artist()
+        // this.api.get(environment.genrUrl).map(res => res)
         //     .subscribe(
         //     r => {
-        //         this.bootStrapSmartSearch(r.json())
+        //         this.bootstrapSelect2genre(r.json())
         //     },
         //     e => {
 
         //     })
+        this.api.get(environment.tagsUrl).map(res => res)
+            .subscribe(
+            r => {
+                this.bootStrapSmartSearch(r.json().results)
+            },
+            e => {
+
+            })
         jQuery("#emojiSelect").focus()
         setInterval(function () {
             controller.showNow = !controller.showNow
@@ -236,7 +236,7 @@ export class HomeComponent {
         return this.api.get(environment.endPoint + environment.recentlyUrl).map(res => res)
     }
 
-    getSearchSong() {
+    getSearchSong(params?) {
         var url = environment.endPoint + environment.search1Url
         // this.zz++
         // if (this.zz % 2 == 0) {
@@ -268,6 +268,7 @@ export class HomeComponent {
                 jQuery('.result-zone').slideUp('fast')
             }
             this.searchStatus = "Searching..."
+            console.log(jQuery('#smartSearch'))
             setTimeout(function () {
                 controller.getSearchSong().subscribe(
                     r => {
@@ -451,7 +452,7 @@ export class HomeComponent {
                     return state.text;
                 }
                 var $state = jQuery(
-                    "<span style='font-size:large'><i class='" + state.image + "'></i>&#160;&#160;<span>" + state.text + '</span></span>'
+                    "<span style='font-size:small'><i class='" + state.image + "'></i>&#160;&#160;<span>" + state.text + '</span></span>'
                 );
                 return $state;
             }
@@ -490,7 +491,7 @@ export class HomeComponent {
                     return state.text;
                 }
                 var $state = jQuery(
-                    '<span style="font-size:large"><img src="' + state.image + '" class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
+                    '<span style="font-size:small"><img src="' + state.image + '" class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
                 );
                 return $state;
             }
@@ -519,7 +520,7 @@ export class HomeComponent {
                     return state.text;
                 }
                 var $state = jQuery(
-                    '<span style="font-size:large">' + state.text + '</span>'
+                    '<span style="font-size:small">' + state.text + '</span>'
                 );
                 return $state;
             }
@@ -558,7 +559,7 @@ export class HomeComponent {
                     return state.text;
                 }
                 var $state = jQuery(
-                    '<span style="font-size:large">' + state.text + '</span>'
+                    '<span style="font-size:small">' + state.text + '</span>'
                 );
                 return $state;
             }
@@ -571,9 +572,20 @@ export class HomeComponent {
             multiple: true,
             minimumResultsForSearch: Infinity,
             theme: "bootstrap",
-            placeholder: 'What is your favourite genre?',
+            placeholder: 'How are you feeling?',
+            // ajax: {
+            //     // url: 'https://api.github.com/search/repositories',
+            //     url: environment.tagsUrl,
+            //     dataType: 'json',
+            //     processResults: function (data) {
+            //         // Tranforms the top-level key of the response object from 'items' to 'results'
+            //         return {
+            //             results: data.results
+            //         };
+            //     }
+            // },
             data: data,
-            maximumSelectionLength: 3,
+            // maximumSelectionLength: 3,
             templateSelection: function formatState(state) {
                 if (!state.id) {
                     return state.text;
@@ -605,12 +617,12 @@ export class HomeComponent {
                 );
                 if (state.image) {
                     $state = jQuery(
-                        '<span style="font-size:large"><img src="' + state.image + '" class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
+                        '<span style="font-size:small"><img src="' + state.image + '" class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
                     );
                 }
                 else if (state.icon) {
                     $state = jQuery(
-                        "<span style='font-size:large'><i class='" + state.icon + "'></i>&#160;&#160;<span>" + state.text + '</span></span>'
+                        "<span style='font-size:small'><i class='" + state.icon + "'></i>&#160;&#160;<span>" + state.text + '</span></span>'
                     );
                 }
                 else {
@@ -619,6 +631,9 @@ export class HomeComponent {
                 return $state;
             },
         })
+        jQuery("#smartSearch").on("select2:select", function (event) {
+            console.log(event)
+        });
     }
 
 
