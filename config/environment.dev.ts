@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
 
-  endPoint: "http://localhost:5375/api",
+  endPoint: "http://localhost:8000/recommended_system/",
 
   domain: "",
 
@@ -17,11 +17,11 @@ export const environment = {
   },
 
   //For Moosic
-  hotTrendUrl: 'mock/new-playlist.json',
+  hotTrendUrl: 'hot_trends',
   youLikeUrl: "mock/p1.json",
   recentlyUrl: "mock/p2.json",
   recommendNextUrl: "mock/p2.json",
-  search1Url: "mock/search.json",
+  search1Url: "tracks",
   search2Url: "mock/p1.json",
   feedBackUrl: "",
   artistUrl: "mock/artist.json",

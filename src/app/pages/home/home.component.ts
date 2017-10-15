@@ -252,8 +252,8 @@ export class HomeComponent {
         if (this.searchArtist && this.searchArtist != '') {
             param.set('artist', this.searchArtist)
         }
-        // return this.api.get(url, param).map(res => res)
-        return this.api.get(url).map(res => res)
+        return this.api.get(url, param).map(res => res)
+        // return this.api.get(url).map(res => res)
     }
 
     onSearchSubmit(event) {
@@ -567,6 +567,7 @@ export class HomeComponent {
     }
 
     bootStrapSmartSearch(data) {
+        let controller = this;
         jQuery("#smartSearch").select2({
             width: 'resolve',
             multiple: true,
@@ -632,7 +633,19 @@ export class HomeComponent {
             },
         })
         jQuery("#smartSearch").on("select2:select", function (event) {
-            console.log(event)
+            console.log(event.params)
+            if (event.params.data) {
+                if (event.params.data.icon) {
+                    controller.searchMood = event.params.data.text
+                }
+                else if (event.params.data.image) {
+                    controller.searchArtist = event.params.data.text
+                }
+                else {
+                    controller.searchWord = event.params.data.text
+                }
+            }
+
         });
     }
 

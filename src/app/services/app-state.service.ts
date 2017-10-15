@@ -130,6 +130,7 @@ export class AppStateService {
         // src: ["http://data3.chiasenhac.com/downloads/1781/0/1780309-313f4529/320/Lac%20Troi%20-%20Son%20Tung%20M-TP.mp3"],
         html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
         autoPlay: false,
+        formet:["mp3"],
         onplay: function () {
           controller.songEllapsed = setInterval(function () {
             controller.ellapsed++
