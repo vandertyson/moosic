@@ -38,8 +38,10 @@ export class DetailComponent implements AfterViewInit {
             }
             this.appState.songChange.subscribe(
                 zz => {
-                    controller.recommendedSongs = []
-                    this.fillRecomendation()
+                    // if (zz) {
+                        controller.recommendedSongs = []
+                        this.fillRecomendation()
+                    // }
                 }
             )
         }
@@ -58,7 +60,11 @@ export class DetailComponent implements AfterViewInit {
     }
 
     onPlayRecommendedClick(event, index) {
-        this.appState.updatePlaylist(this.recommendedSongs, index, "Recommended For You", true)
+        let controller = this;
+        this.appState.isPausing = false;
+        this.appState.updatePlaylist(this.recommendedSongs, index, "Recommended For You", true, function(){
+            controller.appState.songChange.emit(true)   
+        })
     }
 
     getBestLabel(song) {

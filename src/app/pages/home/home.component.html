@@ -1,13 +1,12 @@
 <div class="col-md-12" style="margin:0">
-    <div class="row" style="padding:10px">
-        <div class="col-md-12" style="zoom:100%">
+    <div class="row" style="padding:10px; font-size:large">
+        <!-- <div class="col-md-12" style="zoom:100%">
             <form id="searchForm" (submit)="onSearchSubmit($event)" class="form-horizontal" role="form">
                 <div class="input-group" id="adv-search">
                     <input type="text" class="form-control" placeholder="How do you feel" />
                     <div class="input-group-btn">
                         <div class="btn-group" role="group">
                             <div class="dropdown dropdown-lg">
-                                <!-- <form id="searchForm" (submit)="onSearchSubmit($event)" class="form-horizontal" role="form"> -->
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                                 <div class="dropdown-menu dropdown-menu-right" role="menu">
                                     <div class="form-group">
@@ -28,7 +27,6 @@
                                         <label for="contain">Artist</label>
                                         <input class="form-control" name="artist" [(ngModel)]="searchArtist" type="text" />
                                     </div>
-                                    <!-- <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button> -->
                                 </div>
                             </div>
                             <button type="submit" form="searchForm" class="btn btn-default"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
@@ -36,6 +34,37 @@
                     </div>
                 </div>
             </form>
+        </div> -->
+        <!-- <div class="col-md-12">
+            <div class="col-md-10">
+                <div class="col-md-4">
+                    <select id="emojiSelect" class="js-example-basic-multiple js-states form-control" style="width:100%">
+                      </select>
+                </div>
+                <div class="col-md-4">
+                    <select id="emojiArtist" class="js-example-basic-multiple js-states form-control" style="width:100%">                   
+                    </select>                    
+                </div>
+                <div class="col-md-4">
+                    <select id="emojiGenre" class="js-example-basic-multiple js-states form-control" style="width:100%">                   
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-block bg-maroon" style="font-size:large">Find a playlist</button>
+            </div>
+        </div> -->
+        <!-- <div class="col-md-10 col-md-offset-1" style="display:flex">
+            <select id="emojiSelect" class="js-example-basic-multiple js-states form-control" style="width:25%">
+            </select>
+            <select id="fastSearch" class="js-example-basic-multiple js-states form-control" style="width:65%">                   
+            </select>
+            <button class="btn bg-maroon" style="border-radius:5px">Find a playlist</button>
+        </div> -->
+        <div class="col-md-8 col-md-offset-2" style="display:flex">
+            <select id="smartSearch" class="js-example-basic-multiple js-states form-control" style="width:65%">                   
+                </select>
+            <button class="btn bg-maroon" style="border-radius:5px">Find a playlist</button>
         </div>
     </div>
     <!-- <div style="max-height:80vh; overflow-y:auto; margin-top:5px; padding-bottom:50px"> -->

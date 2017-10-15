@@ -1,0 +1,29 @@
+[{
+        "id": 1,
+        "text": "Pop"
+    },
+    {
+        "id": 2,
+        "text": "Rock"
+    },
+    {
+        "id": 3,
+        "text": "RnB"
+    },
+    {
+        "id": 4,
+        "text": "Ballad"
+    },
+    {
+        "id": 5,
+        "text": "Folk"
+    },
+    {
+        "id": 6,
+        "text": "Country"
+    },
+    {
+        "id": 7,
+        "text": "EDM"
+    }
+]

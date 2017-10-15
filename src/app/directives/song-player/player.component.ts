@@ -164,6 +164,7 @@ export class SongPlayer {
             this.appState.currentSong = this.appState.playlist[this.appState.currentIndex]
             jQuery("#audio-progress-bar").css("width", "0")
             this.appState.playCurrentsong()
+            this.appState.songChange.emit(true)
         }
     }
 

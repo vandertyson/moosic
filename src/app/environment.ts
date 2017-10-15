@@ -16,7 +16,10 @@ export const environment = {
   recommendNextUrl: "",
   search1Url: "",
   search2Url: "",
-  feedBackUrl:"",
+  feedBackUrl: "",
+  artistUrl: "",
+  genrUrl: "",
+  tagsUrl: "",
 
   getUrl: function (apiName: string) {
     return this.endPoint + this.apiUrls[apiName]

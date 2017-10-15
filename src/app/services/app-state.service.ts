@@ -74,13 +74,14 @@ export class AppStateService {
   public setProgressBar = new EventEmitter()
   private ellapsed = 0
   public songChange = new EventEmitter();
+  public isPausing = false;
 
   //capturing userFeedback  
   public feedBackInterval: any;
   public feedBackTime = 30000;
   public currentSongScore = 0;
 
-  public updatePlaylist(list, index, name, play?) {
+  public updatePlaylist(list, index, name, play?, callback?) {
     let controller = this;
     this.stopCurrentSong()
     this.playlist = list;
@@ -89,6 +90,7 @@ export class AppStateService {
     controller.currentSong = controller.playlist[controller.currentIndex]
     this.constructHowl(this.playlist, function () {
       controller.playCurrentsong();
+      if(callback) callback();
     });
   }
 
@@ -124,9 +126,8 @@ export class AppStateService {
     playlist.forEach(e => {
       var index = playlist.indexOf(e);
       e.howl = new Howl({
-        // src: [e.source],
-        // src: ["http://data.chiasenhac.com/downloads/1833/2/1832466-b70add48/320/How%20Long%20-%20Charlie%20Puth.mp3"],
-        src: ["http://data.chiasenhac.com/downloads/1834/6/1833175-1db3b266/320/September%20Flower%20-%20Touliver_%20Rhymastic_.mp3"],
+        // src: [e.source],        
+        src: ["http://data3.chiasenhac.com/downloads/1781/0/1780309-313f4529/320/Lac%20Troi%20-%20Son%20Tung%20M-TP.mp3"],
         html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
         autoPlay: false,
         onplay: function () {
@@ -135,8 +136,8 @@ export class AppStateService {
             var per = controller.ellapsed / e.howl.duration()
             controller.setProgressBar.emit(per)
           }, 1000)
-          // console.log(this.duration())
-          controller.songChange.emit("true")
+          // console.log(this.duration())          
+          // controller.songChange.emit(controller.isPausing)
           controller.startFeedback();
         },
         onload: function () {
@@ -155,6 +156,7 @@ export class AppStateService {
           controller.next(null)
         },
         onpause: function () {
+          controller.isPausing = true
           clearInterval(controller.songEllapsed)
         },
         onstop: function () {
@@ -191,7 +193,10 @@ export class AppStateService {
     Howler.mute(false)
   }
 
-  next(event) {
+  next(event) {    
+    let controller = this;
+    controller.songChange.emit(controller.isPausing)
+    this.isPausing = false;
     var play = this.currentSong.isPlaying ? true : false
     this.stopCurrentSong()
     this.currentIndex++
@@ -199,6 +204,7 @@ export class AppStateService {
       this.currentIndex = 0
     }
     this.currentSong = this.playlist[this.currentIndex]
+    clearInterval(controller.songEllapsed)
     this.setProgressBar.emit(0)
     if (play) {
       this.playCurrentsong()
@@ -206,6 +212,9 @@ export class AppStateService {
   }
 
   prev(event) {
+    let controller = this;
+    controller.songChange.emit(controller.isPausing)
+    this.isPausing = false;
     var play = this.currentSong.isPlaying ? true : false
     this.stopCurrentSong()
     this.currentIndex--
@@ -214,6 +223,8 @@ export class AppStateService {
     }
     this.currentSong = this.playlist[this.currentIndex]
     // jQuery("#audio-progress-bar").css("width", "0")
+    clearInterval(controller.songEllapsed)
+    this.setProgressBar.emit(0)
     if (play) {
       this.playCurrentsong()
     }

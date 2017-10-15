@@ -27,6 +27,8 @@ module.exports = function(defaults) {
         'CircularContentCarousel/**/*.+(js|css|png)',
         'slick-carousel/slick/**/*.+(js|css|woff|gif|ttf|svg|eot)',
         'lightslider/dist/**/*.+(js|css|png)',
+        'select2/dist/**/*.+(min.js|min.css)',
+        'select2-bootstrap-theme/dist/**/*.+(min.css)',
     ];
 
     var appTree = new Angular2App(defaults, {
@@ -66,6 +68,8 @@ module.exports = function(defaults) {
             'CircularContentCarousel/**/*.+(js|css|png)',
             'slick-carousel/slick/**/*.+(js|css|woff|gif|ttf|svg|eot)',
             'lightslider/dist/**/*.+(js|css|png)',
+            'select2/dist/**/*.+(min.js|min.css)',
+            'select2-bootstrap-theme/dist/**/*.+(min.css)',
         ].concat(lazyVendorFiles.slice())
     });
 

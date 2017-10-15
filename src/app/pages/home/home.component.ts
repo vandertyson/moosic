@@ -35,7 +35,7 @@ export class HomeComponent {
     private searchSlider: any;
     private searchStatus = '';
     private showNow = true;
-    private showIntervel:any;
+    private showIntervel: any;
 
     constructor(private api: APIService, private appState: AppStateService, private router: Router) {
         let controller = this;
@@ -46,10 +46,29 @@ export class HomeComponent {
         jQuery('.dropdown-menu').click(function (e) {
             e.stopPropagation();
         });
-        if(this.appState.currentSong && this.appState.currentSong.isPlaying){
+        if (this.appState.currentSong && this.appState.currentSong.isPlaying) {
             this.showNow = true;
-            jQuery("#showingNow").fadeIn("fast").delay(4000).fadeOut("fast")            
+            jQuery("#showingNow").fadeIn("fast").delay(4000).fadeOut("fast")
         }
+        // this.bootstrapSelect2emoji()
+        // this.bootstrapSelect2artist()
+        // this.api.get(environment.genrUrl).map(res => res)
+        //     .subscribe(
+        //     r => {
+        //         this.bootstrapSelect2genre(r.json())
+        //     },
+        //     e => {
+
+        //     })
+        // this.api.get(environment.tagsUrl).map(res => res)
+        //     .subscribe(
+        //     r => {
+        //         this.bootStrapSmartSearch(r.json())
+        //     },
+        //     e => {
+
+        //     })
+        // jQuery("#emojiSelect").focus()
         setInterval(function () {
             controller.showNow = !controller.showNow
         }, 5000)
@@ -271,15 +290,15 @@ export class HomeComponent {
                                         zIndex: 90000,
                                         side: ['top'],
                                     })
-                                }                                
-                            }, 100)                            
+                                }
+                            }, 100)
                         }
                         else {
                             controller.searchSlider.destroy();
                             controller.searchSlider = null;
                             jQuery('.result-zone').slideDown('fast')
                             controller.buildSearchSlider()
-                        }                        
+                        }
                     },
                     e => {
                         controller.searchStatus = "Oops! Some errors happened"
@@ -292,6 +311,7 @@ export class HomeComponent {
     }
 
     onPlay(listIndex, songIndex) {
+        let controller = this;
         try {
             var data = {
                 playlist: [],
@@ -319,7 +339,9 @@ export class HomeComponent {
                 default:
                     break;
             }
-            this.appState.updatePlaylist(data.playlist, data.startAt, data.playListName, true)
+            this.appState.updatePlaylist(data.playlist, data.startAt, data.playListName, true, function(){
+                controller.appState.songChange.emit(true)
+            })
             this.router.navigate(["/listen"])
             // this.appState.updatePlaylist() = data[songIndex]
             // this.appState.playlistChange.emit(data)
@@ -381,8 +403,224 @@ export class HomeComponent {
         this.router.navigate(["/listen"])
     }
 
-    getNextSong() {        
+    getNextSong() {
         return this.appState.playlist[this.appState.currentIndex + 1]
     }
+
+
+    bootstrapSelect2emoji() {
+        jQuery("#emojiSelect").select2({
+            width: 'resolve',
+            multiple: true,
+            minimumResultsForSearch: Infinity,
+            theme: "bootstrap",
+            placeholder: 'How are you feeling?',
+            data: [
+                {
+                    id: 0,
+                    text: "Happy",
+                    image: "em em-smiley"
+                },
+                {
+                    id: 1,
+                    text: "Relaxed",
+                    image: "em em-relaxed"
+                },
+                {
+                    id: 2,
+                    text: "Sad",
+                    image: "em em-disappointed"
+                },
+                {
+                    id: 3,
+                    text: "Angry",
+                    image: "em em-angry"
+                }
+            ],
+            templateSelection: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    "<i class='" + state.image + "'></i>&#160;&#160;<span>" + state.text + '</span>'
+                );
+                return $state;
+            },
+            templateResult: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    "<span style='font-size:large'><i class='" + state.image + "'></i>&#160;&#160;<span>" + state.text + '</span></span>'
+                );
+                return $state;
+            }
+        })
+    }
+
+    bootstrapSelect2artist() {
+        jQuery("#emojiArtist").select2({
+            width: 'resolve',
+            multiple: true,
+            minimumResultsForSearch: Infinity,
+            theme: "bootstrap",
+            placeholder: 'Who is your favourite artist?',
+            ajax: {
+                // url: 'https://api.github.com/search/repositories',
+                url: environment.artistUrl,
+                dataType: 'json',
+                processResults: function (data) {
+                    // Tranforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: data
+                    };
+                }
+            },
+            templateSelection: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span><img src="' + state.image + '" class="img-flag" style="width:20px"/> ' + state.text + '</span>'
+                );
+                return $state;
+            },
+            templateResult: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span style="font-size:large"><img src="' + state.image + '" class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
+                );
+                return $state;
+            }
+        })
+    }
+
+    bootstrapSelect2genre(data) {
+        jQuery("#emojiGenre").select2({
+            width: 'resolve',
+            multiple: true,
+            minimumResultsForSearch: Infinity,
+            theme: "bootstrap",
+            placeholder: 'What is your favourite genre?',
+            data: data,
+            templateSelection: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span>' + state.text + '</span>'
+                );
+                return $state;
+            },
+            templateResult: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span style="font-size:large">' + state.text + '</span>'
+                );
+                return $state;
+            }
+        })
+    }
+
+    bootStrapFastSearch() {
+        jQuery("#fastSearch").select2({
+            width: 'resolve',
+            multiple: true,
+            minimumResultsForSearch: Infinity,
+            theme: "bootstrap",
+            placeholder: 'What is your favourite genre?',
+            ajax: {
+                // url: 'https://api.github.com/search/repositories',
+                url: environment.artistUrl,
+                dataType: 'json',
+                processResults: function (data) {
+                    // Tranforms the top-level key of the response object from 'items' to 'results'
+                    return {
+                        results: data
+                    };
+                }
+            },
+            templateSelection: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span>' + state.text + '</span>'
+                );
+                return $state;
+            },
+            templateResult: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span style="font-size:large">' + state.text + '</span>'
+                );
+                return $state;
+            }
+        })
+    }
+
+    bootStrapSmartSearch(data) {
+        jQuery("#smartSearch").select2({
+            width: 'resolve',
+            multiple: true,
+            minimumResultsForSearch: Infinity,
+            theme: "bootstrap",
+            placeholder: 'What is your favourite genre?',
+            data: data,
+            maximumSelectionLength: 3,
+            templateSelection: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span>' + state.text + '</span>'
+                );
+                if (state.image) {
+                    $state = jQuery(
+                        '<span><img src="' + state.image + '" class="img-flag"  style="width:20px" /> ' + state.text + '</span>'
+                    );
+                }
+                else if (state.icon) {
+                    $state = jQuery(
+                        "<i class='" + state.icon + "'></i>&#160;&#160;<span>" + state.text + '</span>'
+                    );
+                }
+                else {
+
+                }
+                return $state;
+            },
+            templateResult: function formatState(state) {
+                if (!state.id) {
+                    return state.text;
+                }
+                var $state = jQuery(
+                    '<span>' + state.text + '</span>'
+                );
+                if (state.image) {
+                    $state = jQuery(
+                        '<span style="font-size:large"><img src="' + state.image + '" class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
+                    );
+                }
+                else if (state.icon) {
+                    $state = jQuery(
+                        "<span style='font-size:large'><i class='" + state.icon + "'></i>&#160;&#160;<span>" + state.text + '</span></span>'
+                    );
+                }
+                else {
+
+                }
+                return $state;
+            },
+        })
+    }
+
+
 
 }
