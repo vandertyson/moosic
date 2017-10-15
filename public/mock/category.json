@@ -2,22 +2,22 @@
     "results": [{
             "text": "Mood",
             "children": [{
-                    "id": 4,
+                    "id": 94,
                     "text": "Happy",
                     "icon": "em em-smiley"
                 },
                 {
-                    "id": 5,
-                    "text": "Relaxed",
+                    "id": 95,
+                    "text": "Relax",
                     "icon": "em em-relaxed"
                 },
                 {
-                    "id": 6,
+                    "id": 96,
                     "text": "Sad",
                     "icon": "em em-disappointed"
                 },
                 {
-                    "id": 7,
+                    "id": 97,
                     "text": "Angry",
                     "icon": "em em-angry"
                 }
@@ -25,50 +25,38 @@
         },
         {
             "text": "Artist",
-            "children": [{
-                    "id": 1,
-                    "text": "Charlie Puth",
-                    "image": "https://img.discogs.com/ZnS7Pm7uHEjIvloz2BCbb1qJEWY=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-4061019-1489933904-7549.jpeg.jpg"
-                },
-                {
-                    "id": 2,
-                    "text": "Taylor Swift",
-                    "image": "https://img.discogs.com/1ay1noVcT7bRRgQaGfVt1ha63ww=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-1814291-1427244987-8811.jpeg.jpg"
-                }, {
-                    "id": 3,
-                    "text": "Adam Levine",
-                    "image": "https://img.discogs.com/L9X9tk-OoO-LZ15KdhilSPArpT0=/300x300/smart/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/A-353608-1482141469-5860.jpeg.jpg"
-                }
+            "children": [
+                { "id": 1, "text": "James Blunt", "image": "a" }, { "id": 2, "text": "Damien Rice", "image": "a" }, { "id": 3, "text": "Pham Hong Phuoc", "image": "a" }, { "id": 4, "text": "Lê Cát Trọng Lý", "image": "a" }, { "id": 7, "text": "Miu Le", "image": "a" }, { "id": 8, "text": "JustaTee; BigDaddy", "image": "a" }, { "id": 9, "text": "A Fine Frenzy", "image": "a" }, { "id": 10, "text": "Stevie Hoang", "image": "a" }, { "id": 11, "text": "Alessia Cara", "image": "a" }, { "id": 12, "text": "John Legend", "image": "a" }, { "id": 13, "text": "Yanbi; Mr.T; Hang BingBoong", "image": "a" }, { "id": 14, "text": "The Men", "image": "a" }, { "id": 15, "text": "Yoari", "image": "a" }, { "id": 16, "text": "Yao Si Ting", "image": "a" }, { "id": 17, "text": "An Coong", "image": "a" }, { "id": 18, "text": "Emilia", "image": "a" }, { "id": 19, "text": "Blackbear", "image": "a" }, { "id": 20, "text": "Ho Quang Hieu", "image": "a" }, { "id": 21, "text": "BigDaddy; Soobin; VinC", "image": "a" }, { "id": 22, "text": "Phạm Hồng Phước; Suni Hạ Linh", "image": "a" }, { "id": 23, "text": "M-TP", "image": "a" }, { "id": 24, "text": "Vu Duy Khanh", "image": "a" }, { "id": 25, "text": "Samantha Harvey", "image": "a" }, { "id": 26, "text": "Khac Viet", "image": "a" }, { "id": 27, "text": "Nguyễn Hoàng Dũng; Hoàng Rob", "image": "a" }, { "id": 28, "text": "Thùy Chi; Wanbi Tuấn Anh", "image": "a" }, { "id": 29, "text": "Trung Quan", "image": "a" }, { "id": 30, "text": "Unknown artist", "image": "a" }, { "id": 31, "text": "Trung Quân", "image": "a" }, { "id": 32, "text": "Mỹ Tâm", "image": "a" }, { "id": 33, "text": "Colby O'Donis", "image": "a" }, { "id": 34, "text": "Lam Trường", "image": "a" }, { "id": 35, "text": "Christina Grimmie", "image": "a" }, { "id": 36, "text": "Calum Scott", "image": "a" }, { "id": 37, "text": "Kim Jang Woo", "image": "a" }, { "id": 39, "text": "Wanbi Tuấn Anh", "image": "a" }, { "id": 40, "text": "Hồ Quang Hiếu", "image": "a" }, { "id": 41, "text": "Quái Vật Tí Hon", "image": "a" }, { "id": 42, "text": "Nguyen Dinh Vu", "image": "a" }, { "id": 43, "text": "Huong Tram", "image": "a" }, { "id": 46, "text": "Coldplay", "image": "a" }, { "id": 47, "text": "Stratovarius", "image": "a" }, { "id": 48, "text": "Giraffe Squad", "image": "a" }, { "id": 49, "text": "Thuy Chi", "image": "a" }, { "id": 50, "text": "gnash", "image": "a" }, { "id": 51, "text": "Phan Manh Quynh", "image": "a" }, { "id": 53, "text": "Tove Lo", "image": "a" }, { "id": 54, "text": "Chau Kiet Luan", "image": "a" }, { "id": 55, "text": "Bùi Anh Tuấn", "image": "a" }, { "id": 56, "text": "Lynk Lee", "image": "a" }, { "id": 57, "text": "Le Bao Binh", "image": "a" }, { "id": 58, "text": "Jason Mraz", "image": "a" }, { "id": 59, "text": "Lil' Knight, JustaTee, Emily", "image": "a" }, { "id": 60, "text": "Soyu", "image": "a" }, { "id": 61, "text": "Kehlani x Charlie Puth", "image": "a" }, { "id": 65, "text": "Trieu Vy", "image": "a" }, { "id": 66, "text": "Minh Vương; Hồ Quang Hiếu", "image": "a" }
             ]
         },
         {
             "text": "Genre",
             "children": [{
-                    "id": 8,
+                    "id": 98,
                     "text": "Pop"
                 },
                 {
-                    "id": 9,
+                    "id": 99,
                     "text": "Rock"
                 },
                 {
-                    "id": 10,
+                    "id": 100,
                     "text": "RnB"
                 },
                 {
-                    "id": 11,
+                    "id": 101,
                     "text": "Ballad"
                 },
                 {
-                    "id": 12,
+                    "id": 102,
                     "text": "Folk"
                 },
                 {
-                    "id": 13,
+                    "id": 103,
                     "text": "Country"
                 },
                 {
-                    "id": 14,
+                    "id": 104,
                     "text": "EDM"
                 }
             ]

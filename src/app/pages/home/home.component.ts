@@ -27,7 +27,7 @@ export class HomeComponent {
     private searchResult = [];
 
     private searchWord = '';
-    private searchMood = 'all';
+    private searchMood = '';
     private searchArtist = '';
 
     private zz = 0;
@@ -244,13 +244,13 @@ export class HomeComponent {
         // }
         var param = new URLSearchParams();
         // if (this.searchMood && this.searchMood != '') {
-            param.set('mood', this.searchMood)
+        param.set('mood', this.searchMood)
         // }
         // if (this.searchWord && this.searchWord != '') {
-            param.set('keyword', this.searchWord)
+        param.set('keyword', this.searchWord)
         // }
         // if (this.searchArtist && this.searchArtist != '') {
-            param.set('artist', this.searchArtist)
+        param.set('artist', this.searchArtist)
         // }
         return this.api.get(url, param).map(res => res)
         // return this.api.get(url).map(res => res)
@@ -587,16 +587,17 @@ export class HomeComponent {
             // },
             data: data,
             // maximumSelectionLength: 3,
-            templateSelection: function formatState(state) {
+            templateSelection: function formatState(state) {                
                 if (!state.id) {
                     return state.text;
                 }
                 var $state = jQuery(
                     '<span>' + state.text + '</span>'
                 );
-                if (state.image) {
+                if (state.image) {                    
+                    var img = state.image != "a" ? state.image : "/assets/img/avatar_blank.jpg"                    
                     $state = jQuery(
-                        '<span><img src="' + state.image + '" class="img-flag"  style="width:20px" /> ' + state.text + '</span>'
+                        '<span><img src=' + img + ' class="img-flag"  style="width:20px" /> ' + state.text + '</span>'
                     );
                 }
                 else if (state.icon) {
@@ -609,16 +610,17 @@ export class HomeComponent {
                 }
                 return $state;
             },
-            templateResult: function formatState(state) {
+            templateResult: function formatState(state) {                
                 if (!state.id) {
                     return state.text;
                 }
                 var $state = jQuery(
                     '<span>' + state.text + '</span>'
                 );
-                if (state.image) {
+                if (state.image) {                    
+                    var img = state.image != "a" ? state.image : "/assets/img/avatar_blank.jpg"                    
                     $state = jQuery(
-                        '<span style="font-size:small"><img src="' + state.image + '" class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
+                        '<span><img src=' + img + ' class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
                     );
                 }
                 else if (state.icon) {
@@ -632,8 +634,7 @@ export class HomeComponent {
                 return $state;
             },
         })
-        jQuery("#smartSearch").on("select2:select", function (event) {
-            console.log(event.params)
+        jQuery("#smartSearch").on("select2:select", function (event) {            
             if (event.params.data) {
                 if (event.params.data.icon) {
                     controller.searchMood = event.params.data.text
