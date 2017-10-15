@@ -243,15 +243,15 @@ export class HomeComponent {
         //     url = environment.search2Url
         // }
         var param = new URLSearchParams();
-        if (this.searchMood && this.searchMood != '') {
+        // if (this.searchMood && this.searchMood != '') {
             param.set('mood', this.searchMood)
-        }
-        if (this.searchWord && this.searchWord != '') {
+        // }
+        // if (this.searchWord && this.searchWord != '') {
             param.set('keyword', this.searchWord)
-        }
-        if (this.searchArtist && this.searchArtist != '') {
+        // }
+        // if (this.searchArtist && this.searchArtist != '') {
             param.set('artist', this.searchArtist)
-        }
+        // }
         return this.api.get(url, param).map(res => res)
         // return this.api.get(url).map(res => res)
     }

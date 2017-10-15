@@ -17,7 +17,7 @@ export const environment = {
   },
 
   //For Moosic
-  hotTrendUrl: 'hot_trends',
+  hotTrendUrl: 'hot-trends',
   youLikeUrl: "mock/p1.json",
   recentlyUrl: "mock/p2.json",
   recommendNextUrl: "mock/p2.json",
