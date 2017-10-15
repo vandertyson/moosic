@@ -90,7 +90,7 @@ export class AppStateService {
     controller.currentSong = controller.playlist[controller.currentIndex]
     this.constructHowl(this.playlist, function () {
       controller.playCurrentsong();
-      if(callback) callback();
+      if (callback) callback();
     });
   }
 
@@ -126,8 +126,8 @@ export class AppStateService {
     playlist.forEach(e => {
       var index = playlist.indexOf(e);
       e.howl = new Howl({
-        // src: [e.source],        
-        src: ["http://data3.chiasenhac.com/downloads/1781/0/1780309-313f4529/320/Lac%20Troi%20-%20Son%20Tung%20M-TP.mp3"],
+        src: [e.source],
+        // src: ["http://data3.chiasenhac.com/downloads/1781/0/1780309-313f4529/320/Lac%20Troi%20-%20Son%20Tung%20M-TP.mp3"],
         html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
         autoPlay: false,
         onplay: function () {
@@ -193,7 +193,7 @@ export class AppStateService {
     Howler.mute(false)
   }
 
-  next(event) {    
+  next(event) {
     let controller = this;
     controller.songChange.emit(controller.isPausing)
     this.isPausing = false;
@@ -262,7 +262,7 @@ export class AppStateService {
       track_id: this.currentSong.track_id,
       time: t.getTime()
     }
-    return this.api.post(environment.feedBackUrl, JSON.stringify(body)).map(res => res)
+    return this.api.post(environment.endPoint + environment.feedBackUrl, JSON.stringify(body)).map(res => res)
   }
 
 }

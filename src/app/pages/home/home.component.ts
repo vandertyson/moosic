@@ -50,16 +50,16 @@ export class HomeComponent {
             this.showNow = true;
             jQuery("#showingNow").fadeIn("fast").delay(4000).fadeOut("fast")
         }
-        // this.bootstrapSelect2emoji()
-        // this.bootstrapSelect2artist()
-        // this.api.get(environment.genrUrl).map(res => res)
-        //     .subscribe(
-        //     r => {
-        //         this.bootstrapSelect2genre(r.json())
-        //     },
-        //     e => {
+        this.bootstrapSelect2emoji()
+        this.bootstrapSelect2artist()
+        this.api.get(environment.genrUrl).map(res => res)
+            .subscribe(
+            r => {
+                this.bootstrapSelect2genre(r.json())
+            },
+            e => {
 
-        //     })
+            })
         // this.api.get(environment.tagsUrl).map(res => res)
         //     .subscribe(
         //     r => {
@@ -68,7 +68,7 @@ export class HomeComponent {
         //     e => {
 
         //     })
-        // jQuery("#emojiSelect").focus()
+        jQuery("#emojiSelect").focus()
         setInterval(function () {
             controller.showNow = !controller.showNow
         }, 5000)
@@ -225,23 +225,23 @@ export class HomeComponent {
     }
 
     getHotTrend() {
-        return this.api.get(environment.hotTrendUrl).map(res => res)
+        return this.api.get(environment.endPoint + environment.hotTrendUrl).map(res => res)
     }
 
     getYouLike() {
-        return this.api.get(environment.youLikeUrl).map(res => res)
+        return this.api.get(environment.endPoint + environment.youLikeUrl).map(res => res)
     }
 
     getRecent() {
-        return this.api.get(environment.recentlyUrl).map(res => res)
+        return this.api.get(environment.endPoint + environment.recentlyUrl).map(res => res)
     }
 
     getSearchSong() {
-        var url = environment.search1Url
-        this.zz++
-        if (this.zz % 2 == 0) {
-            url = environment.search2Url
-        }
+        var url = environment.endPoint + environment.search1Url
+        // this.zz++
+        // if (this.zz % 2 == 0) {
+        //     url = environment.search2Url
+        // }
         var param = new URLSearchParams();
         if (this.searchMood && this.searchMood != '') {
             param.set('mood', this.searchMood)
@@ -339,7 +339,7 @@ export class HomeComponent {
                 default:
                     break;
             }
-            this.appState.updatePlaylist(data.playlist, data.startAt, data.playListName, true, function(){
+            this.appState.updatePlaylist(data.playlist, data.startAt, data.playListName, true, function () {
                 controller.appState.songChange.emit(true)
             })
             this.router.navigate(["/listen"])
