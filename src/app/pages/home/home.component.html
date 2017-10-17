@@ -92,23 +92,6 @@
                 </div>
             </div>
         </div>
-        <h2>Maybe You Like</h2>
-        <div class="you-like">
-            <div *ngFor="let song of youLike; let i=index" style="padding:5px">
-                <div class="card">
-                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
-                    <div class="container">
-                        <a [id]="'like'+i" class="truncate cursor" (click)="onPlay(0,i)"><b>{{song.name}}</b></a>
-                        <div class="tooltip_templates" style="display:none;">
-                            <div [id]="'likeShow'+i">
-                                {{song.name}}
-                            </div>
-                        </div>
-                        <p>{{song.artist}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
         <h2>Trending Now</h2>
         <div class="hot-trend">
             <div *ngFor="let song of hotTrend; let i=index" style="padding:5px">
@@ -118,6 +101,23 @@
                         <a [id]="'hot'+i" class="truncate cursor" (click)="onPlay(1,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
                             <div [id]="'hotShow'+i">
+                                {{song.name}}
+                            </div>
+                        </div>
+                        <p>{{song.artist}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Maybe You Like</h2>
+        <div class="you-like">
+            <div *ngFor="let song of youLike; let i=index" style="padding:5px">
+                <div class="card">
+                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
+                    <div class="container">
+                        <a [id]="'like'+i" class="truncate cursor" (click)="onPlay(0,i)"><b>{{song.name}}</b></a>
+                        <div class="tooltip_templates" style="display:none;">
+                            <div [id]="'likeShow'+i">
                                 {{song.name}}
                             </div>
                         </div>

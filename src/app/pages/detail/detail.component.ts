@@ -8,6 +8,7 @@ import { SongPlayer } from '../../directives/song-player/player.component'
 import { MusicPlayer } from '../../directives/music-player/player.component'
 import { AppStateService } from '../../services/app-state.service'
 import { TagComponent } from "../../directives/tag/tag.component"
+import { URLSearchParams } from '@angular/http';
 
 declare var jQuery: any;
 
@@ -52,7 +53,10 @@ export class DetailComponent implements AfterViewInit {
 
     getRecommendationSongs(song) {
         let controller = this;
-        return this.api.get(environment.recommendNextUrl)
+        var param = new URLSearchParams();
+        param.set('track_id',song.track_id)
+        param.set('user_id','12345')
+        return this.api.get(environment.endPoint+environment.recommendNextUrl,param).map(res=>res)
     }
 
     getSongArt(song) {

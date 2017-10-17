@@ -97,7 +97,7 @@ export class SongPlayer {
     }
 
     setProgressBar(per) {
-        jQuery("#audio-progress-bar").css("width", per * 50 + "%")
+        jQuery("#audio-progress-bar").css("width", per * 100 + "%")
     }
 
     mute(event) {

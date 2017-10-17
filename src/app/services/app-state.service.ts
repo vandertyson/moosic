@@ -89,15 +89,19 @@ export class AppStateService {
     controller.currentIndex = index;
     controller.currentSong = controller.playlist[controller.currentIndex]
     this.constructHowl(this.playlist, function () {
-      controller.playCurrentsong();
-      if (callback) callback();
+      //controller.playCurrentsong();
+      
     });
+    if (callback) callback();
   }
 
   stopCurrentSong() {
     if (this.currentSong && this.currentSong.howl) {
       this.currentSong.isPlaying = false
       this.currentSong.howl.stop()
+    }
+    if(this.songEllapsed){
+     clearInterval(this.songEllapsed)
     }
   }
 
@@ -130,22 +134,24 @@ export class AppStateService {
         // src: ["http://data3.chiasenhac.com/downloads/1781/0/1780309-313f4529/320/Lac%20Troi%20-%20Son%20Tung%20M-TP.mp3"],
         html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
         autoPlay: false,
-        formet:["mp3"],
+        format:["mp3"],
         onplay: function () {
           controller.songEllapsed = setInterval(function () {
             controller.ellapsed++
             var per = controller.ellapsed / e.howl.duration()
             controller.setProgressBar.emit(per)
-          }, 1000)
-          // console.log(this.duration())          
-          // controller.songChange.emit(controller.isPausing)
-          controller.startFeedback();
+          }, 1000)      
+          //controller.startFeedback();
         },
         onload: function () {
+          if(loaded == controller.currentIndex){
+            controller.playCurrentsong()
+          }
           loaded++
           if (loaded == fullyLoaded && callback) {
             callback()
           }
+          
         },
         onloaderror: function (id, err) {
           console.log(err)
@@ -163,6 +169,7 @@ export class AppStateService {
         onstop: function () {
           controller.ellapsed = 0
           controller.setProgressBar.emit(0)
+          clearInterval(controller.songEllapsed)
         }
       })
     })

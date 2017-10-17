@@ -20,7 +20,7 @@ export const environment = {
   hotTrendUrl: 'hot-trends',
   youLikeUrl: "mock/p1.json",
   recentlyUrl: "mock/p2.json",
-  recommendNextUrl: "mock/p2.json",
+  recommendNextUrl: "ranking",
   search1Url: "tracks",
   search2Url: "mock/p1.json",
   feedBackUrl: "",

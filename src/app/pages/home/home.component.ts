@@ -277,7 +277,7 @@ export class HomeComponent {
                             controller.searchStatus = "Oops! No song found for your setting"
                             return
                         }
-                        controller.searchStatus = controller.searchResult.length + " songs found "
+                        controller.searchStatus = "Songs found!"
                         if (!controller.searchSlider) {
                             setTimeout(function () {
                                 controller.buildSearchSlider();
