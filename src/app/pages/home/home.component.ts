@@ -229,11 +229,11 @@ export class HomeComponent {
     }
 
     getYouLike() {
-        return this.api.get(environment.endPoint + environment.youLikeUrl).map(res => res)
+        return this.api.get("http://localhost:8000/recommended_system/get-history").map(res => res)
     }
 
     getRecent() {
-        return this.api.get(environment.endPoint + environment.recentlyUrl).map(res => res)
+        return this.api.get("http://localhost:8000/recommended_system/get-history").map(res => res)
     }
 
     getSearchSong(params?) {
@@ -387,8 +387,12 @@ export class HomeComponent {
     }
 
     getSongArt(song) {
-        return song.album_art ? song.album_art : "assets/img/defaultArt.png"
-    }
+
+        if ( !song.album_art || song.album_art == 'None') {
+            return "assets/img/defaultArt.png";
+            }
+        return song.album_art;
+        }
 
     showPlayingNow() {
         console.log("show")

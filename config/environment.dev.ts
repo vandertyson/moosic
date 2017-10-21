@@ -5,7 +5,7 @@ export const environment = {
 
   domain: "",
 
-  avatarUrl: "",
+  avatarUrl: "load-album-art",
 
   serverUrl: "",
 

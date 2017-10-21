@@ -60,8 +60,12 @@ export class DetailComponent implements AfterViewInit {
     }
 
     getSongArt(song) {
-        return song.album_art ? song.album_art : "assets/img/defaultArt.png"
-    }
+
+        if ( !song.album_art || song.album_art == 'None') {
+            return "assets/img/defaultArt.png";
+            }
+        return song.album_art;
+        }
 
     onPlayRecommendedClick(event, index) {
         let controller = this;
