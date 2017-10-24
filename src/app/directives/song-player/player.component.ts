@@ -264,6 +264,9 @@ export class SongPlayer {
 
             // },
         })
+        this.moodTooltip.tooltipster('instance').on('ready', function () {
+            jQuery('.tooltipster-content').css('background-color', 'white')
+        });
     }
 
     voteSong(mood) {

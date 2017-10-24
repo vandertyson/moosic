@@ -335,7 +335,7 @@ export class HomeComponent {
                     break;
                 case 3:
                     data.playlist = this.searchResult
-                    data.playListName = "Song for you"
+                    data.playListName = "Songs for you"
                     break
                 default:
                     break;
