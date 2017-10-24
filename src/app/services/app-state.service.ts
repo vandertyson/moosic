@@ -90,7 +90,7 @@ export class AppStateService {
     controller.currentSong = controller.playlist[controller.currentIndex]
     this.constructHowl(this.playlist, function () {
       //controller.playCurrentsong();
-      
+
     });
     if (callback) callback();
   }
@@ -100,8 +100,8 @@ export class AppStateService {
       this.currentSong.isPlaying = false
       this.currentSong.howl.stop()
     }
-    if(this.songEllapsed){
-     clearInterval(this.songEllapsed)
+    if (this.songEllapsed) {
+      clearInterval(this.songEllapsed)
     }
   }
 
@@ -111,14 +111,12 @@ export class AppStateService {
     if (!this.currentSong.howl) return
     if (this.currentSong.howl.state() == "loaded") {
       this.currentSong.isPlaying = true
-      // this.duration.innerHTML = controller.formatTime(Math.round(this.currentSong.howl.duration()));
-      // var per = jQuery("#audio-progress-bar").width() / window.innerWidth
+      // this.duration.innerHTML = controller.formatTime(Math.round(this.currentSong.howl.duration()));      
       var sound = this.currentSong.howl;
-      // sound.seek(sound.duration() * per)
+      var length = sound.duration();
+      var per = this.ellapsed / length;
+      sound.seek(length * per)
       sound.play()
-    }
-    else {
-
     }
   }
 
@@ -134,24 +132,25 @@ export class AppStateService {
         // src: ["http://data3.chiasenhac.com/downloads/1781/0/1780309-313f4529/320/Lac%20Troi%20-%20Son%20Tung%20M-TP.mp3"],
         html5: true, // Force to HTML5 so that the audio can stream in (best for large files).
         autoPlay: false,
-        format:["mp3"],
+        format: ["mp3"],
         onplay: function () {
+          console.log("zz")
           controller.songEllapsed = setInterval(function () {
             controller.ellapsed++
             var per = controller.ellapsed / e.howl.duration()
             controller.setProgressBar.emit(per)
-          }, 1000)      
+          }, 1000)
           //controller.startFeedback();
         },
         onload: function () {
-          if(loaded == controller.currentIndex){
+          if (loaded == controller.currentIndex) {
             controller.playCurrentsong()
           }
           loaded++
           if (loaded == fullyLoaded && callback) {
             callback()
           }
-          
+
         },
         onloaderror: function (id, err) {
           console.log(err)
@@ -181,6 +180,7 @@ export class AppStateService {
       var sound = this.currentSong.howl;
       this.ellapsed = Math.floor(sound.duration() * per)
       if (sound.playing()) {
+        console.log(sound.duration() * per)
         sound.seek(sound.duration() * per);
       }
     }

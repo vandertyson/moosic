@@ -77,8 +77,8 @@
                 <div class="search-result">
                     <div *ngFor="let song of searchResult; let i=index" style="padding:5px">
                         <div class="card">
-                            <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
-                            <div class="container">
+                            <img [src]="getSongArt(song)" (click)="onPlay(3,i)" class="img-height" alt="Cover" style="width:100%">
+                            <div class="container" (click)="onPlay(3,i)">
                                 <a [id]="'search'+i" class="truncate cursor" (click)="onPlay(3,i)"><b>{{song.name}}</b></a>
                                 <div class="tooltip_templates" style="display:none;">
                                     <div [id]="'searchShow'+i">
@@ -96,8 +96,8 @@
         <div class="hot-trend">
             <div *ngFor="let song of hotTrend; let i=index" style="padding:5px">
                 <div class="card">
-                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
-                    <div class="container">
+                    <img [src]="getSongArt(song)" (click)="onPlay(1,i)" class="img-height" alt="Cover" style="width:100%">
+                    <div class="container" (click)="onPlay(1,i)">
                         <a [id]="'hot'+i" class="truncate cursor" (click)="onPlay(1,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
                             <div [id]="'hotShow'+i">
@@ -113,8 +113,8 @@
         <div class="you-like">
             <div *ngFor="let song of youLike; let i=index" style="padding:5px">
                 <div class="card">
-                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
-                    <div class="container">
+                    <img [src]="getSongArt(song)" (click)="onPlay(0,i)" class="img-height" alt="Cover" style="width:100%">
+                    <div class="container" (click)="onPlay(0,i)">
                         <a [id]="'like'+i" class="truncate cursor" (click)="onPlay(0,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
                             <div [id]="'likeShow'+i">
@@ -130,8 +130,8 @@
         <div class="recent">
             <div *ngFor="let song of recently; let i=index" style="padding:5px">
                 <div class="card">
-                    <img [src]="getSongArt(song)" class="img-height" alt="Cover" style="width:100%">
-                    <div class="container">
+                    <img [src]="getSongArt(song)" (click)="onPlay(2,i)" class="img-height" alt="Cover" style="width:100%">
+                    <div class="container" (click)="onPlay(2,i)">
                         <a [id]="'recent'+i" class="truncate cursor" (click)="onPlay(2,i)"><b>{{song.name}}</b></a>
                         <div class="tooltip_templates" style="display:none;">
                             <div [id]="'recentShow'+i">

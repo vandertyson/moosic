@@ -362,3 +362,7 @@ span.play-mix-btn:hover {
 .select2-container--bootstrap .select2-results>.select2-results__options {
     max-height: 500px !important;
 }
+
+.img-height {
+    height: 25vh
+}

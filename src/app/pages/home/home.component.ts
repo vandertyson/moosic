@@ -136,7 +136,7 @@ export class HomeComponent {
                         adaptiveHeight: false,
                         slideMove: 2,
                         easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-                        speed: 600,
+                        speed: 600,                        
                         responsive: [
                             {
                                 breakpoint: 800,
@@ -419,7 +419,7 @@ export class HomeComponent {
             multiple: true,
             minimumResultsForSearch: Infinity,
             theme: "bootstrap",
-            placeholder: 'How are you feeling?',
+            placeholder: 'Search',
             data: [
                 {
                     id: 0,
@@ -577,7 +577,7 @@ export class HomeComponent {
             multiple: true,
             minimumResultsForSearch: Infinity,
             theme: "bootstrap",
-            placeholder: 'How are you feeling?',
+            placeholder: 'Search',
             // ajax: {
             //     // url: 'https://api.github.com/search/repositories',
             //     url: environment.tagsUrl,

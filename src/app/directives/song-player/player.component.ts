@@ -83,8 +83,8 @@ export class SongPlayer {
 
     seek(event) {
         let controller = this;
-        var parentWidth = jQuery("#bar-width").width()
-        var per = event.clientX / parentWidth;
+        var parentWidth = jQuery("#bar-width").width()        
+        var per = (event.offsetX / parentWidth);                
         this.appState.seek(event, per)
     }
 
@@ -149,9 +149,9 @@ export class SongPlayer {
 
             // },
         })
-        // this.playListTooltip.tooltipster('instance').on('ready', function () {
-        //     // jQuery('.tooltipster-content').css('background-color', 'white')
-        // });
+        this.playListTooltip.tooltipster('instance').on('ready', function () {
+            jQuery('.tooltipster-content').css('background-color', 'white')
+        });
     }
 
     smallPlay(event, index) {
