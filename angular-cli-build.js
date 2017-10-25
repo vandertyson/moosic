@@ -29,6 +29,7 @@ module.exports = function(defaults) {
         'lightslider/dist/**/*.+(js|css|png)',
         'select2/dist/**/*.+(min.js|min.css)',
         'select2-bootstrap-theme/dist/**/*.+(min.css)',
+        'pdfjs-dist/build/**/*.js',
     ];
 
     var appTree = new Angular2App(defaults, {
@@ -70,6 +71,7 @@ module.exports = function(defaults) {
             'lightslider/dist/**/*.+(js|css|png)',
             'select2/dist/**/*.+(min.js|min.css)',
             'select2-bootstrap-theme/dist/**/*.+(min.css)',
+            'pdfjs-dist/build/**/*.js',
         ].concat(lazyVendorFiles.slice())
     });
 

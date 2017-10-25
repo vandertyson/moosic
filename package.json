@@ -39,6 +39,7 @@
     "jquery": "^3.1.0",
     "jquery-ui": "^1.12.1",
     "lightslider": "^1.1.6",
+    "mediaelement": "^4.2.6",
     "ng2-charts": "1.1.0",
     "pace": "0.0.4",
     "reflect-metadata": "0.1.3",

@@ -3,6 +3,7 @@ import { HomeRoutes } from '../../pages/home/home.route';
 import { MainLayout } from './main-layout.component';
 import { MainLayoutGuard } from './main-layout.guard';
 import { DetailRoutes } from '../../pages/detail/detail.route';
+import { ClassifyRoutes } from '../../pages/classify/view.route';
 
 
 
@@ -13,7 +14,8 @@ export const MainLayoutRoutes: RouterConfig = [
         canActivate: [MainLayoutGuard],
         children: [
             ...HomeRoutes,
-            ...DetailRoutes            
+            ...DetailRoutes,
+            ...ClassifyRoutes      
         ]
     }
 ];
