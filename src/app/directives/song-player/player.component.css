@@ -33,8 +33,11 @@
 }
 
 .my-btn {
-    border-radius: 50%;
-    /* font-size: large */
+    /* border-radius: 50%; */
+    border-radius: 0;
+    border: none;
+    font-size: 14px;
+    background-color: #f9f9f9
 }
 
 #mytable td {

@@ -30,6 +30,7 @@ module.exports = function(defaults) {
         'select2/dist/**/*.+(min.js|min.css)',
         'select2-bootstrap-theme/dist/**/*.+(min.css)',
         'pdfjs-dist/build/**/*.js',
+        'mediaelement/build/*.+(min.js|css)',
     ];
 
     var appTree = new Angular2App(defaults, {
@@ -72,6 +73,7 @@ module.exports = function(defaults) {
             'select2/dist/**/*.+(min.js|min.css)',
             'select2-bootstrap-theme/dist/**/*.+(min.css)',
             'pdfjs-dist/build/**/*.js',
+            'mediaelement/build/*.+(min.js|css)',
         ].concat(lazyVendorFiles.slice())
     });
 

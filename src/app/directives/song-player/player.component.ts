@@ -8,6 +8,7 @@ import { Loading } from "../../layouts/partials/loading.component";
 import { Modal, BSModal, BS_MODAL_PROVIDERS } from 'angular2-modal/plugins/bootstrap';
 import { MessageService } from "../../services/message-service/message.service";
 import { AppStateService } from "../../services/app-state.service";
+import { PlayComponent } from "../audio/audio.component"
 
 declare var jQuery: any;
 declare var System: any;
@@ -20,7 +21,8 @@ declare var System: any;
     ],
     directives: [
         ROUTER_DIRECTIVES,
-        Loading
+        Loading,
+        PlayComponent
     ],
     viewProviders: [...BS_MODAL_PROVIDERS],
     encapsulation: ViewEncapsulation.None,
@@ -48,68 +50,9 @@ export class SongPlayer {
         let controller = this;
         this.duration = document.getElementById("duration")
         setTimeout(function () {
-            controller.bootstrapTooltipster()
-            controller.bootstrapVolumeRange()
-            controller.bootstrapVolume()
+            controller.bootstrapTooltipster()            
             controller.bootstrapMood()
-        }, 100)
-        this.appState.setProgressBar.subscribe(
-            r => {
-                this.setProgressBar(r)
-            }
-        )
-    }
-
-    formatTime(secs) {
-        var minutes = Math.floor(secs / 60) || 0;
-        var seconds = (secs - minutes * 60) || 0;
-        return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-    }
-
-    togglePlayPause() {
-        if (jQuery("#pause").is(":visible")) {
-            jQuery("#pause").hide()
-            jQuery("#play").show()
-        }
-        else {
-            jQuery("#pause").show()
-            jQuery("#play").hide()
-        }
-    }
-
-    play(event?) {
-        this.appState.playCurrentsong()
-    }
-
-    seek(event) {
-        let controller = this;
-        var parentWidth = jQuery("#bar-width").width()        
-        var per = (event.offsetX / parentWidth);                
-        this.appState.seek(event, per)
-    }
-
-    pause() {
-        this.appState.pauseCurrentSong()
-    }
-
-    getElapsed() {
-        return this.formatTime(this.ellapsed)
-    }
-
-    setProgressBar(per) {
-        jQuery("#audio-progress-bar").css("width", per * 100 + "%")
-    }
-
-    mute(event) {
-        this.appState.mute(event);
-        jQuery("#un-mute").show()
-        jQuery("#volume-up").hide()
-    }
-
-    unMute(event) {
-        this.appState.unMute(event);
-        jQuery("#un-mute").hide()
-        jQuery("#volume-up").show()
+        }, 100)      
     }
 
     next(event) {
@@ -155,14 +98,13 @@ export class SongPlayer {
     }
 
     smallPlay(event, index) {
-        this.appState.stopCurrentSong()
+        // this.appState.stopCurrentSong()
         if (this.appState.currentIndex == index) {
             this.appState.pauseCurrentSong()
         }
         else {
             this.appState.currentIndex = index;
-            this.appState.currentSong = this.appState.playlist[this.appState.currentIndex]
-            jQuery("#audio-progress-bar").css("width", "0")
+            this.appState.currentSong = this.appState.playlist[this.appState.currentIndex]            
             this.appState.playCurrentsong()
             this.appState.songChange.emit(true)
         }
@@ -170,71 +112,7 @@ export class SongPlayer {
 
     smallPause(event, index) {
         this.appState.pauseCurrentSong()
-    }
-
-    bootstrapVolume() {
-        let controller = this;
-        jQuery('#volume-up,#un-mute').attr('data-tooltip-content', '#volumeForm');
-        this.volumeTooltip = jQuery('#volume-up,#un-mute').tooltipster({
-            animation: 'fade',
-            delay: 200,
-            theme: 'light',
-            interactive: true,
-            zIndex: 90000,
-            side: ['top'],
-            minWidth: 200,
-            // maxWidth: 320,
-            // trigger: 'custom',
-            // triggerOpen: {
-            //     click: true,
-            //     tap: true,
-            //     hover: true
-            // },
-            // triggerClose: {
-            //     click: false,
-            //     mouseleave: false,
-            //     originClick: true,
-            //     scroll: false,
-            //     tap: false,
-            //     touchleave: false
-            // },
-            // functionReady: function (instance, helper) {
-            //     setTimeout(function () {
-            //         controller.bootstrapVolumeRange()
-            //     }, 10)
-            // },
-        })
-        // this.volumeTooltip.tooltipster('instance').on('ready', function () {
-        //     setTimeout(function () {
-        //         controller.bootstrapVolumeRange()
-        //     }, 10)
-        // });
-    }
-
-    bootstrapVolumeRange() {
-        let controller = this;
-        jQuery.get('vendor/admin-lte/plugins/bootstrap-slider/bootstrap-slider.js').then(mod => {
-            jQuery('.slider').slider();
-        })
-
-        jQuery.get('vendor/admin-lte/plugins/ionslider/ion.rangeSlider.min.js').then(mod => {
-            jQuery("#volumeRange").ionRangeSlider({
-                min: 0,
-                max: 100,
-                type: 'single',
-                step: 1,
-                postfix: " %",
-                prettify: false,
-                hasGrid: true,
-                onChange: function (data) {
-                    controller.appState.setVolume(data.from / 100)
-                },
-                onFinish: function (data) {
-                    controller.appState.setVolume(data.from / 100)
-                },
-            });
-        })
-    }
+    } 
 
     bootstrapMood() {
         jQuery('#vote').attr('data-tooltip-content', '#moodForm');

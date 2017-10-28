@@ -1,29 +1,25 @@
 <div id="bar-width" class="col-md-12 no-padding no-margin">
-    <div id="audio-player-container" class="cursor" (click)="seek($event)">
-        <div class="audio-progress" id="audio-progress">
-            <div id="audio-progress-bar" class="my-bar cursor" style="width:0%">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-12" style="display:none">
-        <span class="pull-left">{{getElapsed()}}</span>
-        <span id="duration" class="pull-right"></span>
-    </div>
     <div *ngIf="appState.currentSong" class="text-center" style="margin-top:10px">
-        <button id="playlistBtn" class="btn btn-default pull-left my-btn"><i class="fa fa-bars"></i></button>
-        <button class="btn btn-default pull-left  my-btn" (click)="prev($event)"><i class="fa fa-step-backward"></i></button>
-        <button *ngIf="appState.currentSong.howl&&appState.currentSong.howl.state()=='loaded'&&!appState.currentSong.isPlaying" id="play" class="btn btn-default pull-left my-btn" (click)="play($event)"><i class="fa fa-play"></i></button>
-        <button *ngIf="appState.currentSong.howl&&appState.currentSong.howl.state()=='loaded'&&appState.currentSong.isPlaying" id="pause" class="btn btn-default pull-left my-btn" (click)="pause($event)"><i class="fa fa-pause"></i></button>
-        <button *ngIf="appState.currentSong.howl&&appState.currentSong.howl.state()=='loading'" id="pause" class="btn btn-default pull-left  my-btn" disabled="true" title="Song is loading"><i class="fa fa-spinner"></i></button>
-        <button class="btn btn-default pull-left  my-btn" (click)="next($event)"><i class="fa fa-step-forward"></i></button>
-        <button id="volume-up" class="btn btn-default pull-left  my-btn" (click)="mute($event)"><i class="fa fa-volume-up"></i></button>
-        <button id="un-mute" class="btn btn-default pull-left  my-btn" (click)="unMute($event)" style="display:none"><i class="fa fa-volume-off"></i></button>
-        <button id="vote" class="btn btn-default pull-right  my-btn" title="Mood"><i class="fa fa-thumbs-o-up"></i></button>
-        <span class="hien-thi" style="font-size:small"> 
-            <span><b>{{appState.currentSong?appState.currentSong.name:''}}</b></span>
-        <br>
-        <span>{{appState.currentSong?appState.currentSong.artist:''}}</span>
-        </span>
+        <div style="display:none">
+            <button class="btn btn-default pull-left  my-btn" (click)="prev($event)"><i class="fa fa-step-backward"></i></button>
+            <button *ngIf="appState.currentSong.howl&&appState.currentSong.howl.state()=='loaded'&&!appState.currentSong.isPlaying" id="play" class="btn btn-default pull-left my-btn" (click)="play($event)"><i class="fa fa-play"></i></button>
+            <button *ngIf="appState.currentSong.howl&&appState.currentSong.howl.state()=='loaded'&&appState.currentSong.isPlaying" id="pause" class="btn btn-default pull-left my-btn" (click)="pause($event)"><i class="fa fa-pause"></i></button>
+            <button *ngIf="appState.currentSong.howl&&appState.currentSong.howl.state()=='loading'" id="pause" class="btn btn-default pull-left  my-btn" disabled="true" title="Song is loading"><i class="fa fa-spinner"></i></button>
+            <button class="btn btn-default pull-left  my-btn" (click)="next($event)"><i class="fa fa-step-forward"></i></button>
+            <button id="volume-up" class="btn btn-default pull-left  my-btn" (click)="mute($event)"><i class="fa fa-volume-up"></i></button>
+            <button id="un-mute" class="btn btn-default pull-left  my-btn" (click)="unMute($event)" style="display:none"><i class="fa fa-volume-off"></i></button>
+        </div>
+        <div class="col-md-2 col-xs-2 no-padding no-margin">
+            <button class="btn btn-default pull-right  my-btn" (click)="next($event)"><i class="fa fa-step-forward"></i></button>
+            <button id="playlistBtn" class="btn btn-default pull-right my-btn"><i class="fa fa-bars"></i></button>
+            <button class="btn btn-default pull-right  my-btn" (click)="prev($event)"><i class="fa fa-step-backward"></i></button>
+        </div>
+        <div class="col-md-9 col-xs-9 no-padding no-margin">
+            <audio-tag [fileToPlay]="appState.currentSrc"></audio-tag>
+        </div>
+        <div class="col-md-1 col-xs-1 no-padding no-margin">
+            <button id="vote" class="btn btn-default pull-left my-btn" title="Mood"><i class="fa fa-thumbs-o-up"></i></button>
+        </div>
     </div>
 </div>
 <div class="tooltip_templates" style="display:none;">
@@ -35,9 +31,9 @@
                     <td>{{song.name}}</td>
                     <td>{{song.artist}}</td>
                     <td>
-                        <button *ngIf="song.howl && song.howl.state()=='loaded' && !song.isPlaying" class="btn btn-xs small-control-btn" style="color:lawngreen" (click)="smallPlay($event, i)"><i class="fa fa-play"></i></button>
-                        <button *ngIf="song.howl && song.howl.state()=='loaded' && song.isPlaying" class="btn btn-xs small-control-btn" (click)="smallPause($event, i)"><i class="fa fa-pause"></i></button>
-                        <button *ngIf="!song.howl || song.howl.state()=='loading'" class="btn btn-xs small-control-btn" disabled="true" title="Song is loading"><i class="fa fa-spinner"></i></button>
+                        <button *ngIf="!song.isPlaying" class="btn btn-xs small-control-btn" style="color:lawngreen" (click)="smallPlay($event, i)"><i class="fa fa-play"></i></button>
+                        <button *ngIf="song.isPlaying" class="btn btn-xs small-control-btn" (click)="smallPause($event, i)"><i class="fa fa-pause"></i></button>
+                        <!-- <button *ngIf="!song.howl || song.howl.state()=='loading'" class="btn btn-xs small-control-btn" disabled="true" title="Song is loading"><i class="fa fa-spinner"></i></button> -->
                     </td>
                 </tr>
             </table>
@@ -51,9 +47,9 @@
 </div>
 <div class="tooltip_templates" style="display:none;">
     <div id="moodForm">
-        <button type="button" class="btn btn-flat margin bg-maroon" (click)="voteSong(0)"><i class="em em-smiley"></i>&#160;&#160;Happy</button>
-        <button type="button" class="btn btn-flat margin bg-maroon" (click)="voteSong(1)"><i class="em em-relaxed"></i>&#160;&#160;Releaxed</button>
-        <button type="button" class="btn btn-flat margin bg-maroon" (click)="voteSong(2)"><i class="em em-disappointed"></i>&#160;&#160;Sad</button>
-        <button type="button" class="btn btn-flat margin bg-maroon" (click)="voteSong(3)"><i class="em em-angry"></i>&#160;&#160;Angry</button>
+        <button type="button" class="btn btn-flat margin bg-primary" (click)="voteSong(0)"><i class="em em-smiley"></i>&#160;&#160;Happy</button>
+        <button type="button" class="btn btn-flat margin bg-primary" (click)="voteSong(1)"><i class="em em-relaxed"></i>&#160;&#160;Releaxed</button>
+        <button type="button" class="btn btn-flat margin bg-primary" (click)="voteSong(2)"><i class="em em-disappointed"></i>&#160;&#160;Sad</button>
+        <button type="button" class="btn btn-flat margin bg-primary" (click)="voteSong(3)"><i class="em em-angry"></i>&#160;&#160;Angry</button>
     </div>
 </div>

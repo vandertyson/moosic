@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChildren, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChildren, ViewChild, Renderer } from '@angular/core';
 import { Router } from '@angular/router';
 import 'rxjs/Rx';
 import { Auth } from '../../auth/auth';
@@ -9,6 +9,8 @@ import { MusicPlayer } from '../../directives/music-player/player.component'
 import { AppStateService } from '../../services/app-state.service'
 import { TagComponent } from "../../directives/tag/tag.component"
 import { URLSearchParams } from '@angular/http';
+import { PlayComponent } from "../../directives/audio/audio.component"
+// import "vendor/mediaelement/build/mediaelement.min.js"
 
 declare var jQuery: any;
 
@@ -18,16 +20,20 @@ declare var jQuery: any;
     styleUrls: [
         "app/pages/detail/detail.component.css"
     ],
-    directives: [SongPlayer, MusicPlayer, TagComponent],
+    directives: [SongPlayer, MusicPlayer, TagComponent, PlayComponent],
     providers: [APIService, Auth]
 })
 export class DetailComponent implements AfterViewInit {
     // @ViewChildren('input') viewChildren;   
     private recommendedSongs = []
+    private currentSrc = ""
     @ViewChild("musicPlayer") mainPlayer: SongPlayer
     // @ViewChild("musicPlayer") mainPlayer: MusicPlayer
-    constructor(private router: Router, private api: APIService, private auth: Auth, private appState: AppStateService) {
-
+    constructor(private router: Router,
+        private api: APIService,
+        private auth: Auth,
+        private appState: AppStateService,
+        private render: Renderer) {
     }
 
 
@@ -40,8 +46,11 @@ export class DetailComponent implements AfterViewInit {
             this.appState.songChange.subscribe(
                 zz => {
                     // if (zz) {
-                        controller.recommendedSongs = []
-                        this.fillRecomendation()
+                    // this.currentSrc = this.appState.currentSrc
+                    console.log(this.appState.currentSrc)
+                    // console.log(this.appState)
+                    controller.recommendedSongs = []
+                    this.fillRecomendation()
                     // }
                 }
             )
@@ -54,24 +63,24 @@ export class DetailComponent implements AfterViewInit {
     getRecommendationSongs(song) {
         let controller = this;
         var param = new URLSearchParams();
-        param.set('track_id',song.track_id)
-        param.set('user_id','12345')
-        return this.api.get(environment.endPoint+environment.recommendNextUrl,param).map(res=>res)
+        param.set('track_id', song.track_id)
+        param.set('user_id', '12345')
+        return this.api.get(environment.endPoint + environment.recommendNextUrl, param).map(res => res)
     }
 
     getSongArt(song) {
 
-        if ( !song.album_art || song.album_art == 'None') {
+        if (!song.album_art || song.album_art == 'None') {
             return "assets/img/defaultArt.png";
-            }
-        return song.album_art;
         }
+        return song.album_art;
+    }
 
     onPlayRecommendedClick(event, index) {
         let controller = this;
         this.appState.isPausing = false;
-        this.appState.updatePlaylist(this.recommendedSongs, index, "Recommended For You", true, function(){
-            controller.appState.songChange.emit(true)   
+        this.appState.updatePlaylist(this.recommendedSongs, index, "Recommended For You", true, function () {
+            controller.appState.songChange.emit(true)
         })
     }
 
