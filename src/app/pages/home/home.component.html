@@ -1,5 +1,5 @@
 <div class="col-md-12" style="margin:0">
-    <div class="row" style="padding:10px; font-size:large">
+    <div class="row" style="padding-top:10px; padding-bottom:10px; font-size:large; padding-left:25%;">
         <!-- <div class="col-md-12" style="zoom:100%">
             <form id="searchForm" (submit)="onSearchSubmit($event)" class="form-horizontal" role="form">
                 <div class="input-group" id="adv-search">
@@ -61,11 +61,25 @@
             </select>
             <button class="btn bg-maroon" style="border-radius:5px">Find a playlist</button>
         </div> -->
-        <div class="col-md-8 col-md-offset-2" style="display:flex">
+        <!-- <div class="col-md-3">
+            <button type="button" class="btn margin bg-primary"><i class="em em-smiley"></i>&#160;&#160;Happy</button>
+            <button type="button" class="btn margin bg-primary"><i class="em em-relaxed"></i>&#160;&#160;Releaxed</button>
+            <button type="button" class="btn btn-flat margin bg-primary"><i class="em em-disappointed"></i>&#160;&#160;Sad</button>
+            <button type="button" class="btn btn-flat margin bg-primary"><i class="em em-angry"></i>&#160;&#160;Angry</button>
+        </div> -->
+        <!-- <div class="col-md-6 col-md-offset-2" style="display:flex">
             <select id="smartSearch" class="js-example-basic-multiple js-states form-control" style="width:80%">
                 </select>
-            <button class="btn bg-maroon" style="border-radius:5px" (click)="onSearchSubmit($event)">Find a playlist</button>
-        </div>
+            <button class="btn bg-primary" style="border-radius:0" (click)="onSearchSubmit($event)" style="color:white"><i class="fa fa-search"></i></button>
+        </div> -->
+        <form>
+            <span id="1" class="button cursor bt-select" (click)="selectMood(1)"><i class="em em-smiley"></i>&#160;&#160;Happy</span>
+            <span id="2" class="button cursor bt-select" (click)="selectMood(2)"><i class="em em-relaxed"></i>&#160;&#160;Releaxed</span>
+            <span id="3" class="button cursor bt-select" (click)="selectMood(3)"><i class="em em-disappointed"></i>&#160;&#160;Sad</span>
+            <span id="4" class="button cursor bt-select" (click)="selectMood(4)"><i class="em em-angry"></i>&#160;&#160;Angry</span>
+            <input type="text" id="searchKey" class="textbox" placeholder="Search">
+            <span type="submit" value="Search" class="button cursor" (click)="onSearchSubmit($event)"><i class="fa fa-search"></i></span>
+        </form>
     </div>
     <!-- <div style="max-height:80vh; overflow-y:auto; margin-top:5px; padding-bottom:50px"> -->
     <div style="max-height:90vh; overflow-y:auto; margin-top:5px; padding-bottom:10px">

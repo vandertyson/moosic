@@ -21,10 +21,11 @@ declare var System: any;
 
 export class HomeComponent {
     // @ViewChild("musicPlayer") mainPlayer: MusicPlayer
+    private magunicode = "&#128269;";
     private youLike = []
     private hotTrend = [];
     private recently = [];
-    private searchResult = [];
+    private searchResult = this.appState.searchResult || [];
 
     private searchWord = '';
     private searchMood = '';
@@ -136,7 +137,7 @@ export class HomeComponent {
                         adaptiveHeight: false,
                         slideMove: 2,
                         easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
-                        speed: 600,                        
+                        speed: 600,
                         responsive: [
                             {
                                 breakpoint: 800,
@@ -259,6 +260,10 @@ export class HomeComponent {
     onSearchSubmit(event) {
         try {
             let controller = this;
+            this.searchWord = jQuery("#searchKey").val()
+            // if (!this.searchWord || this.searchWord == "") {
+            //     return
+            // }
             jQuery('.search')[0].scrollIntoView()
             if (!this.searched) {
                 jQuery('.search').slideDown('fast')
@@ -268,11 +273,11 @@ export class HomeComponent {
                 jQuery('.result-zone').slideUp('fast')
             }
             this.searchStatus = "Searching..."
-            console.log(jQuery('#smartSearch'))
             setTimeout(function () {
                 controller.getSearchSong().subscribe(
                     r => {
                         controller.searchResult = r.json().tracks
+                        controller.appState.searchResult = this.searchResult
                         if (controller.searchResult.length == 0) {
                             controller.searchStatus = "Oops! No song found for your setting"
                             return
@@ -388,11 +393,11 @@ export class HomeComponent {
 
     getSongArt(song) {
 
-        if ( !song.album_art || song.album_art == 'None') {
+        if (!song.album_art || song.album_art == 'None') {
             return "assets/img/defaultArt.png";
-            }
-        return song.album_art;
         }
+        return song.album_art;
+    }
 
     showPlayingNow() {
         console.log("show")
@@ -591,15 +596,15 @@ export class HomeComponent {
             // },
             data: data,
             // maximumSelectionLength: 3,
-            templateSelection: function formatState(state) {                
+            templateSelection: function formatState(state) {
                 if (!state.id) {
                     return state.text;
                 }
                 var $state = jQuery(
                     '<span>' + state.text + '</span>'
                 );
-                if (state.image) {                    
-                    var img = state.image != "a" ? state.image : "/assets/img/avatar_blank.jpg"                    
+                if (state.image) {
+                    var img = state.image != "a" ? state.image : "/assets/img/avatar_blank.jpg"
                     $state = jQuery(
                         '<span><img src=' + img + ' class="img-flag"  style="width:20px" /> ' + state.text + '</span>'
                     );
@@ -614,15 +619,15 @@ export class HomeComponent {
                 }
                 return $state;
             },
-            templateResult: function formatState(state) {                
+            templateResult: function formatState(state) {
                 if (!state.id) {
                     return state.text;
                 }
                 var $state = jQuery(
                     '<span>' + state.text + '</span>'
                 );
-                if (state.image) {                    
-                    var img = state.image != "a" ? state.image : "/assets/img/avatar_blank.jpg"                    
+                if (state.image) {
+                    var img = state.image != "a" ? state.image : "/assets/img/avatar_blank.jpg"
                     $state = jQuery(
                         '<span><img src=' + img + ' class="img-flag"  style="width:50px" /> ' + state.text + '</span>'
                     );
@@ -638,7 +643,7 @@ export class HomeComponent {
                 return $state;
             },
         })
-        jQuery("#smartSearch").on("select2:select", function (event) {            
+        jQuery("#smartSearch").on("select2:select", function (event) {
             if (event.params.data) {
                 if (event.params.data.icon) {
                     controller.searchMood = event.params.data.text
@@ -652,6 +657,49 @@ export class HomeComponent {
             }
 
         });
+        jQuery("#smartSearch").on("select2:unselect", function (event) {
+            console.log(event)
+            // if (event.params.data) {
+            //     if (event.params.data.icon) {
+            //         controller.searchMood = event.params.data.text
+            //     }
+            //     else if (event.params.data.image) {
+            //         controller.searchArtist = event.params.data.text
+            //     }
+            //     else {
+            //         controller.searchWord = event.params.data.text
+            //     }
+            // }
+        });
+    }
+
+    selectMood(mood) {
+        if (jQuery("#" + mood).hasClass("bt-selected")) {
+            jQuery("#" + mood).removeClass("bt-selected")
+            this.searchMood = ""
+        }
+        else {
+            jQuery(".bt-select").removeClass("bt-selected")
+            jQuery("#" + mood).addClass("bt-selected")
+            switch (mood) {
+                case 1:
+                    this.searchMood = "happy"
+                    break;
+                case 2:
+                    this.searchMood = "relax"
+                    break;
+                case 3:
+                    this.searchMood = "sad"
+                    break;
+                case 4:
+                    this.searchMood = "angry"
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
     }
 
 

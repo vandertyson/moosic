@@ -81,6 +81,7 @@ export class AppStateService {
   public feedBackTime = 30000;
   public currentSongScore = 0;
   public currentSrc = ""
+  public searchResult = []
 
   public updatePlaylist(list, index, name, play?, callback?) {
     let controller = this;
