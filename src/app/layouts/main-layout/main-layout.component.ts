@@ -50,7 +50,7 @@ export class MainLayout implements AfterViewInit {
 
   onLogout(event) {
     console.log(event)
-    this.appState.stopCurrentSong()
+    // this.appState.stopCurrentSong()
   }
 
   onActivate(event) {
