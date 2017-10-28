@@ -88,6 +88,9 @@ export class AppStateService {
     this.playlist = list;
     this.playlistName = name;    
     this.playSong(index)
+    if(callback){
+      callback()
+    }
   }
 
   playSong(index) {

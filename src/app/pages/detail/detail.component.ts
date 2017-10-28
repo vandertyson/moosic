@@ -108,7 +108,9 @@ export class DetailComponent implements AfterViewInit {
     }
 
     fillRecomendation() {
-        let controller = this
+        let controller = this        
+        var time = (+Math.random().toFixed(3))*1000
+        console.log(time)
         setTimeout(function () {
             controller.getRecommendationSongs(controller.appState.currentSong)
                 .subscribe(
@@ -118,6 +120,6 @@ export class DetailComponent implements AfterViewInit {
                 e => {
 
                 })
-        }, 1000)
+        }, time)
     }
 }
