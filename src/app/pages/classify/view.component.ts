@@ -156,17 +156,17 @@ export class ClassifyComponent {
             .subscribe(
             r => {
                 var result = r.json()
-                for (var index = 0; index < result.sentences.length; index++) {
-                    var element = {
-                        sentence: result.sentences[index],
-                        class: result.class[index]
-                    }
-                    this.result.push(element)
-                }
+                // for (var index = 0; index < result.sentences.length; index++) {
+                //     var element = {
+                //         sentence: result.sentences[index],
+                //         class: result.class[index]
+                //     }
+                //     this.result.push(element)
+                // }
 
-                for (var index = 0; index < result.sentences.length; index++) {
-                    this.result2[result.class[index]].push(result.sentences[index])
-                }
+                // for (var index = 0; index < result.sentences.length; index++) {
+                //     this.result2[result.class[index]].push(result.sentences[index])
+                // }
                 this.keywords = result.keywords
 
                 var str = cleanText;
@@ -179,14 +179,16 @@ export class ClassifyComponent {
                     var place = {
                         "start": str.indexOf(obj[1].trim()),
                         "end": str.indexOf(obj[1].trim()) + obj[1].trim().length,
-                        "bold": obj[0],
-                        "rank": this.getRank(obj[0], bolds)
+                        "rank": this.getRank(obj[0], bolds),
+                        "text": obj[1].trim(),
+                        "score": obj[0]
                     }
                     places.push(place);
                 }
                 // places[0].start += 1
                 // places[0].end += 1
-                showText = this.highlight(places, str)
+                // showText = this.highlight(places, str)
+                showText = this.nhuShit(places, str)
                 document.getElementById("theText").innerHTML = showText;
                 jQuery(this.myView.nativeElement).find('.submit').toggle()
             },
@@ -204,6 +206,7 @@ export class ClassifyComponent {
             .trim()
             .replace(/(\r\n|\n|\r)/gm, " ")
             .replace(new RegExp("-", 'g'), " ")
+            .replace(/  +/g, ' ')
             // .replace(/et al./g, "and others ")
             // .replace(/e.g./g, "for examples ")
             // .replace(/i.e./g, "in other words ")
@@ -233,7 +236,7 @@ export class ClassifyComponent {
             ranks.push(place.rank)
         });
         var max = ranks.sort((a, b) => { return b.rank - a.rank })[0]
-        var min = ranks.sort((a, b) => { return b.rank - a.rank })[ranks.length - 1]        
+        var min = ranks.sort((a, b) => { return b.rank - a.rank })[ranks.length - 1]
         return str.split('').map((chr, pos) => {
             if (starts.indexOf(pos) != -1) {
                 // var num = links.pop()
@@ -244,7 +247,7 @@ export class ClassifyComponent {
 
                 var num = places[i].rank
                 var w = 700 * (num - min)
-                var s = 36 - num*2;
+                var s = 36 - num * 2;
                 if (s < 14) s = 14
                 // if (w < 100) w = 100
                 chr = '<a><b class="cursor" style="font-weight:' + w + ' ;font-size:' + s + 'px">' + chr;
@@ -259,6 +262,38 @@ export class ClassifyComponent {
     getRank(value, arr) {
         var sorted = arr.sort((a, b) => { return b - a })
         return sorted.indexOf(value) + 1
+    }
+
+    nhuShit(keywords, str) {
+        var clone = JSON.parse(JSON.stringify(keywords))
+        console.log(clone)
+        var removeID = []
+        for (var i = 0; i < clone.length; i++) {
+            for (var j = 0; j < clone.length; j++) {
+                if (clone[i].start == clone[j].start && i != j) {
+                    var index = clone[i].end > clone[j].end ? j : i
+                    if (removeID.indexOf(index) < 0) removeID.push(index)
+                }
+            }
+        }
+        removeID.forEach(id => {
+            keywords[id] = null
+        })        
+        console.log(keywords)
+        var ranks = JSON.parse(JSON.stringify(keywords))        
+        for (var index = 0; index < keywords.length; index++) {
+            var element = keywords[index];
+            if (element) {
+                var num = element.rank
+                var w = 10 * (100 - num)
+                var s = 36 - num * 3;
+                if (s < 14) s = 14
+                str = str.replace(element.text, '<a><b class="cursor" style="font-weight:' + w + ' ;font-size:' + s + 'px">' + element.text + '</b></a>')
+            }
+        }
+        console.log(str)
+        return str
+
     }
 
 }
