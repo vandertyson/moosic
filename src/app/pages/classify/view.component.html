@@ -9,14 +9,14 @@
             </span>            
         </div>
     </div> -->
-    <div class="col-md-12 lead bg-primary" style="font-size: xx-large; padding:20px">
-        Sentence Classification Demo
+    <div class="col-md-12 lead bg-primary" style="font-size: x-large; padding:15px">
+        <b>DEMO</b>
     </div>
     <div class="col-md-5">
         <div class="box box-primary">
             <div class="box-header text-center">
                 <div class="box-title">
-                    <span style="font-size:x-large">Copy/Paste The Content</span>
+                    <span style="font-size:x-large">Content</span>
                 </div>
             </div>
             <div class="box-body">
@@ -64,6 +64,25 @@
         </div>
     </div>
     -->
+    <div class="col-md-7" style="display:none">
+        <div class="box box-primary">
+            <div class="box-header text-center">
+                <div class="box-title">
+                    <span style="font-size:x-large">Result</span>
+                </div>
+            </div>
+            <div class="box-body" style="max-height:60vh; overflow-y:auto">
+                <div *ngFor="let label of lookup_labels; let i = index;">
+                    <h4>{{i+1}}. {{label.desc}} <sup class="class-sup">{{label.name}}</sup></h4>
+                    <p *ngFor="let snt of result2[label.name]; let j = index;">{{snt}}</p>
+                </div>
+            </div>
+            <div class="box-footer">
+                Keyphrases extracted :
+                <b *ngFor="let word of keywords; let i = index">{{word}}<span *ngIf="i != keywords.length - 1">,&#160;</span></b>
+            </div>
+        </div>
+    </div>
     <div class="col-md-7">
         <div class="box box-primary">
             <div class="box-header text-center">
@@ -71,11 +90,8 @@
                     <span style="font-size:x-large">Result</span>
                 </div>
             </div>
-            <div class="box-body" style="max-height:70vh; overflow-y:auto">
-                <div *ngFor="let label of lookup_labels; let i = index;">
-                    <h4>{{i+1}}. {{label.desc}} <sup class="class-sup">{{label.name}}</sup></h4>
-                    <p *ngFor="let snt of result2[label.name]; let j = index;">{{snt}}</p>
-                </div>
+            <div class="box-body" style="max-height:60vh; overflow-y:auto">
+                <p id="theText" style="text-align:justify"></p>
             </div>
         </div>
     </div>
